@@ -4,10 +4,18 @@
 #include "PlayerController/AuraPlayerController.h"
 #include "EnhancedInputSubsystems.h"
 #include "EnhancedInputComponent.h"
+#include "Interaction/HighlightInterface.h"
 
 AAuraPlayerController::AAuraPlayerController()
 {
 	bReplicates = true;
+}
+
+void AAuraPlayerController::PlayerTick(float DeltaTime)
+{
+	Super::PlayerTick(DeltaTime);
+	CursorTrace();
+	
 }
 
 void AAuraPlayerController::BeginPlay()
@@ -53,4 +61,65 @@ void AAuraPlayerController::AuraMove(const FInputActionValue& InputActionValue)
 		ControlledPawn->AddMovementInput(ForwardDirection,InputAxisVector.Y);
 		ControlledPawn->AddMovementInput(RightDirection,InputAxisVector.X);
 	}
+}
+
+void AAuraPlayerController::CursorTrace()
+{
+	FHitResult CursorHit;
+	GetHitResultUnderCursor(ECC_Visibility, false, CursorHit);
+	
+	if (!CursorHit.bBlockingHit) return;
+	
+	LastFrameActor = ThisFrameActor;
+	ThisFrameActor = CursorHit.GetActor();
+
+	/* *Line Trace From Cursor, there are several scenarios
+	 * A. LastFrameActor is null and ThisFrameActor is null
+	 *		-> Do Nothing, empty else case
+	 * B. LastFrameActor is null and ThisFrameActor is valid
+	 *		-> Highlight ThisFrameActor
+	 * C. LastFrameActor is valid and ThisFrameActor is null
+	 *		-> UnHighlight LastFrameActor
+	 * D. Both Actors are valid but LastFrameActor!= ThisFrameActor (Switching)
+	 *		-> Unhighlight LastFrameActor, Highlight ThisFrameActor
+	 * E. Both Actors are valid and are the same actor LastFrameActor == ThisFrameActor
+	 *		-> Do nothing
+	 */
+
+	if (LastFrameActor == nullptr)
+	{
+		if (ThisFrameActor != nullptr)
+		{
+			// Case B
+			ThisFrameActor->HighlightActor();
+		}
+		else 
+		{
+			// Both Actors are null 
+			// Case A -> Do Nothing
+		}
+	}
+	else // LastFrameActor is valid
+	{
+		if (ThisFrameActor == nullptr)
+		{
+			// Case C
+			LastFrameActor->UnhighlightActor();
+		}
+		else // Both Actors are valid
+		{
+			if (LastFrameActor != ThisFrameActor)
+			{
+				// Case D
+				LastFrameActor->UnhighlightActor();
+				ThisFrameActor->HighlightActor();
+			}
+			else 
+			{
+				//  both actors are valid, Same Actors
+				// Case E -> Do Nothing
+			}
+		}
+	}
+	
 }
