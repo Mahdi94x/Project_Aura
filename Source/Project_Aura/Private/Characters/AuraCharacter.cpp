@@ -38,7 +38,8 @@ void AAuraCharacter::OnRep_PlayerState()
 
 void AAuraCharacter::InitAbilityActorInfo()
 {
-	AAuraPlayerState* AuraPlayerState = GetPlayerState<AAuraPlayerState>(); // function from the APawn class
+	// function from the APawn class to get the player state in the AuraCharacter class
+	AAuraPlayerState* AuraPlayerState = GetPlayerState<AAuraPlayerState>(); 
 	check(AuraPlayerState);
 	AuraPlayerState->GetAbilitySystemComponent()->InitAbilityActorInfo(AuraPlayerState, this);
 	AbilitySystemComponent = AuraPlayerState->GetAbilitySystemComponent();
