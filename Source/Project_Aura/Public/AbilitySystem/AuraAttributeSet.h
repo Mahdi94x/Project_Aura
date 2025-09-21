@@ -18,7 +18,6 @@ class PROJECT_AURA_API UAuraAttributeSet : public UAttributeSet
 {
 	GENERATED_BODY()
 public:
-	
 	UAuraAttributeSet();
 
 	UFUNCTION()
