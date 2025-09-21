@@ -20,6 +20,8 @@ class PROJECT_AURA_API UOverlayWidgetController : public UAuraWidgetController
 	GENERATED_BODY()
 public:
 	virtual void BroadcastInitialValues() override;
+
+	virtual void BindCallbacksToDependencies() override;
 	
 	// Delegate Instances to be assigned in blueprint
 	UPROPERTY(BlueprintAssignable, Category="GAS|Attributes")
@@ -27,4 +29,9 @@ public:
 	
 	UPROPERTY(BlueprintAssignable, Category="GAS|Attributes")
 	FOnMaxHealthChangedSignature OnMaxHealthChanged;
+
+protected:
+	/* callback functions for GetGameplayAttributeValueChangeDelegate*/
+	void HealthChanged(const FOnAttributeChangeData& Data) const;
+	void MaxHealthChanged(const FOnAttributeChangeData& Data) const;
 };
