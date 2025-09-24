@@ -23,9 +23,35 @@ void AAuraEffectActor::ApplyEffectToTarget(AActor* TargetActor, TSubclassOf<UGam
 	checkf(GameplayEffectClass, TEXT("Set the GameplayEffectClass in the blueprint details panel"));
 	FGameplayEffectContextHandle Context = TargetActorAsc->MakeEffectContext();
 	Context.AddSourceObject(this);
-	const FGameplayEffectSpecHandle Spec = TargetActorAsc->MakeOutgoingSpec(GameplayEffectClass, 1.f,Context);
-	TargetActorAsc->ApplyGameplayEffectSpecToSelf(*Spec.Data.Get());
+	const FGameplayEffectSpecHandle OutGoingSpec = TargetActorAsc->MakeOutgoingSpec(GameplayEffectClass, 1.f,Context);
+	TargetActorAsc->ApplyGameplayEffectSpecToSelf(*OutGoingSpec.Data.Get());
 	
+}
+
+void AAuraEffectActor::OnOverlap(AActor* TargetActor)
+{
+	if (InstantEffectApplicationPolicy == EEffectApplicationPolicy::ApplyOnOverlap)
+	{
+		ApplyEffectToTarget(TargetActor, InstantGameplayEffectClass);
+	}
+
+	if (DurationEffectApplicationPolicy == EEffectApplicationPolicy::ApplyOnOverlap)
+	{
+		ApplyEffectToTarget(TargetActor, DurationGameplayEffectClass);
+	}
+}
+
+void AAuraEffectActor::OnEndOverlap(AActor* TargetActor)
+{
+	if (InstantEffectApplicationPolicy == EEffectApplicationPolicy::ApplyOnEndOverlap)
+	{
+		ApplyEffectToTarget(TargetActor, InstantGameplayEffectClass);
+	}
+
+	if (DurationEffectApplicationPolicy == EEffectApplicationPolicy::ApplyOnEndOverlap)
+	{
+		ApplyEffectToTarget(TargetActor, DurationGameplayEffectClass);
+	}
 }
 
 
