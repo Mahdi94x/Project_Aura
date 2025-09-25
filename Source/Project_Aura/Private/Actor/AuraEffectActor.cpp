@@ -23,7 +23,7 @@ void AAuraEffectActor::ApplyEffectToTarget(AActor* TargetActor, TSubclassOf<UGam
 	checkf(GameplayEffectClass, TEXT("Set the GameplayEffectClass in the blueprint details panel"));
 	FGameplayEffectContextHandle Context = TargetActorAsc->MakeEffectContext();
 	Context.AddSourceObject(this);
-	const FGameplayEffectSpecHandle OutGoingSpec = TargetActorAsc->MakeOutgoingSpec(GameplayEffectClass, 1.f,Context);
+	const FGameplayEffectSpecHandle OutGoingSpec = TargetActorAsc->MakeOutgoingSpec(GameplayEffectClass, ActorLevel,Context);
 	const FActiveGameplayEffectHandle ActiveEffect = TargetActorAsc->ApplyGameplayEffectSpecToSelf(*OutGoingSpec.Data.Get());
 	
 	const bool bIsInfinite = OutGoingSpec.Data.Get()->Def.Get()->DurationPolicy == EGameplayEffectDurationType::Infinite;
