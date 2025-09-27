@@ -1,9 +1,8 @@
 // Project by Mahdi94x based on Stephen Ulibarri's create a multiplayer RPG with Unreal Engine's Gameplay Ability System (GAS) Course.
 
-
 #include "Characters/AuraCharacter.h"
-
 #include "AbilitySystemComponent.h"
+#include "AbilitySystem/AuraAbilitySystemComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "PlayerController/AuraPlayerController.h"
 #include "PlayerState/AuraPlayerState.h"
@@ -27,7 +26,7 @@ void AAuraCharacter::PossessedBy(AController* NewController)
 	Super::PossessedBy(NewController);
 
 	// InitAbilityActorInfo for the server
-	InitAbilityActorInfo();
+	InitializeAbilityActorInfo();
 }
 
 void AAuraCharacter::OnRep_PlayerState()
@@ -35,15 +34,17 @@ void AAuraCharacter::OnRep_PlayerState()
 	Super::OnRep_PlayerState();
 
 	// InitAbilityActorInfo for the client
-	InitAbilityActorInfo();
+	InitializeAbilityActorInfo();
 }
 
-void AAuraCharacter::InitAbilityActorInfo()
+void AAuraCharacter::InitializeAbilityActorInfo()
 {
 	// function from the APawn class to get the player state in the AuraCharacter class
 	AAuraPlayerState* AuraPlayerState = GetPlayerState<AAuraPlayerState>(); 
 	check(AuraPlayerState);
 	AuraPlayerState->GetAbilitySystemComponent()->InitAbilityActorInfo(AuraPlayerState, this);
+	/*to bind the delegates of the gameplay effect - the character class depend on the ASC class but not vice versa*/
+	Cast<UAuraAbilitySystemComponent>(AuraPlayerState->GetAbilitySystemComponent())->AbilityActorInfoSet(); 
 	AbilitySystemComponent = AuraPlayerState->GetAbilitySystemComponent();
 	AttributeSet = AuraPlayerState->GetAttributeSet();
 	

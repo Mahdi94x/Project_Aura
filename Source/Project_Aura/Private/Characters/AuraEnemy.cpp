@@ -35,6 +35,12 @@ void AAuraEnemy::UnhighlightActor()
 void AAuraEnemy::BeginPlay()
 {
 	Super::BeginPlay();
+	InitializeAbilityActorInfo();
+}
+
+void AAuraEnemy::InitializeAbilityActorInfo()
+{
 	AbilitySystemComponent->InitAbilityActorInfo(this,this);
-	
+	/*to bind the delegates of the gameplay effect - the character class depend on the ASC class but not vice versa*/
+	Cast<UAuraAbilitySystemComponent>(AbilitySystemComponent)->AbilityActorInfoSet();
 }

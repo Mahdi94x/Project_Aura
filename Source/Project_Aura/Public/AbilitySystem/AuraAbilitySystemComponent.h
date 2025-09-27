@@ -13,5 +13,15 @@ UCLASS()
 class PROJECT_AURA_API UAuraAbilitySystemComponent : public UAbilitySystemComponent
 {
 	GENERATED_BODY()
+
+public:
+	void AbilityActorInfoSet(); /*function to be called at a certain point of time to bind the callback to the delegates
+	 as the constructors are too early*/
+	
+protected:
+	void EffectApplied /*The Callback Function*/
+	(UAbilitySystemComponent* AbilitySystemComponent, const FGameplayEffectSpec& EffectSpec, FActiveGameplayEffectHandle ActiveEffectHandle);
+
+	
 	
 };
