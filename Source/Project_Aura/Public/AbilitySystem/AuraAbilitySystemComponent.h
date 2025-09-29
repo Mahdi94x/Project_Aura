@@ -6,6 +6,7 @@
 #include "AbilitySystemComponent.h"
 #include "AuraAbilitySystemComponent.generated.h"
 
+DECLARE_MULTICAST_DELEGATE_OneParam(FEffectAssetTags, const FGameplayTagContainer& /*AssetTags*/);
 /**
  * 
  */
@@ -17,11 +18,10 @@ class PROJECT_AURA_API UAuraAbilitySystemComponent : public UAbilitySystemCompon
 public:
 	void AbilityActorInfoSet(); /*function to be called at a certain point of time to bind the callback to the delegates
 	 as the constructors are too early*/
+	FEffectAssetTags EffectAssetTags;
 	
 protected:
 	void EffectApplied /*The Callback Function*/
 	(UAbilitySystemComponent* AbilitySystemComponent, const FGameplayEffectSpec& EffectSpec, FActiveGameplayEffectHandle ActiveEffectHandle);
-
-	
 	
 };
