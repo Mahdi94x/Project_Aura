@@ -32,17 +32,20 @@ void UOverlayWidgetController::BindCallbacksToDependencies()
 	AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(AuraAttributeSet->GetMaxManaAttribute()).AddUObject(
 		this, &UOverlayWidgetController::MaxManaChanged);
 
+	/* For Example, Say that Tag = Message.HealthPotion
+	"Message.HealthPotion".MatchesTag("Message") will return True, "Message".MatchesTag("Message.HealthPotion") will return False*/
 	Cast<UAuraAbilitySystemComponent>(AbilitySystemComponent)->EffectAssetTags.AddLambda(
 	[this](const FGameplayTagContainer& AssetTagsContainer)
-	{
-		for (const FGameplayTag& Tag : AssetTagsContainer)
 		{
-			const FString Msg = FString::Printf(TEXT("GE Tag: %s"),*Tag.ToString());
-			GEngine->AddOnScreenDebugMessage(-1,8.f,FColor::Cyan, Msg);
-
-			FUIWidgetRow* Row = GetDataTableRowByTag<FUIWidgetRow>(MessageWidgetDataTable, Tag);
+			for (const FGameplayTag& Tag : AssetTagsContainer)
+			{
+				if (Tag.MatchesTag(FGameplayTag::RequestGameplayTag(FName("Message"))))
+				{
+					const FUIWidgetRow* Row = GetDataTableRowByTag<FUIWidgetRow>(MessageWidgetDataTable, Tag);
+					MessageWidgetRowDelegate.Broadcast(* Row);
+				}
+			}
 		}
-	}
 	);
 }
 
