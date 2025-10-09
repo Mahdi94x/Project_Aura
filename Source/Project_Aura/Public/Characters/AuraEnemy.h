@@ -7,9 +7,6 @@
 #include "Interaction/HighlightInterface.h"
 #include "AuraEnemy.generated.h"
 
-/**
- * 
- */
 UCLASS()
 class PROJECT_AURA_API AAuraEnemy : public AAuraCharacterBase, public IHighlightInterface
 {
@@ -21,9 +18,15 @@ public:
 	virtual void UnhighlightActor() override;
 	// ~ End IHighlight Interface
 
+	// ~ Begin ICombat Interface
+	virtual int32 GetCharacterLevel() override;
+	// ~ End ICombat Interface
+
 protected:
 	virtual void BeginPlay() override;
 	virtual void InitializeAbilityActorInfo() override;
 	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Character Class Defaults")
+	int32 Level = 1;
 	
 };

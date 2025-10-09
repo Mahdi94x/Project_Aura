@@ -14,6 +14,11 @@ AAuraCharacterBase::AAuraCharacterBase()
 	
 }
 
+int32 AAuraCharacterBase::GetCharacterLevel()
+{
+	return 0;
+}
+
 void AAuraCharacterBase::InitializeAbilityActorInfo()
 {
 	
