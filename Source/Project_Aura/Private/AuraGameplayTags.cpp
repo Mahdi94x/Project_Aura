@@ -15,25 +15,25 @@ void FAuraGameplayTags::InitializeNativeGameplayTags()
 	GameplayTags.Attributes_Primary_Strength =
 	    TagsManager.AddNativeGameplayTag(
 		FName("Attributes.Primary.Strength"),
-		FString("Increases physical damage.")
+		FString("Increases physical damage")
 	);
 
 	GameplayTags.Attributes_Primary_Intelligence =
 		TagsManager.AddNativeGameplayTag(
 			FName("Attributes.Primary.Intelligence"),
-			FString("Increases magical damage.")
+			FString("Increases magical damage")
 		);
 
 	GameplayTags.Attributes_Primary_Resilience =
 		TagsManager.AddNativeGameplayTag(
 			FName("Attributes.Primary.Resilience"),
-			FString("Increases armor and armor penetration.")
+			FString("Increases armor and armor penetration")
 		);
 
 	GameplayTags.Attributes_Primary_Vigor =
 		TagsManager.AddNativeGameplayTag(
 			FName("Attributes.Primary.Vigor"),
-			FString("Increases health.")
+			FString("Increases health")
 		);
 
 	/*
@@ -48,13 +48,13 @@ void FAuraGameplayTags::InitializeNativeGameplayTags()
     GameplayTags.Attributes_Secondary_ArmorPenetration =
         TagsManager.AddNativeGameplayTag(
             FName("Attributes.Secondary.ArmorPenetration"),
-            FString("Ignores a percentage of enemy armor.")
+            FString("Ignores a percentage of enemy armor")
         );
 
     GameplayTags.Attributes_Secondary_BlockChance =
         TagsManager.AddNativeGameplayTag(
             FName("Attributes.Secondary.BlockChance"),
-            FString("Chance to block incoming attacks.")
+            FString("Chance to block incoming attacks")
         );
 
     GameplayTags.Attributes_Secondary_CriticalHitChance =
