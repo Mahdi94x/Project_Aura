@@ -20,6 +20,7 @@ class PROJECT_AURA_API AAuraHUD : public AHUD
 	GENERATED_BODY()
 
 public:
+	
 	UPROPERTY()
 	TObjectPtr<UAuraUserWidget> OverlayWidget;
 	
@@ -28,6 +29,7 @@ public:
 	void InitOverlay(APlayerController* PC, APlayerState* PS, UAbilitySystemComponent* ASC, UAttributeSet* AS);
 
 private:
+	
 	UPROPERTY(EditAnywhere)
 	TSubclassOf<UAuraUserWidget> OverlayWidgetClass;
 
