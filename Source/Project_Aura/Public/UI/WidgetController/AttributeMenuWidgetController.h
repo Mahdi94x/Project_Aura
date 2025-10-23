@@ -9,9 +9,6 @@
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FAttributeInfoSignature, const FAuraAttributeInfo&, Info);
 
-/**
- * 
- */
 UCLASS(BlueprintType,Blueprintable)
 class PROJECT_AURA_API UAttributeMenuWidgetController : public UAuraWidgetController
 {
