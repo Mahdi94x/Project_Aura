@@ -1,51 +1,36 @@
-# Ignore all files by default, but scan all directories.
-*
-!*/
+# Unreal Engine
+DerivedDataCache/
+Binaries/
+Build/
+Saved/
+Intermediate/
+Script/
+*.pdb
+*.pdb.*
+*.opendb
+*.obj
+*.cache
+*.db
 
-# Do not ignore git files in the root of the repo.
-!/.git*
+# Visual Studio / VSCode
+.vs/
+*.sln
+*.vcxproj*
+*.VC.db*
+.vscode/
+*.code-workspace
 
-# Do not ignore current project's `.uproject`.
-!/*.uproject
+# Rider
+.idea/
+.rider/
 
-# Do not ignore source, config and plugins dirs.
-!/Source/**
-!/Config/**
-!/Plugins/**
+# UE & VS Caches / Generated Files
+*.log
+*.tmp
+*.ipch
+*.ilk
+*.tlog
 
-# Only allow .uasset and .umap files from /Content dir.
-# They're tracked by git-lfs, don't forget to track other
-# files if adding them here.
-!/Content/**/*.uasset
-!/Content/**/*.umap
+# Assets (HUGE -> do NOT track)
+Content/Assets/
 
-# Allow any files from /RawContent dir.
-# Any file in /RawContent dir will be managed by git lfs.
-!/RawContent/**/*
-
-# OS/platform generated files.
-
-# Windows
-ehthumbs.db
-Thumbs.db
-
-# Mac OS X
-.DS_Store
-.DS_Store?
-.AppleDouble
-.LSOverride
-._*
-
-# Linux
-*~
-.directory
-
-# vim
-[._]*.s[a-w][a-z]
-[._]s[a-w][a-z]
-*.un~
-Session.vim
-.netrwhist
-
-# Visual Studio
-.vs
