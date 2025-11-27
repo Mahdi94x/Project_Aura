@@ -8,8 +8,13 @@ public class Project_AuraEditorTarget : TargetRules
 	public Project_AuraEditorTarget(TargetInfo Target) : base(Target)
 	{
 		Type = TargetType.Editor;
-		DefaultBuildSettings = BuildSettingsVersion.V5;
+		DefaultBuildSettings = BuildSettingsVersion.V6;
+        IncludeOrderVersion = EngineIncludeOrderVersion.Unreal5_7;
 
-		ExtraModuleNames.AddRange( new string[] { "Project_Aura" } );
+        BuildEnvironment = TargetBuildEnvironment.Shared;
+
+        bOverrideBuildEnvironment = true;
+
+        ExtraModuleNames.AddRange( new string[] { "Project_Aura" } );
 	}
 }
