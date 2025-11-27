@@ -9,7 +9,9 @@ public class Project_AuraTarget : TargetRules
 	{
 		Type = TargetType.Game;
 		DefaultBuildSettings = BuildSettingsVersion.V5;
+        IncludeOrderVersion = EngineIncludeOrderVersion.Unreal5_7;
+        BuildEnvironment = TargetBuildEnvironment.Shared;
 
-		ExtraModuleNames.AddRange( new string[] { "Project_Aura" } );
+        ExtraModuleNames.AddRange( new string[] { "Project_Aura" } );
 	}
 }
