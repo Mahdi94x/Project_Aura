@@ -5,7 +5,7 @@
 #include "CoreMinimal.h"
 #include "AttributeSet.h"
 #include "AbilitySystemComponent.h"
-#include "AuraAttributeSet.generated.h"
+#include "Aura_AttributeSet.generated.h"
 
 #define ATTRIBUTE_ACCESSORS(ClassName, PropertyName) \
 	GAMEPLAYATTRIBUTE_PROPERTY_GETTER(ClassName, PropertyName) \
@@ -53,13 +53,13 @@ template <class T>
 using TStaticFuncPtr = TBaseStaticDelegateInstance<T, FDefaultDelegateUserPolicy>::FFuncPtr;
 
 UCLASS()
-class PROJECT_AURA_API UAuraAttributeSet : public UAttributeSet
+class PROJECT_AURA_API UAura_AttributeSet : public UAttributeSet
 {
 	GENERATED_BODY()
 	
 public:
 	
-	UAuraAttributeSet();
+	UAura_AttributeSet();
 	virtual void GetLifetimeReplicatedProps(TArray<class FLifetimeProperty>& OutLifetimeProps) const override;
 	virtual void PreAttributeChange(const FGameplayAttribute& Attribute, float& NewValue) override;
 	virtual void PostGameplayEffectExecute(const struct FGameplayEffectModCallbackData& Data) override;
@@ -105,71 +105,71 @@ public:
 	void OnRep_ManaRegeneration(const FGameplayAttributeData& OldManaRegeneration) const;
 	
 	// Primary Attributes
-	UPROPERTY(ReplicatedUsing = OnRep_Strength, BlueprintReadOnly, Category = "Primary Attributes")
+	UPROPERTY(ReplicatedUsing = OnRep_Strength, BlueprintReadOnly, Category = "Aura|PrimaryAttributes")
 	FGameplayAttributeData Strength;
-	ATTRIBUTE_ACCESSORS(UAuraAttributeSet, Strength)
+	ATTRIBUTE_ACCESSORS(UAura_AttributeSet, Strength)
 	
-	UPROPERTY(ReplicatedUsing = OnRep_Intelligence, BlueprintReadOnly, Category = "Primary Attributes")
+	UPROPERTY(ReplicatedUsing = OnRep_Intelligence, BlueprintReadOnly, Category = "Aura|PrimaryAttributes")
 	FGameplayAttributeData Intelligence;
-	ATTRIBUTE_ACCESSORS(UAuraAttributeSet, Intelligence)
+	ATTRIBUTE_ACCESSORS(UAura_AttributeSet, Intelligence)
 	
-	UPROPERTY(ReplicatedUsing = OnRep_Resilience, BlueprintReadOnly, Category = "Primary Attributes")
+	UPROPERTY(ReplicatedUsing = OnRep_Resilience, BlueprintReadOnly, Category = "Aura|PrimaryAttributes")
 	FGameplayAttributeData Resilience;
-	ATTRIBUTE_ACCESSORS(UAuraAttributeSet, Resilience)
+	ATTRIBUTE_ACCESSORS(UAura_AttributeSet, Resilience)
 	
-	UPROPERTY(ReplicatedUsing = OnRep_Vigor, BlueprintReadOnly, Category = "Primary Attributes")
+	UPROPERTY(ReplicatedUsing = OnRep_Vigor, BlueprintReadOnly, Category = "Aura|PrimaryAttributes")
 	FGameplayAttributeData Vigor;
-	ATTRIBUTE_ACCESSORS(UAuraAttributeSet, Vigor)
+	ATTRIBUTE_ACCESSORS(UAura_AttributeSet, Vigor)
 	
 	//Vital Attributes
-	UPROPERTY(ReplicatedUsing = OnRep_Health, BlueprintReadOnly, Category = "Vital Attributes")
+	UPROPERTY(ReplicatedUsing = OnRep_Health, BlueprintReadOnly, Category = "Aura|VitalAttributes")
 	FGameplayAttributeData Health;
-	ATTRIBUTE_ACCESSORS(UAuraAttributeSet, Health)
+	ATTRIBUTE_ACCESSORS(UAura_AttributeSet, Health)
 	
-	UPROPERTY(ReplicatedUsing = OnRep_Mana, BlueprintReadOnly, Category = "Vital Attributes")
+	UPROPERTY(ReplicatedUsing = OnRep_Mana, BlueprintReadOnly, Category = "Aura|VitalAttributes")
 	FGameplayAttributeData Mana;
-	ATTRIBUTE_ACCESSORS(UAuraAttributeSet, Mana)
+	ATTRIBUTE_ACCESSORS(UAura_AttributeSet, Mana)
 
 	//Secondary Attributes
-	UPROPERTY(ReplicatedUsing = OnRep_MaxHealth, BlueprintReadOnly, Category = "Secondary Attributes")
+	UPROPERTY(ReplicatedUsing = OnRep_MaxHealth, BlueprintReadOnly, Category = "Aura|SecondaryAttributes")
 	FGameplayAttributeData MaxHealth;
-	ATTRIBUTE_ACCESSORS(UAuraAttributeSet, MaxHealth)
+	ATTRIBUTE_ACCESSORS(UAura_AttributeSet, MaxHealth)
 	
-	UPROPERTY(ReplicatedUsing = OnRep_MaxMana, BlueprintReadOnly, Category = "Secondary Attributes")
+	UPROPERTY(ReplicatedUsing = OnRep_MaxMana, BlueprintReadOnly, Category = "Aura|SecondaryAttributes")
 	FGameplayAttributeData MaxMana;
-	ATTRIBUTE_ACCESSORS(UAuraAttributeSet, MaxMana)
+	ATTRIBUTE_ACCESSORS(UAura_AttributeSet, MaxMana)
 	
-	UPROPERTY(ReplicatedUsing = OnRep_Armor, BlueprintReadOnly, Category = "Secondary Attributes")
+	UPROPERTY(ReplicatedUsing = OnRep_Armor, BlueprintReadOnly, Category = "Aura|SecondaryAttributes")
 	FGameplayAttributeData Armor;
-	ATTRIBUTE_ACCESSORS(UAuraAttributeSet, Armor)
+	ATTRIBUTE_ACCESSORS(UAura_AttributeSet, Armor)
 	
-	UPROPERTY(ReplicatedUsing = OnRep_ArmorPenetration, BlueprintReadOnly, Category = "Secondary Attributes")
+	UPROPERTY(ReplicatedUsing = OnRep_ArmorPenetration, BlueprintReadOnly, Category = "Aura|SecondaryAttributes")
 	FGameplayAttributeData ArmorPenetration;
-	ATTRIBUTE_ACCESSORS(UAuraAttributeSet, ArmorPenetration)
+	ATTRIBUTE_ACCESSORS(UAura_AttributeSet, ArmorPenetration)
 	
-	UPROPERTY(ReplicatedUsing = OnRep_BlockChance, BlueprintReadOnly, Category = "Secondary Attributes")
+	UPROPERTY(ReplicatedUsing = OnRep_BlockChance, BlueprintReadOnly, Category = "Aura|SecondaryAttributes")
 	FGameplayAttributeData BlockChance;
-	ATTRIBUTE_ACCESSORS(UAuraAttributeSet, BlockChance)
+	ATTRIBUTE_ACCESSORS(UAura_AttributeSet, BlockChance)
 	
-	UPROPERTY(ReplicatedUsing = OnRep_CriticalHitChance, BlueprintReadOnly, Category = "Secondary Attributes")
+	UPROPERTY(ReplicatedUsing = OnRep_CriticalHitChance, BlueprintReadOnly, Category = "Aura|SecondaryAttributes")
 	FGameplayAttributeData CriticalHitChance;
-	ATTRIBUTE_ACCESSORS(UAuraAttributeSet, CriticalHitChance)
+	ATTRIBUTE_ACCESSORS(UAura_AttributeSet, CriticalHitChance)
 	
-	UPROPERTY(ReplicatedUsing = OnRep_CriticalHitDamage, BlueprintReadOnly, Category = "Secondary Attributes")
+	UPROPERTY(ReplicatedUsing = OnRep_CriticalHitDamage, BlueprintReadOnly, Category = "Aura|SecondaryAttributes")
 	FGameplayAttributeData CriticalHitDamage;
-	ATTRIBUTE_ACCESSORS(UAuraAttributeSet, CriticalHitDamage)
+	ATTRIBUTE_ACCESSORS(UAura_AttributeSet, CriticalHitDamage)
 	
-	UPROPERTY(ReplicatedUsing = OnRep_CriticalHitResistance, BlueprintReadOnly, Category = "Secondary Attributes")
+	UPROPERTY(ReplicatedUsing = OnRep_CriticalHitResistance, BlueprintReadOnly, Category = "Aura|SecondaryAttributes")
 	FGameplayAttributeData CriticalHitResistance;
-	ATTRIBUTE_ACCESSORS(UAuraAttributeSet, CriticalHitResistance)
+	ATTRIBUTE_ACCESSORS(UAura_AttributeSet, CriticalHitResistance)
 	
-	UPROPERTY(ReplicatedUsing = OnRep_HealthRegeneration, BlueprintReadOnly, Category = "Secondary Attributes")
+	UPROPERTY(ReplicatedUsing = OnRep_HealthRegeneration, BlueprintReadOnly, Category = "Aura|SecondaryAttributes")
 	FGameplayAttributeData HealthRegeneration;
-	ATTRIBUTE_ACCESSORS(UAuraAttributeSet, HealthRegeneration)
+	ATTRIBUTE_ACCESSORS(UAura_AttributeSet, HealthRegeneration)
 	
-	UPROPERTY(ReplicatedUsing = OnRep_ManaRegeneration, BlueprintReadOnly, Category = "Secondary Attributes")
+	UPROPERTY(ReplicatedUsing = OnRep_ManaRegeneration, BlueprintReadOnly, Category = "Aura|SecondaryAttributes")
 	FGameplayAttributeData ManaRegeneration;
-	ATTRIBUTE_ACCESSORS(UAuraAttributeSet, ManaRegeneration)
+	ATTRIBUTE_ACCESSORS(UAura_AttributeSet, ManaRegeneration)
 	
 
 private:

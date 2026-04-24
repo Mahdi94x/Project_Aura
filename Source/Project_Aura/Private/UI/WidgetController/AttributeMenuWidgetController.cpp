@@ -2,11 +2,11 @@
 
 
 #include "UI/WidgetController/AttributeMenuWidgetController.h"
-#include "AbilitySystem/AuraAttributeSet.h"
+#include "AbilitySystem/Aura_AttributeSet.h"
 
 void UAttributeMenuWidgetController::BroadcastInitialValues()
 {
-	UAuraAttributeSet* AS = CastChecked<UAuraAttributeSet>(AttributeSet);
+	UAura_AttributeSet* AS = CastChecked<UAura_AttributeSet>(AttributeSet);
 	check(AttributeInfo);
 	
 	for (auto& Pair : AS->TagsToAttributes)
@@ -17,7 +17,7 @@ void UAttributeMenuWidgetController::BroadcastInitialValues()
 
 void UAttributeMenuWidgetController::BindCallbacksToDependencies()
 {
-	UAuraAttributeSet* AS = CastChecked<UAuraAttributeSet>(AttributeSet);
+	UAura_AttributeSet* AS = CastChecked<UAura_AttributeSet>(AttributeSet);
 	check(AttributeInfo);
 	
 	for (auto& Pair : AS->TagsToAttributes)

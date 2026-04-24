@@ -1,72 +1,71 @@
 // Project by Mahdi94x based on Stephen Ulibarri's create a multiplayer RPG with Unreal Engine's Gameplay Ability System (GAS) Course.
 
 
-#include "PlayerController/AuraPlayerController.h"
+#include "PlayerController/Aura_PlayerController.h"
 #include "EnhancedInputSubsystems.h"
 #include "EnhancedInputComponent.h"
 #include "Interaction/HighlightInterface.h"
 
-AAuraPlayerController::AAuraPlayerController()
+AAura_PlayerController::AAura_PlayerController()
 {
 	bReplicates = true;
 }
 
-void AAuraPlayerController::PlayerTick(float DeltaTime)
+void AAura_PlayerController::PlayerTick(float DeltaTime)
 {
 	Super::PlayerTick(DeltaTime);
 	CursorTrace();
 	
 }
 
-void AAuraPlayerController::BeginPlay()
+void AAura_PlayerController::BeginPlay()
 {
 	Super::BeginPlay();
-
-	check(AuraMappingContext);
-	UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(this->GetLocalPlayer());
-	if (Subsystem)
-	{
-		Subsystem->AddMappingContext(AuraMappingContext,0);
-	}
+	checkf(AuraMappingContext,TEXT("AuraMappingContext is not set in the details panel"));
 	
+	UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(this->GetLocalPlayer());
+	check (Subsystem);
+	Subsystem->AddMappingContext(AuraMappingContext,0);
 	
 	/*Top-Down Properties*/
 	bShowMouseCursor = true;
 	DefaultMouseCursor = EMouseCursor::Default;
+	
 	FInputModeGameAndUI InputModeData;
 	InputModeData.SetLockMouseToViewportBehavior(EMouseLockMode::DoNotLock);
-	InputModeData.SetHideCursorDuringCapture(true);
+	InputModeData.SetHideCursorDuringCapture(false);
 	SetInputMode(InputModeData);
 }
 
-void AAuraPlayerController::SetupInputComponent()
+void AAura_PlayerController::SetupInputComponent()
 {
 	Super::SetupInputComponent();
 	
 	if (UEnhancedInputComponent* EnhancedInputComponent = CastChecked<UEnhancedInputComponent>(InputComponent))
 	{
-		EnhancedInputComponent->BindAction(AuraMoveAction, ETriggerEvent::Triggered, this, &AAuraPlayerController::AuraMove);
+		EnhancedInputComponent->BindAction(AuraMoveAction, ETriggerEvent::Triggered, this, &ThisClass::AuraMove);
 	}
 
 }
 
-void AAuraPlayerController::AuraMove(const FInputActionValue& InputActionValue)
+void AAura_PlayerController::AuraMove(const FInputActionValue& InputActionValue)
 {
 	const FVector2D InputAxisVector = InputActionValue.Get<FVector2D>();
+	
 	const FRotator Rotation = GetControlRotation();
 	const FRotator YawRotation(0.f,Rotation.Yaw,0.f);
 
 	const FVector ForwardDirection = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::X);
 	const FVector RightDirection = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::Y);
 
-	if (APawn* ControlledPawn = GetPawn())
+	if (APawn* ControlledPawn = GetPawn<APawn>())
 	{
 		ControlledPawn->AddMovementInput(ForwardDirection,InputAxisVector.Y);
 		ControlledPawn->AddMovementInput(RightDirection,InputAxisVector.X);
 	}
 }
 
-void AAuraPlayerController::CursorTrace()
+void AAura_PlayerController::CursorTrace()
 {
 	FHitResult CursorHit;
 	GetHitResultUnderCursor(ECC_Visibility, false, CursorHit);
@@ -77,13 +76,13 @@ void AAuraPlayerController::CursorTrace()
 	ThisFrameActor = CursorHit.GetActor();
 
 	/* *Line Trace From Cursor, there are several scenarios
-	 * A. LastFrameActor is null and ThisFrameActor is null
+	 * A. LastFrameActor is null, and ThisFrameActor is null
 	 *		-> Do Nothing, empty else case
-	 * B. LastFrameActor is null and ThisFrameActor is valid
+	 * B. LastFrameActor is null, and ThisFrameActor is valid
 	 *		-> Highlight ThisFrameActor
-	 * C. LastFrameActor is valid and ThisFrameActor is null
+	 * C. LastFrameActor is valid, and ThisFrameActor is null
 	 *		-> UnHighlight LastFrameActor
-	 * D. Both Actors are valid but LastFrameActor!= ThisFrameActor (Switching)
+	 * D. Both Actors are valid, but LastFrameActor != ThisFrameActor (Switching)
 	 *		-> Unhighlight LastFrameActor, Highlight ThisFrameActor
 	 * E. Both Actors are valid and are the same actor LastFrameActor == ThisFrameActor
 	 *		-> Do nothing

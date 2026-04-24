@@ -5,17 +5,17 @@
 #include "CoreMinimal.h"
 #include "AbilitySystemInterface.h"
 #include "GameFramework/PlayerState.h"
-#include "AuraPlayerState.generated.h"
+#include "Aura_PlayerState.generated.h"
 
 class UAttributeSet;
 class UAbilitySystemComponent;
 
 UCLASS()
-class PROJECT_AURA_API AAuraPlayerState : public APlayerState, public IAbilitySystemInterface
+class PROJECT_AURA_API AAura_PlayerState : public APlayerState, public IAbilitySystemInterface
 {
 	GENERATED_BODY()
 public:
-	AAuraPlayerState();
+	AAura_PlayerState();
 	virtual void GetLifetimeReplicatedProps(TArray<class FLifetimeProperty>& OutLifetimeProps) const override;
 
 protected:
@@ -25,10 +25,6 @@ protected:
 	UPROPERTY()
 	TObjectPtr<UAttributeSet> AttributeSet;
 
-	public: /*Setters and Getters*/
-	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
-	UAttributeSet* GetAttributeSet() const;
-
 private:
 	UPROPERTY(VisibleAnywhere, ReplicatedUsing= OnRep_Level)
 	int32 Level =1;
@@ -37,5 +33,7 @@ private:
 	void OnRep_Level(int32 OldLevel);
 
 public: /*Setters and Getters*/
+	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
+	UAttributeSet* GetAttributeSet() const;
 	FORCEINLINE int32 GetPlayerStateLevel() const {return this->Level;}
 };

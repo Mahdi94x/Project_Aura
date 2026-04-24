@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/PlayerController.h"
-#include "AuraPlayerController.generated.h"
+#include "Aura_PlayerController.generated.h"
 
 class UInputMappingContext;
 class UInputAction;
@@ -12,11 +12,11 @@ struct FInputActionValue;
 class IHighlightInterface;
 
 UCLASS()
-class PROJECT_AURA_API AAuraPlayerController : public APlayerController
+class PROJECT_AURA_API AAura_PlayerController : public APlayerController
 {
 	GENERATED_BODY()
 public:
-	AAuraPlayerController();
+	AAura_PlayerController();
 	virtual void PlayerTick(float DeltaTime) override;
 	
 protected:
@@ -27,10 +27,10 @@ private:
 	void AuraMove (const FInputActionValue& InputActionValue);
 	void CursorTrace();
 	
-	UPROPERTY(EditAnywhere, Category = "Input")
+	UPROPERTY(EditAnywhere, Category = "Aura|Input")
 	TObjectPtr<UInputMappingContext> AuraMappingContext;
 
-	UPROPERTY(EditAnywhere, Category = "Input")
+	UPROPERTY(EditAnywhere, Category = "Aura|Input")
 	TObjectPtr<UInputAction> AuraMoveAction;
 
 	TScriptInterface<IHighlightInterface> LastFrameActor;

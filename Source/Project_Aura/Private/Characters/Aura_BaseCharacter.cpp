@@ -1,10 +1,9 @@
 // Project by Mahdi94x based on Stephen Ulibarri's create a multiplayer RPG with Unreal Engine's Gameplay Ability System (GAS) Course.
 
-#include "Characters/AuraCharacterBase.h"
-
+#include "Characters/Aura_BaseCharacter.h"
 #include "AbilitySystemComponent.h"
 
-AAuraCharacterBase::AAuraCharacterBase()
+AAura_BaseCharacter::AAura_BaseCharacter()
 {
 	PrimaryActorTick.bCanEverTick = false;
 	
@@ -14,16 +13,16 @@ AAuraCharacterBase::AAuraCharacterBase()
 	
 }
 
-int32 AAuraCharacterBase::GetCharacterLevel()
+int32 AAura_BaseCharacter::GetCharacterLevel()
 {
 	return 0;
 }
 
-void AAuraCharacterBase::InitializeAbilityActorInfo()
+void AAura_BaseCharacter::InitializeAbilityActorInfo()
 {
 }
 
-void AAuraCharacterBase::ApplyEffectToSelf(TSubclassOf<UGameplayEffect> GameplayEffectClass, float Level) const 
+void AAura_BaseCharacter::ApplyEffectToSelf(TSubclassOf<UGameplayEffect> GameplayEffectClass, float Level) const 
 {
 	check(IsValid(GetAbilitySystemComponent()));
 	checkf(GameplayEffectClass, TEXT("Add Default Attribute GameplayEffect in the blueprint"));
@@ -33,24 +32,24 @@ void AAuraCharacterBase::ApplyEffectToSelf(TSubclassOf<UGameplayEffect> Gameplay
 	GetAbilitySystemComponent()->ApplyGameplayEffectSpecToTarget(*SpecHandle.Data.Get(),GetAbilitySystemComponent());
 }
 
-void AAuraCharacterBase::InitializeDefaultAttributes() const
+void AAura_BaseCharacter::InitializeDefaultAttributes() const
 {
 	ApplyEffectToSelf(DefaultPrimaryAttributes, 1.f);
 	ApplyEffectToSelf(DefaultSecondaryAttributes, 1.f);
 	ApplyEffectToSelf(DefaultVitalAttributes, 1.f);
 }
 
-UAbilitySystemComponent* AAuraCharacterBase::GetAbilitySystemComponent() const
+UAbilitySystemComponent* AAura_BaseCharacter::GetAbilitySystemComponent() const
 {
 	return this->AbilitySystemComponent;
 }
 
-UAttributeSet* AAuraCharacterBase::GetAttributeSet() const
+UAttributeSet* AAura_BaseCharacter::GetAttributeSet() const
 {
 	return this->AttributeSet;
 }
 
-void AAuraCharacterBase::BeginPlay()
+void AAura_BaseCharacter::BeginPlay()
 {
 	Super::BeginPlay();
 	

@@ -1,17 +1,17 @@
 // Project by Mahdi94x based on Stephen Ulibarri's create a multiplayer RPG with Unreal Engine's Gameplay Ability System (GAS) Course.
 
 
-#include "AbilitySystem/AuraAbilitySystemComponent.h"
+#include "AbilitySystem/Aura_AbilitySystemComponent.h"
 
 #include "AuraGameplayTags.h"
 
-void UAuraAbilitySystemComponent::AbilityActorInfoSet()
+void UAura_AbilitySystemComponent::AbilityActorInfoSet()
 {
 	// bind callbacks to delegate after the InitAbilityActorInfo()
-	OnGameplayEffectAppliedDelegateToSelf.AddUObject(this, &UAuraAbilitySystemComponent::EffectApplied);
+	OnGameplayEffectAppliedDelegateToSelf.AddUObject(this, &UAura_AbilitySystemComponent::EffectApplied);
 }
 
-void UAuraAbilitySystemComponent::EffectApplied(UAbilitySystemComponent* AbilitySystemComponent,
+void UAura_AbilitySystemComponent::EffectApplied(UAbilitySystemComponent* AbilitySystemComponent,
 	const FGameplayEffectSpec& EffectSpec, FActiveGameplayEffectHandle ActiveEffectHandle)
 {
 	FGameplayTagContainer TagContainer;
