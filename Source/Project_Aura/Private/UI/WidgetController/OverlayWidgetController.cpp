@@ -1,12 +1,12 @@
 // Project by Mahdi94x based on Stephen Ulibarri's create a multiplayer RPG with Unreal Engine's Gameplay Ability System (GAS) Course.
 
 #include "UI/WidgetController/OverlayWidgetController.h"
-#include "AbilitySystem/AuraAbilitySystemComponent.h"
-#include "AbilitySystem/AuraAttributeSet.h"
+#include "AbilitySystem/Aura_AbilitySystemComponent.h"
+#include "AbilitySystem/Aura_AttributeSet.h"
 
 void UOverlayWidgetController::BroadcastInitialValues()
 {
-	const UAuraAttributeSet* AuraAttributeSet = CastChecked<UAuraAttributeSet>(this->AttributeSet);
+	const UAura_AttributeSet* AuraAttributeSet = CastChecked<UAura_AttributeSet>(this->AttributeSet);
 	
 	OnHealthChanged.Broadcast(AuraAttributeSet->GetHealth());
 	OnMaxHealthChanged.Broadcast(AuraAttributeSet->GetMaxHealth());
@@ -16,7 +16,7 @@ void UOverlayWidgetController::BroadcastInitialValues()
 
 void UOverlayWidgetController::BindCallbacksToDependencies()
 {
-	const UAuraAttributeSet* AuraAttributeSet = CastChecked<UAuraAttributeSet>(this->AttributeSet);
+	const UAura_AttributeSet* AuraAttributeSet = CastChecked<UAura_AttributeSet>(this->AttributeSet);
 
 	AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(AuraAttributeSet->GetHealthAttribute()).AddLambda(
 		[this](const FOnAttributeChangeData& Data)
@@ -46,7 +46,7 @@ void UOverlayWidgetController::BindCallbacksToDependencies()
 		}
 	);
 	
-	Cast<UAuraAbilitySystemComponent>(AbilitySystemComponent)->EffectAssetTags.AddLambda(
+	Cast<UAura_AbilitySystemComponent>(AbilitySystemComponent)->EffectAssetTags.AddLambda(
 	[this](const FGameplayTagContainer& AssetTagsContainer)
 		{
 			for (const FGameplayTag& Tag : AssetTagsContainer)

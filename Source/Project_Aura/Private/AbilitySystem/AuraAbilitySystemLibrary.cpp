@@ -2,7 +2,7 @@
 
 #include "AbilitySystem/AuraAbilitySystemLibrary.h"
 #include "Kismet/GameplayStatics.h"
-#include "PlayerState/AuraPlayerState.h"
+#include "PlayerState/Aura_PlayerState.h"
 #include "UI/HUD/AuraHUD.h"
 #include "UI/WidgetController/AuraWidgetController.h"
 
@@ -12,7 +12,7 @@ UOverlayWidgetController* UAuraAbilitySystemLibrary::GetOverlayWidgetController(
 	{
 		if (AAuraHUD* AuraHUD = Cast<AAuraHUD>(PC->GetHUD()))
 		{
-			AAuraPlayerState* PS = PC->GetPlayerState<AAuraPlayerState>();
+			AAura_PlayerState* PS = PC->GetPlayerState<AAura_PlayerState>();
 			UAbilitySystemComponent* ASC = PS->GetAbilitySystemComponent();
 			UAttributeSet* AS = PS->GetAttributeSet();
 			const FWidgetControllerParams WidgetControllerParams(PC,PS,ASC,AS);
@@ -29,7 +29,7 @@ UAttributeMenuWidgetController* UAuraAbilitySystemLibrary::GetAttributeMenuWidge
 	{
 		if (AAuraHUD* AuraHUD = Cast<AAuraHUD>(PC->GetHUD()))
 		{
-			AAuraPlayerState* PS = PC->GetPlayerState<AAuraPlayerState>();
+			AAura_PlayerState* PS = PC->GetPlayerState<AAura_PlayerState>();
 			UAbilitySystemComponent* ASC = PS->GetAbilitySystemComponent();
 			UAttributeSet* AS = PS->GetAttributeSet();
 			const FWidgetControllerParams WidgetControllerParams(PC,PS,ASC,AS);

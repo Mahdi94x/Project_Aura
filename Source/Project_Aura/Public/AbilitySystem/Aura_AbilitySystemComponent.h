@@ -4,14 +4,14 @@
 
 #include "CoreMinimal.h"
 #include "AbilitySystemComponent.h"
-#include "AuraAbilitySystemComponent.generated.h"
+#include "Aura_AbilitySystemComponent.generated.h"
 
 DECLARE_MULTICAST_DELEGATE_OneParam(FEffectAssetTags, const FGameplayTagContainer& /*AssetTags*/);
 /**
  * 
  */
 UCLASS()
-class PROJECT_AURA_API UAuraAbilitySystemComponent : public UAbilitySystemComponent
+class PROJECT_AURA_API UAura_AbilitySystemComponent : public UAbilitySystemComponent
 {
 	GENERATED_BODY()
 

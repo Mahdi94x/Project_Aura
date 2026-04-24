@@ -4,13 +4,13 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/GameModeBase.h"
-#include "AuraGameModeBase.generated.h"
+#include "Aura_GameModeBase.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class PROJECT_AURA_API AAuraGameModeBase : public AGameModeBase
+class PROJECT_AURA_API AAura_GameModeBase : public AGameModeBase
 {
 	GENERATED_BODY()
 	

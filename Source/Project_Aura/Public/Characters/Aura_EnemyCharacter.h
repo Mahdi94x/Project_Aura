@@ -3,16 +3,16 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Characters/AuraCharacterBase.h"
+#include "Characters/Aura_BaseCharacter.h"
 #include "Interaction/HighlightInterface.h"
-#include "AuraEnemy.generated.h"
+#include "Aura_EnemyCharacter.generated.h"
 
 UCLASS()
-class PROJECT_AURA_API AAuraEnemy : public AAuraCharacterBase, public IHighlightInterface
+class PROJECT_AURA_API AAura_EnemyCharacter : public AAura_BaseCharacter, public IHighlightInterface
 {
 	GENERATED_BODY()
 public:
-	AAuraEnemy();
+	AAura_EnemyCharacter();
 	// ~ Begin IHighlight Interface
 	virtual void HighlightActor() override;
 	virtual void UnhighlightActor() override;
@@ -26,7 +26,7 @@ protected:
 	virtual void BeginPlay() override;
 	virtual void InitializeAbilityActorInfo() override;
 	
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Character Class Defaults")
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Aura|CharacterClassDefaults")
 	int32 Level = 1;
 	
 };

@@ -1,12 +1,12 @@
 // Project by Mahdi94x based on Stephen Ulibarri's create a multiplayer RPG with Unreal Engine's Gameplay Ability System (GAS) Course.
 
 #include "AbilitySystem/MMC/MMC_MaxHealth.h"
-#include "AbilitySystem/AuraAttributeSet.h"
+#include "AbilitySystem/Aura_AttributeSet.h"
 #include "Interaction/CombatInterface.h"
 
 UMMC_MaxHealth::UMMC_MaxHealth()
 {
-	VigorDef.AttributeToCapture = UAuraAttributeSet::GetVigorAttribute();
+	VigorDef.AttributeToCapture = UAura_AttributeSet::GetVigorAttribute();
 	VigorDef.AttributeSource = EGameplayEffectAttributeCaptureSource::Target;
 	VigorDef.bSnapshot = false;
 

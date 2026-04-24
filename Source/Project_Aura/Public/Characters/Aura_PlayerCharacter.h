@@ -3,23 +3,23 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Characters/AuraCharacterBase.h"
-#include "AuraCharacter.generated.h"
+#include "Characters/Aura_BaseCharacter.h"
+#include "Aura_PlayerCharacter.generated.h"
 
-/**
- * 
- */
 UCLASS()
-class PROJECT_AURA_API AAuraCharacter : public AAuraCharacterBase
+class PROJECT_AURA_API AAura_PlayerCharacter : public AAura_BaseCharacter
 {
 	GENERATED_BODY()
 public:
-	AAuraCharacter();
+	AAura_PlayerCharacter();
 	virtual void PossessedBy(AController* NewController) override;
 	virtual void OnRep_PlayerState() override;
-	virtual void InitializeAbilityActorInfo() override;
+	
 	// ~ Begin ICombat Interface
 	virtual int32 GetCharacterLevel() override;
 	// ~ End ICombat Interface
+	
+private: 
+	 void InitializeAbilityActorInfo();
 
 };
