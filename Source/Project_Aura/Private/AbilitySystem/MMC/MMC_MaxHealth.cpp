@@ -19,17 +19,19 @@ float UMMC_MaxHealth::CalculateBaseMagnitude_Implementation(const FGameplayEffec
 	const FGameplayTagContainer* SourceTags = Spec.CapturedSourceTags.GetAggregatedTags();
 	const FGameplayTagContainer* TargetTags = Spec.CapturedTargetTags.GetAggregatedTags();
 
+	// Capture the attribute magnitude value
 	FAggregatorEvaluateParameters EvaluationParameters;
 	EvaluationParameters.SourceTags = SourceTags;
 	EvaluationParameters.TargetTags = TargetTags;
-
 	float Vigor = 0.f;
 	GetCapturedAttributeMagnitude(VigorDef, Spec, EvaluationParameters,Vigor);
 	Vigor = FMath::Max<float>(Vigor , 0.f);
 
+	// Capture the Level
 	const TScriptInterface<ICombatInterface> CombatInterface = (Spec.GetContext().GetSourceObject());
 	const int32 PlayerLevel = CombatInterface->GetCharacterLevel();
 
+	// Final Calculation
 	return 80.f+ 2.5f * Vigor + 10.f * PlayerLevel;
 	
 }

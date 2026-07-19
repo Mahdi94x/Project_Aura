@@ -1,17 +1,15 @@
 // Project by Mahdi94x based on Stephen Ulibarri's create a multiplayer RPG with Unreal Engine's Gameplay Ability System (GAS) Course.
 
-#include "AuraGameplayTags.h"
+#include "Aura_GameplayTags.h"
 #include "GameplayTagsManager.h"
 
-FAuraGameplayTags FAuraGameplayTags::GameplayTags; // creating the single instance
+FAura_GameplayTags FAura_GameplayTags::GameplayTags; // Creating the single instance of the native gameplay tags struct
 
-void FAuraGameplayTags::InitializeNativeGameplayTags()
+void FAura_GameplayTags::InitializeNativeGameplayTags()
 {
 	UGameplayTagsManager& TagsManager = UGameplayTagsManager::Get();
-
-	/*
-	 *Primary Attributes
-	 */
+	
+	 // Primary Attributes
 	GameplayTags.Attributes_Primary_Strength =
 	    TagsManager.AddNativeGameplayTag(
 		FName("Attributes.Primary.Strength"),
@@ -35,10 +33,8 @@ void FAuraGameplayTags::InitializeNativeGameplayTags()
 			FName("Attributes.Primary.Vigor"),
 			FString("Increases health")
 		);
-
-	/*
-	 *Secondary Attributes
-	 */
+	
+	// Secondary Attributes
 	GameplayTags.Attributes_Secondary_Armor =
         TagsManager.AddNativeGameplayTag(
             FName("Attributes.Secondary.Armor"),

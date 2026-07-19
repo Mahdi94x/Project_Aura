@@ -14,6 +14,7 @@ UCLASS()
 class PROJECT_AURA_API AAura_PlayerState : public APlayerState, public IAbilitySystemInterface
 {
 	GENERATED_BODY()
+	
 public:
 	AAura_PlayerState();
 	virtual void GetLifetimeReplicatedProps(TArray<class FLifetimeProperty>& OutLifetimeProps) const override;
@@ -27,7 +28,7 @@ protected:
 
 private:
 	UPROPERTY(VisibleAnywhere, ReplicatedUsing= OnRep_Level)
-	int32 Level =1;
+	int32 Level = 1;
 
 	UFUNCTION()
 	void OnRep_Level(int32 OldLevel);

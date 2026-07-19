@@ -1,9 +1,9 @@
 // Project by Mahdi94x based on Stephen Ulibarri's create a multiplayer RPG with Unreal Engine's Gameplay Ability System (GAS) Course.
 
 
-#include "UI/WidgetController/AuraWidgetController.h"
+#include "UI/WidgetController/Aura_BaseWidgetController.h"
 
-void UAuraWidgetController::SetWidgetControllerParams(const FWidgetControllerParams& WCParams)
+void UAura_BaseWidgetController::SetWidgetControllerParams(const FWidgetControllerParams& WCParams)
 {
 	// WidgetController variable = the passed structure values
 	this->PlayerController = WCParams.PlayerController;
@@ -12,12 +12,12 @@ void UAuraWidgetController::SetWidgetControllerParams(const FWidgetControllerPar
 	this->AttributeSet = WCParams.AttributeSet;
 }
 
-void UAuraWidgetController::BroadcastInitialValues()
+void UAura_BaseWidgetController::BroadcastInitialValues()
 {
 	
 }
 
-void UAuraWidgetController::BindCallbacksToDependencies()
+void UAura_BaseWidgetController::BindCallbacksToDependencies()
 {
 	
 }

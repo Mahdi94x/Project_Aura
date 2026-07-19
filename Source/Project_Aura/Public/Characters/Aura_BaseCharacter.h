@@ -20,9 +20,9 @@ class PROJECT_AURA_API AAura_BaseCharacter : public ACharacter, public IAbilityS
 public:
 	AAura_BaseCharacter();
 	virtual int32 GetCharacterLevel() override;
+	virtual void BeginPlay() override;
 	
 protected:
-	virtual void BeginPlay() override;
 	virtual void InitializeAbilityActorInfo();
 	void ApplyEffectToSelf(TSubclassOf<UGameplayEffect> GameplayEffectClass, float Level) const;
 	void InitializeDefaultAttributes() const;

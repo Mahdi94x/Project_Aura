@@ -10,7 +10,6 @@ AAura_BaseCharacter::AAura_BaseCharacter()
 	Weapon = CreateDefaultSubobject<USkeletalMeshComponent>("Weapon");
 	Weapon->SetupAttachment(GetMesh(), FName("WeaponHandSocket"));
 	Weapon->SetCollisionEnabled(ECollisionEnabled::NoCollision);
-	
 }
 
 int32 AAura_BaseCharacter::GetCharacterLevel()
@@ -20,12 +19,13 @@ int32 AAura_BaseCharacter::GetCharacterLevel()
 
 void AAura_BaseCharacter::InitializeAbilityActorInfo()
 {
+	
 }
 
 void AAura_BaseCharacter::ApplyEffectToSelf(TSubclassOf<UGameplayEffect> GameplayEffectClass, float Level) const 
 {
 	check(IsValid(GetAbilitySystemComponent()));
-	checkf(GameplayEffectClass, TEXT("Add Default Attribute GameplayEffect in the blueprint"));
+	checkf(GameplayEffectClass, TEXT("Add Default Attribute GameplayEffect in the details panel"));
 	FGameplayEffectContextHandle ContextHandle = GetAbilitySystemComponent()->MakeEffectContext();
 	ContextHandle.AddSourceObject(this);
 	const FGameplayEffectSpecHandle SpecHandle = GetAbilitySystemComponent()->MakeOutgoingSpec(GameplayEffectClass, Level,ContextHandle);
@@ -52,7 +52,6 @@ UAttributeSet* AAura_BaseCharacter::GetAttributeSet() const
 void AAura_BaseCharacter::BeginPlay()
 {
 	Super::BeginPlay();
-	
 }
 
 

@@ -1,16 +1,16 @@
 // Project by Mahdi94x based on Stephen Ulibarri's create a multiplayer RPG with Unreal Engine's Gameplay Ability System (GAS) Course.
 
-#include "AbilitySystem/AuraAbilitySystemLibrary.h"
+#include "AbilitySystem/Aura_AbilitySystemLibrary.h"
 #include "Kismet/GameplayStatics.h"
 #include "PlayerState/Aura_PlayerState.h"
-#include "UI/HUD/AuraHUD.h"
-#include "UI/WidgetController/AuraWidgetController.h"
+#include "UI/HUD/Aura_HUD.h"
+#include "UI/WidgetController/Aura_BaseWidgetController.h"
 
-UOverlayWidgetController* UAuraAbilitySystemLibrary::GetOverlayWidgetController(const UObject* WorldContextObject)
+UOverlayWidgetController* UAura_AbilitySystemLibrary::GetOverlayWidgetController(const UObject* WorldContextObject)
 {
 	if (APlayerController* PC = UGameplayStatics::GetPlayerController(WorldContextObject,0))
 	{
-		if (AAuraHUD* AuraHUD = Cast<AAuraHUD>(PC->GetHUD()))
+		if (AAura_HUD* AuraHUD = Cast<AAura_HUD>(PC->GetHUD()))
 		{
 			AAura_PlayerState* PS = PC->GetPlayerState<AAura_PlayerState>();
 			UAbilitySystemComponent* ASC = PS->GetAbilitySystemComponent();
@@ -22,12 +22,12 @@ UOverlayWidgetController* UAuraAbilitySystemLibrary::GetOverlayWidgetController(
 	return nullptr;
 }
 
-UAttributeMenuWidgetController* UAuraAbilitySystemLibrary::GetAttributeMenuWidgetController(
+UAttributeMenuWidgetController* UAura_AbilitySystemLibrary::GetAttributeMenuWidgetController(
 	const UObject* WorldContextObject)
 {
 	if (APlayerController* PC = UGameplayStatics::GetPlayerController(WorldContextObject,0))
 	{
-		if (AAuraHUD* AuraHUD = Cast<AAuraHUD>(PC->GetHUD()))
+		if (AAura_HUD* AuraHUD = Cast<AAura_HUD>(PC->GetHUD()))
 		{
 			AAura_PlayerState* PS = PC->GetPlayerState<AAura_PlayerState>();
 			UAbilitySystemComponent* ASC = PS->GetAbilitySystemComponent();
