@@ -13,6 +13,7 @@ class PROJECT_AURA_API AAura_EnemyCharacter : public AAura_BaseCharacter, public
 	GENERATED_BODY()
 public:
 	AAura_EnemyCharacter();
+	virtual void BeginPlay() override;
 	// ~ Begin IHighlight Interface
 	virtual void HighlightActor() override;
 	virtual void UnhighlightActor() override;
@@ -23,7 +24,6 @@ public:
 	// ~ End ICombat Interface
 
 protected:
-	virtual void BeginPlay() override;
 	virtual void InitializeAbilityActorInfo() override;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Aura|CharacterClassDefaults")

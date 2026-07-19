@@ -4,20 +4,17 @@
 
 #include "CoreMinimal.h"
 #include "Engine/AssetManager.h"
-#include "AuraAssetManager.generated.h"
+#include "Aura_AssetManager.generated.h"
 
 /**
- * 
+ *
  */
 UCLASS()
-class PROJECT_AURA_API UAuraAssetManager : public UAssetManager
+class PROJECT_AURA_API UAura_AssetManager : public UAssetManager
 {
 	GENERATED_BODY()
 
 public:
-	static UAuraAssetManager& Get();
-
-protected:
+	static UAura_AssetManager& Get();
 	virtual void StartInitialLoading() override;
-	
 };

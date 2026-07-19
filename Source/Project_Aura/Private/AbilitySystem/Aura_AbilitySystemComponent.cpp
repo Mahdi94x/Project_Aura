@@ -2,8 +2,7 @@
 
 
 #include "AbilitySystem/Aura_AbilitySystemComponent.h"
-
-#include "AuraGameplayTags.h"
+#include "Aura_GameplayTags.h"
 
 void UAura_AbilitySystemComponent::AbilityActorInfoSet()
 {
@@ -16,6 +15,5 @@ void UAura_AbilitySystemComponent::EffectApplied(UAbilitySystemComponent* Abilit
 {
 	FGameplayTagContainer TagContainer;
 	EffectSpec.GetAllAssetTags(TagContainer);
-	
 	EffectAssetTags.Broadcast(TagContainer);
 }

@@ -4,13 +4,13 @@
 
 #include "CoreMinimal.h"
 #include "AbilitySystem/Data/AttributeInfo.h"
-#include "UI/WidgetController/AuraWidgetController.h"
+#include "UI/WidgetController/Aura_BaseWidgetController.h"
 #include "AttributeMenuWidgetController.generated.h"
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FAttributeInfoSignature, const FAuraAttributeInfo&, Info);
 
 UCLASS(BlueprintType,Blueprintable)
-class PROJECT_AURA_API UAttributeMenuWidgetController : public UAuraWidgetController
+class PROJECT_AURA_API UAttributeMenuWidgetController : public UAura_BaseWidgetController
 {
 	GENERATED_BODY()
 	
@@ -25,8 +25,8 @@ public:
 
 protected:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
-	TObjectPtr<UAttributeInfo> AttributeInfo;
+	TObjectPtr<UAttributeInfo> AttributeInfoDataAsset;
 
 private:
-	void BroadcastAttributeInfo(const FGameplayTag& GameplayTag, const FGameplayAttribute& GameplayAttribute) const;
+	void BroadcastAttInfoToWidget(const FGameplayTag& GameplayTag, const FGameplayAttribute& GameplayAttribute) const;
 };

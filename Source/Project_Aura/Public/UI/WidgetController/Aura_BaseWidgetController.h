@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "AbilitySystemComponent.h"
-#include "AuraWidgetController.generated.h"
+#include "Aura_BaseWidgetController.generated.h"
 
 class UAttributeSet;
 class UAbilitySystemComponent;
@@ -33,7 +33,7 @@ struct FWidgetControllerParams
 };
 
 UCLASS()
-class PROJECT_AURA_API UAuraWidgetController : public UObject
+class PROJECT_AURA_API UAura_BaseWidgetController : public UObject
 {
 	GENERATED_BODY()
 
@@ -47,16 +47,16 @@ public:
 	virtual void BindCallbacksToDependencies();
 
 protected:
-	UPROPERTY(BlueprintReadOnly, Category = "WidgetController")
+	UPROPERTY(BlueprintReadOnly, Category = "Aura|WidgetController")
 	TObjectPtr<APlayerController> PlayerController;
 	
-	UPROPERTY(BlueprintReadOnly, Category = "WidgetController")
+	UPROPERTY(BlueprintReadOnly, Category = "Aura|WidgetController")
 	TObjectPtr<APlayerState> PlayerState;
 	
-	UPROPERTY(BlueprintReadOnly, Category = "WidgetController")
+	UPROPERTY(BlueprintReadOnly, Category = "Aura|WidgetController")
 	TObjectPtr<UAbilitySystemComponent> AbilitySystemComponent;
 	
-	UPROPERTY(BlueprintReadOnly, Category = "WidgetController")
+	UPROPERTY(BlueprintReadOnly, Category = "Aura|WidgetController")
 	TObjectPtr<UAttributeSet> AttributeSet;
 	
 };

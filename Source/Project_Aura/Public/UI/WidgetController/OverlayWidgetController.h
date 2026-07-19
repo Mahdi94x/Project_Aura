@@ -3,7 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "UI/WidgetController/AuraWidgetController.h"
+#include "UI/WidgetController/Aura_BaseWidgetController.h"
 #include "OverlayWidgetController.generated.h"
 
 USTRUCT(BlueprintType)
@@ -18,45 +18,45 @@ struct FUIWidgetRow : public FTableRowBase
 	FText Message = FText();
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	TSubclassOf<class UAuraUserWidget> MessageWidget = nullptr;
+	TSubclassOf<class UAura_UserWidget> MessageWidget = nullptr;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	TObjectPtr<UTexture2D> Image = nullptr;
 };
 
-// Delegates Type Declaration
+// Delegates Type Declaration (Delegate Type)
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnAttributeChangedSignature, float, NewValue);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FMessageWidgetRowSignature, FUIWidgetRow, Row);
 
 UCLASS(BlueprintType, Blueprintable)
-class PROJECT_AURA_API UOverlayWidgetController : public UAuraWidgetController
+class PROJECT_AURA_API UOverlayWidgetController : public UAura_BaseWidgetController
 {
 	GENERATED_BODY()
 public:
-	// ~ Begin AuraWidgetController
+	// ~ Begin Aura_BaseWidgetController
 	virtual void BroadcastInitialValues() override;
 	virtual void BindCallbacksToDependencies() override;
-	// ~ End AuraWidgetController
+	// ~ End Aura_BaseWidgetController
 	
 	// Delegate Instances to be assigned in blueprint
-	UPROPERTY(BlueprintAssignable, Category="GAS|Attributes")
+	UPROPERTY(BlueprintAssignable, Category="Aura|Attributes")
 	FOnAttributeChangedSignature OnHealthChanged;
 	
-	UPROPERTY(BlueprintAssignable, Category="GAS|Attributes")
+	UPROPERTY(BlueprintAssignable, Category="Aura|Attributes")
 	FOnAttributeChangedSignature OnMaxHealthChanged;
 
-	UPROPERTY(BlueprintAssignable, Category="GAS|Attributes")
+	UPROPERTY(BlueprintAssignable, Category="Aura|Attributes")
 	FOnAttributeChangedSignature OnManaChanged;
 
-	UPROPERTY(BlueprintAssignable, Category="GAS|Attributes")
+	UPROPERTY(BlueprintAssignable, Category="Aura|Attributes")
 	FOnAttributeChangedSignature OnMaxManaChanged;
 
-	UPROPERTY(BlueprintAssignable, Category="GAS|Messages")
+	UPROPERTY(BlueprintAssignable, Category="Aura|Messages")
 	FMessageWidgetRowSignature MessageWidgetRowDelegate;
 
 protected:
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Widget Data")
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Aura|Widget Data")
 	TObjectPtr<UDataTable> MessageWidgetDataTable;
 
 	template<typename T>

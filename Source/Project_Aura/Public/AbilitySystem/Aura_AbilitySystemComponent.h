@@ -16,8 +16,10 @@ class PROJECT_AURA_API UAura_AbilitySystemComponent : public UAbilitySystemCompo
 	GENERATED_BODY()
 
 public:
-	void AbilityActorInfoSet(); /*function to be called at a certain point of time to bind the callback to the delegates
+	/*function to be called at a certain point in time to bind the callback to the delegates
 	 as the constructors are too early*/
+	void AbilityActorInfoSet();
+	
 	FEffectAssetTags EffectAssetTags;
 	
 protected:

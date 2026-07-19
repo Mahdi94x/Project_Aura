@@ -19,7 +19,7 @@ public:
 	virtual int32 GetCharacterLevel() override;
 	// ~ End ICombat Interface
 	
-private: 
-	 void InitializeAbilityActorInfo();
+protected: 
+	virtual void InitializeAbilityActorInfo() override;
 
 };

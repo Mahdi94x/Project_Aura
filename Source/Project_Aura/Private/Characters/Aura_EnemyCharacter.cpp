@@ -20,7 +20,7 @@ void AAura_EnemyCharacter::HighlightActor()
 {
 	this->GetMesh()->SetRenderCustomDepth(true);
 	this->GetMesh()->SetCustomDepthStencilValue(CUSTOM_DEPTH_RED);
-
+	
 	Weapon->SetRenderCustomDepth(true);
 	Weapon->SetCustomDepthStencilValue(CUSTOM_DEPTH_RED);
 }

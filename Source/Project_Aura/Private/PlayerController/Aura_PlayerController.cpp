@@ -15,7 +15,6 @@ void AAura_PlayerController::PlayerTick(float DeltaTime)
 {
 	Super::PlayerTick(DeltaTime);
 	CursorTrace();
-	
 }
 
 void AAura_PlayerController::BeginPlay()
@@ -23,9 +22,10 @@ void AAura_PlayerController::BeginPlay()
 	Super::BeginPlay();
 	checkf(AuraMappingContext,TEXT("AuraMappingContext is not set in the details panel"));
 	
-	UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(this->GetLocalPlayer());
-	check (Subsystem);
-	Subsystem->AddMappingContext(AuraMappingContext,0);
+	if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(this->GetLocalPlayer()); IsValid(Subsystem))
+	{
+		Subsystem->AddMappingContext(AuraMappingContext,0);
+	}
 	
 	/*Top-Down Properties*/
 	bShowMouseCursor = true;
@@ -40,12 +40,10 @@ void AAura_PlayerController::BeginPlay()
 void AAura_PlayerController::SetupInputComponent()
 {
 	Super::SetupInputComponent();
+	UEnhancedInputComponent* EnhancedInputComponent = CastChecked<UEnhancedInputComponent>(InputComponent);
 	
-	if (UEnhancedInputComponent* EnhancedInputComponent = CastChecked<UEnhancedInputComponent>(InputComponent))
-	{
-		EnhancedInputComponent->BindAction(AuraMoveAction, ETriggerEvent::Triggered, this, &ThisClass::AuraMove);
-	}
-
+	EnhancedInputComponent->BindAction(AuraMoveAction, ETriggerEvent::Triggered, this, &ThisClass::AuraMove);
+	
 }
 
 void AAura_PlayerController::AuraMove(const FInputActionValue& InputActionValue)
@@ -97,8 +95,7 @@ void AAura_PlayerController::CursorTrace()
 		}
 		else 
 		{
-			// Both Actors are null 
-			// Case A -> Do Nothing
+			// Both Actors are null, Case A -> Do Nothing
 		}
 	}
 	else // LastFrameActor is valid
@@ -118,10 +115,8 @@ void AAura_PlayerController::CursorTrace()
 			}
 			else 
 			{
-				//  both actors are valid, Same Actors
-				// Case E -> Do Nothing
+				//  both actors are valid, Same Actors, Case E -> Do Nothing
 			}
 		}
 	}
-	
 }

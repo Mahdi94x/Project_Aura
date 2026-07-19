@@ -5,13 +5,13 @@
 #include "CoreMinimal.h"
 #include "GameplayTagContainer.h"
 /*
- * AuraGameplayTags
+ * Aura_GameplayTags
  * Singleton containing native gameplay tags
  */
-struct FAuraGameplayTags
+struct FAura_GameplayTags
 {
-public:
-	static const FAuraGameplayTags& Get() {return GameplayTags;}
+
+	static const FAura_GameplayTags& Get() {return GameplayTags;}
 	static void InitializeNativeGameplayTags();
 
 	/*Primary Attributes*/
@@ -33,5 +33,5 @@ public:
 	FGameplayTag Attributes_Secondary_MaxMana;
 
 private:
-	static FAuraGameplayTags GameplayTags;
+	static FAura_GameplayTags GameplayTags;
 };

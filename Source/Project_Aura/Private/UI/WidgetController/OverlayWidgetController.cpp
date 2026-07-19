@@ -11,7 +11,7 @@ void UOverlayWidgetController::BroadcastInitialValues()
 	OnHealthChanged.Broadcast(AuraAttributeSet->GetHealth());
 	OnMaxHealthChanged.Broadcast(AuraAttributeSet->GetMaxHealth());
 	OnManaChanged.Broadcast(AuraAttributeSet->GetMana());
-	OnMaxManaChanged.Broadcast((AuraAttributeSet->GetMaxMana()));
+	OnMaxManaChanged.Broadcast(AuraAttributeSet->GetMaxMana());
 }
 
 void UOverlayWidgetController::BindCallbacksToDependencies()
@@ -54,7 +54,7 @@ void UOverlayWidgetController::BindCallbacksToDependencies()
 				if (Tag.MatchesTag(FGameplayTag::RequestGameplayTag(FName("Message"))))
 				{
 					const FUIWidgetRow* Row = GetDataTableRowByTag<FUIWidgetRow>(MessageWidgetDataTable, Tag);
-					MessageWidgetRowDelegate.Broadcast(* Row);
+					MessageWidgetRowDelegate.Broadcast(*Row);
 				}
 			}
 		}

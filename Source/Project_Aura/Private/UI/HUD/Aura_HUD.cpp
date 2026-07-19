@@ -1,13 +1,12 @@
 // Project by Mahdi94x based on Stephen Ulibarri's create a multiplayer RPG with Unreal Engine's Gameplay Ability System (GAS) Course.
 
-
-#include "UI/HUD/AuraHUD.h"
+#include "UI/HUD/Aura_HUD.h"
 #include "Blueprint/UserWidget.h"
-#include "UI/Widget/AuraUserWidget.h"
+#include "UI/Widget/Aura_UserWidget.h"
 #include "UI/WidgetController/AttributeMenuWidgetController.h"
 #include "UI/WidgetController/OverlayWidgetController.h"
 
-UOverlayWidgetController* AAuraHUD::GetOverlayWidgetController(const FWidgetControllerParams& WCParams)
+UOverlayWidgetController* AAura_HUD::GetOverlayWidgetController(const FWidgetControllerParams& WCParams)
 {
 	if (OverlayWidgetController == nullptr)
 	{
@@ -18,7 +17,7 @@ UOverlayWidgetController* AAuraHUD::GetOverlayWidgetController(const FWidgetCont
 	return OverlayWidgetController;
 }
 
-UAttributeMenuWidgetController* AAuraHUD::GetAttributeMenuWidgetController(const FWidgetControllerParams& WCParams)
+UAttributeMenuWidgetController* AAura_HUD::GetAttributeMenuWidgetController(const FWidgetControllerParams& WCParams)
 {
 	if (AttributeMenuWidgetController == nullptr)
 	{
@@ -29,7 +28,7 @@ UAttributeMenuWidgetController* AAuraHUD::GetAttributeMenuWidgetController(const
 	return AttributeMenuWidgetController;
 }
 
-void AAuraHUD::InitOverlay(APlayerController* PC, APlayerState* PS, UAbilitySystemComponent* ASC, UAttributeSet* AS)
+void AAura_HUD::InitOverlay(APlayerController* PC, APlayerState* PS, UAbilitySystemComponent* ASC, UAttributeSet* AS)
 {
 	// checks
 	checkf(OverlayWidgetClass, TEXT("Overlay widget class uninitialized, please fill out BP_AuraHUD"));
@@ -37,13 +36,13 @@ void AAuraHUD::InitOverlay(APlayerController* PC, APlayerState* PS, UAbilitySyst
 
 	// Constructing the widget
 	UUserWidget* Widget = CreateWidget<UUserWidget>(GetWorld(), OverlayWidgetClass);
-	OverlayWidget = Cast<UAuraUserWidget>(Widget); // setting the member variable of the AuraHUD
-
+	OverlayWidget = Cast<UAura_UserWidget>(Widget); // setting the member variable of the AuraHUD
+	
 	// Constructing the widget controller if it does not exist
 	const FWidgetControllerParams WidgetControllerParams(PC, PS, ASC, AS);
 	UOverlayWidgetController* WidgetController = GetOverlayWidgetController(WidgetControllerParams);
 
-	// set the widget controller
+	// set the widget controller for the overlay
 	OverlayWidget->SetWidgetController(WidgetController);
 
 	// broadcasting the initial values through the widget controller

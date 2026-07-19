@@ -73,6 +73,6 @@ protected:
 	float ActorLevel = 1.f;
 	
 	UPROPERTY()
-	TMap<FActiveGameplayEffectHandle, UAbilitySystemComponent*> ActiveEffectsHandleMap;
+	TMap<FActiveGameplayEffectHandle, UAbilitySystemComponent*> ActiveInfiniteEffectsHandleMap;
 	
 };
