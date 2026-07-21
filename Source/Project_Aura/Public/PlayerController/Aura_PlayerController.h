@@ -3,9 +3,11 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "GameplayTagContainer.h"
 #include "GameFramework/PlayerController.h"
 #include "Aura_PlayerController.generated.h"
 
+class UAura_InputConfig;
 class UInputMappingContext;
 class UInputAction;
 struct FInputActionValue;
@@ -27,6 +29,11 @@ private:
 	void AuraMove (const FInputActionValue& InputActionValue);
 	void CursorTrace();
 	
+	/*Callback Functions for InputActions associated with FGameplayTags*/
+	void AbilityInputTagPressed(FGameplayTag InputTag);
+	void AbilityInputTagReleased(FGameplayTag InputTag);
+	void AbilityInputTagHeld(FGameplayTag InputTag);
+	
 	UPROPERTY(EditAnywhere, Category = "Aura|Input")
 	TObjectPtr<UInputMappingContext> AuraMappingContext;
 
@@ -35,4 +42,7 @@ private:
 
 	TScriptInterface<IHighlightInterface> LastFrameActor;
 	TScriptInterface<IHighlightInterface> ThisFrameActor;
+	
+	UPROPERTY(EditDefaultsOnly, Category = "Aura|Input")
+	TObjectPtr<UAura_InputConfig> InputConfigDataAsset;
 };
