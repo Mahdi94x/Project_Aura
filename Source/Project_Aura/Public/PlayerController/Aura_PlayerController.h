@@ -7,6 +7,7 @@
 #include "GameFramework/PlayerController.h"
 #include "Aura_PlayerController.generated.h"
 
+class USplineComponent;
 class UAura_InputConfig;
 class UInputMappingContext;
 class UInputAction;
@@ -50,4 +51,17 @@ private:
 	
 	UPROPERTY()
 	TObjectPtr<UAura_AbilitySystemComponent> AuraAbilitySystemComponent;
+	
+	/*ClickToMove - AutoRunning*/
+	FVector CachedDestination = FVector::ZeroVector;
+	float FollowTime = 0.f;
+	float ShortPressThreshold = 0.5f;
+	bool bAutoRunning = false;
+	bool bTargeting = false;
+	
+	UPROPERTY(EditDefaultsOnly, Category = "Aura|Movement")
+	float AutoRunAcceptanceRadius = 50.f;
+	
+	UPROPERTY(VisibleAnywhere)
+	TObjectPtr<USplineComponent> Spline;
 };
