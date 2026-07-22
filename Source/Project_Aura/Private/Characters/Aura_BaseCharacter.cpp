@@ -46,7 +46,7 @@ void AAura_BaseCharacter::AddCharacterAbilities()
 	if (!IsValid(AuraAsc)) return;
 	if (!HasAuthority()) return;
 	
-	AuraAsc->GrantCharacterAbilities(this->StartupAbilitiesArray);
+	AuraAsc->GiveCharacterAbilities(this->StartupAbilitiesArray);
 }
 
 UAbilitySystemComponent* AAura_BaseCharacter::GetAbilitySystemComponent() const

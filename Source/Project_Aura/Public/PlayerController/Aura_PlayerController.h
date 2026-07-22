@@ -12,6 +12,7 @@ class UInputMappingContext;
 class UInputAction;
 struct FInputActionValue;
 class IHighlightInterface;
+class UAura_AbilitySystemComponent;
 
 UCLASS()
 class PROJECT_AURA_API AAura_PlayerController : public APlayerController
@@ -28,6 +29,7 @@ protected:
 private:
 	void AuraMove (const FInputActionValue& InputActionValue);
 	void CursorTrace();
+	UAura_AbilitySystemComponent* GetAuraAsc();
 	
 	/*Callback Functions for InputActions associated with FGameplayTags*/
 	void AbilityInputTagPressed(FGameplayTag InputTag);
@@ -45,4 +47,7 @@ private:
 	
 	UPROPERTY(EditDefaultsOnly, Category = "Aura|Input")
 	TObjectPtr<UAura_InputConfig> InputConfigDataAsset;
+	
+	UPROPERTY()
+	TObjectPtr<UAura_AbilitySystemComponent> AuraAbilitySystemComponent;
 };
