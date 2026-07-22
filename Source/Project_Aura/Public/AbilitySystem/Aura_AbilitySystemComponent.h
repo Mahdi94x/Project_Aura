@@ -19,7 +19,10 @@ public:
 	/*function to be called at a certain point in time to bind the callback to the delegates
 	 as the constructors are too early*/
 	void AbilityActorInfoSet();
-	void GrantCharacterAbilities(const TArray<TSubclassOf<UGameplayAbility>>& StartupAbilities);
+	
+	void GiveCharacterAbilities(const TArray<TSubclassOf<UGameplayAbility>>& StartupAbilities);
+	void AbilityInputTagHeld(const FGameplayTag& InputTag);
+	void AbilityInputTagReleased(const FGameplayTag& InputTag);
 	
 	FEffectAssetTags EffectAssetTags;
 	
