@@ -31,6 +31,7 @@ private:
 	void AuraMove (const FInputActionValue& InputActionValue);
 	void CursorTrace();
 	UAura_AbilitySystemComponent* GetAuraAsc();
+	void AutoRun();
 	
 	/*Callback Functions for InputActions associated with FGameplayTags*/
 	void AbilityInputTagPressed(FGameplayTag InputTag);

@@ -5,6 +5,8 @@
 #include "AbilitySystemBlueprintLibrary.h"
 #include "Aura_GameplayTags.h"
 #include "EnhancedInputSubsystems.h"
+#include "NavigationPath.h"
+#include "NavigationSystem.h"
 #include "AbilitySystem/Aura_AbilitySystemComponent.h"
 #include "Components/SplineComponent.h"
 #include "Input/Aura_InputComponent.h"
@@ -20,6 +22,25 @@ void AAura_PlayerController::PlayerTick(float DeltaTime)
 {
 	Super::PlayerTick(DeltaTime);
 	CursorTrace();
+	AutoRun();
+}
+
+void AAura_PlayerController::AutoRun()
+{
+	if (!bAutoRunning) return;
+	
+	if (APawn* ControlledPawn = GetPawn())
+	{
+		const FVector LocationOnSpline = Spline->FindLocationClosestToWorldLocation(ControlledPawn->GetActorLocation(), ESplineCoordinateSpace::World);
+		const FVector Direction = Spline->FindDirectionClosestToWorldLocation(LocationOnSpline, ESplineCoordinateSpace::World);
+		ControlledPawn->AddMovementInput(Direction);
+		
+		const float DistanceToDestination = (LocationOnSpline - CachedDestination).Length();
+		if (DistanceToDestination <= AutoRunAcceptanceRadius)
+		{
+			bAutoRunning = false;
+		}
+	}
 }
 
 void AAura_PlayerController::BeginPlay()
@@ -79,7 +100,8 @@ void AAura_PlayerController::CursorTrace()
 	LastFrameActor = ThisFrameActor;
 	ThisFrameActor = CursorHit.GetActor();
 
-	/* *Line Trace From Cursor, there are several scenarios
+	/* 
+	 * Line Trace From Cursor, there are several scenarios
 	 * A. LastFrameActor is null, and ThisFrameActor is null
 	 *		-> Do Nothing, empty else case
 	 * B. LastFrameActor is null, and ThisFrameActor is valid
@@ -157,8 +179,46 @@ void AAura_PlayerController::AbilityInputTagPressed(FGameplayTag InputTag)
 
 void AAura_PlayerController::AbilityInputTagReleased(FGameplayTag InputTag)
 {
-	if (GetAuraAsc() == nullptr) return;
-	GetAuraAsc()->AbilityInputTagReleased(InputTag);
+	if (!InputTag.MatchesTagExact(FAura_GameplayTags::Get().InputTag_LMB)) 
+	{
+		if (GetAuraAsc())
+		{
+			GetAuraAsc()->AbilityInputTagReleased(InputTag);
+		}
+		return;
+	}
+	
+	if (bTargeting)
+	{
+		if (GetAuraAsc())
+		{
+			GetAuraAsc()->AbilityInputTagReleased(InputTag);
+		}
+	}
+	else /*AutoRunning Behavior with short press based on FollowTime*/
+	{
+		APawn* ControlledPawn = GetPawn();
+		if (FollowTime <= ShortPressThreshold && ControlledPawn)
+		{
+			if (UNavigationPath* NavPath = UNavigationSystemV1::FindPathToLocationSynchronously
+                			(this, ControlledPawn->GetActorLocation(), CachedDestination))
+			{
+				Spline->ClearSplinePoints();
+				for (const auto& PointLoc : NavPath->PathPoints)
+				{
+					Spline->AddSplinePoint(PointLoc, ESplineCoordinateSpace::World);
+					DrawDebugSphere(GetWorld(), PointLoc, 10.f, 10, FColor::Blue, false, 3.f);
+				}
+				// CachedDestination = NavPath->PathPoints[NavPath->PathPoints.Num() - 1];
+				// CachedDestination =  NavPath->PathPoints.IsEmpty()  ? ControlledPawn->GetActorLocation(): NavPath->PathPoints.Last();
+				if( NavPath->PathPoints.Num() > 0) CachedDestination = NavPath->PathPoints[NavPath->PathPoints.Num() - 1];
+				
+				bAutoRunning = true;
+			}
+		}
+		FollowTime = 0.f;
+		bTargeting = false;
+	}
 }
 
 void AAura_PlayerController::AbilityInputTagHeld(FGameplayTag InputTag)
@@ -181,7 +241,7 @@ void AAura_PlayerController::AbilityInputTagHeld(FGameplayTag InputTag)
 			GetAuraAsc()->AbilityInputTagHeld(InputTag);
 		}
 	}
-	else /*Hold Click To Move*/
+	else /*Click and Hold To Move*/
 	{
 		FollowTime += GetWorld()->GetDeltaSeconds();
 		FHitResult Hit;
