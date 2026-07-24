@@ -8,7 +8,7 @@
 void UAura_AbilitySystemComponent::AbilityActorInfoSet()
 {
 	// bind callbacks to delegate after the InitAbilityActorInfo()
-	OnGameplayEffectAppliedDelegateToSelf.AddUObject(this, &UAura_AbilitySystemComponent::EffectApplied);
+	OnGameplayEffectAppliedDelegateToSelf.AddUObject(this, &UAura_AbilitySystemComponent::ClientEffectApplied);
 }
 
 void UAura_AbilitySystemComponent::GiveCharacterAbilities(
@@ -53,7 +53,7 @@ void UAura_AbilitySystemComponent::AbilityInputTagReleased(const FGameplayTag& I
 	}
 }
 
-void UAura_AbilitySystemComponent::EffectApplied(UAbilitySystemComponent* AbilitySystemComponent,
+void UAura_AbilitySystemComponent::ClientEffectApplied_Implementation(UAbilitySystemComponent* AbilitySystemComponent,
                                                  const FGameplayEffectSpec& EffectSpec, FActiveGameplayEffectHandle ActiveEffectHandle)
 {
 	FGameplayTagContainer TagContainer;

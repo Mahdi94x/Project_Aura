@@ -27,7 +27,8 @@ public:
 	FEffectAssetTags EffectAssetTags;
 	
 protected:
-	void EffectApplied /*The Callback Function*/
+	UFUNCTION(Client, Reliable)
+	void ClientEffectApplied /*The Callback Function*/
 	(UAbilitySystemComponent* AbilitySystemComponent, const FGameplayEffectSpec& EffectSpec, FActiveGameplayEffectHandle ActiveEffectHandle);
 	
 };

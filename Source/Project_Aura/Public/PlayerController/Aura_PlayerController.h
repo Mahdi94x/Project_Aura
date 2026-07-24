@@ -46,6 +46,7 @@ private:
 
 	TScriptInterface<IHighlightInterface> LastFrameActor;
 	TScriptInterface<IHighlightInterface> ThisFrameActor;
+	FHitResult CursorHit;
 	
 	UPROPERTY(EditDefaultsOnly, Category = "Aura|Input")
 	TObjectPtr<UAura_InputConfig> InputConfigDataAsset;
