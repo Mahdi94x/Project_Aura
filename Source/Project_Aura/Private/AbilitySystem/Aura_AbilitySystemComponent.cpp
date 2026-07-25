@@ -11,6 +11,14 @@ void UAura_AbilitySystemComponent::AbilityActorInfoSet()
 	OnGameplayEffectAppliedDelegateToSelf.AddUObject(this, &UAura_AbilitySystemComponent::ClientEffectApplied);
 }
 
+void UAura_AbilitySystemComponent::ClientEffectApplied_Implementation(UAbilitySystemComponent* AbilitySystemComponent,
+												 const FGameplayEffectSpec& EffectSpec, FActiveGameplayEffectHandle ActiveEffectHandle)
+{
+	FGameplayTagContainer TagContainer;
+	EffectSpec.GetAllAssetTags(TagContainer);
+	EffectAssetTags.Broadcast(TagContainer);
+}
+
 void UAura_AbilitySystemComponent::GiveCharacterAbilities(
 	const TArray<TSubclassOf<UGameplayAbility>>& StartupAbilities)
 {
@@ -51,12 +59,4 @@ void UAura_AbilitySystemComponent::AbilityInputTagReleased(const FGameplayTag& I
 			AbilitySpecInputReleased(AbilitySpec);
 		}
 	}
-}
-
-void UAura_AbilitySystemComponent::ClientEffectApplied_Implementation(UAbilitySystemComponent* AbilitySystemComponent,
-                                                 const FGameplayEffectSpec& EffectSpec, FActiveGameplayEffectHandle ActiveEffectHandle)
-{
-	FGameplayTagContainer TagContainer;
-	EffectSpec.GetAllAssetTags(TagContainer);
-	EffectAssetTags.Broadcast(TagContainer);
 }
