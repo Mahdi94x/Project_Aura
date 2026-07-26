@@ -20,8 +20,12 @@ class PROJECT_AURA_API AAura_BaseCharacter : public ACharacter, public IAbilityS
 
 public:
 	AAura_BaseCharacter();
-	virtual int32 GetCharacterLevel() override;
 	virtual void BeginPlay() override;
+	
+	/* ~Begin ICombatInterface*/
+	virtual int32 GetCharacterLevel() override;
+	virtual FVector GetCombatSocketLocation() override;
+	/* ~End ICombatInterface*/
 	
 protected:
 	virtual void InitializeAbilityActorInfo();
@@ -31,6 +35,9 @@ protected:
 	
 	UPROPERTY(EditAnywhere, Category = "Aura|Combat")
 	TObjectPtr<USkeletalMeshComponent> Weapon;
+	
+	UPROPERTY(EditAnywhere, Category = "Aura|Combat")
+	FName WeaponTipSocketName;
 
 	UPROPERTY()
 	TObjectPtr<UAbilitySystemComponent> AbilitySystemComponent;
