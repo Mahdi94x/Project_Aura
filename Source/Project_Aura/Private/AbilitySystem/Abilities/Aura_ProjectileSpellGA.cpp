@@ -13,10 +13,14 @@ void UAura_ProjectileSpellGA::ActivateAbility(const FGameplayAbilitySpecHandle H
 {
 	Super::ActivateAbility(Handle, ActorInfo, ActivationInfo, TriggerEventData);
 	
-	const bool bIsServer = HasAuthority(&ActivationInfo);
+}
+
+void UAura_ProjectileSpellGA::SpawnProjectile() const
+{
+	const bool bIsServer = GetAvatarActorFromActorInfo()->HasAuthority();
 	if (!bIsServer) return;
-	checkf(ProjectileClass, TEXT("Set the ProjectileClass in the GameplayAbility Details Panel"));
 	
+	checkf(ProjectileClass, TEXT("Set the ProjectileClass in the GameplayAbility Details Panel"));
 	if (const TScriptInterface<ICombatInterface> CombatInterface = GetAvatarActorFromActorInfo())
 	{
 		FTransform SpawnTransform;
@@ -32,6 +36,4 @@ void UAura_ProjectileSpellGA::ActivateAbility(const FGameplayAbilitySpecHandle H
 		// TODO: grant the projectile class GE or GE Spec to cause Damage
 		Projectile->FinishSpawning(SpawnTransform);
 	}
-	
-	
 }
