@@ -15,7 +15,7 @@ void UAura_ProjectileSpellGA::ActivateAbility(const FGameplayAbilitySpecHandle H
 	
 }
 
-void UAura_ProjectileSpellGA::SpawnProjectile() const
+void UAura_ProjectileSpellGA::SpawnProjectile(const FVector& ProjectileTargetLocation)
 {
 	const bool bIsServer = GetAvatarActorFromActorInfo()->HasAuthority();
 	if (!bIsServer) return;
@@ -25,7 +25,10 @@ void UAura_ProjectileSpellGA::SpawnProjectile() const
 	{
 		FTransform SpawnTransform;
 		SpawnTransform.SetLocation(CombatInterface->GetCombatSocketLocation());
-		// TODO: Adjust the Projectile Rotation
+		FRotator Rotation = (ProjectileTargetLocation - CombatInterface->GetCombatSocketLocation()).Rotation();
+		Rotation.Pitch = 0.f;
+		SpawnTransform.SetRotation(Rotation.Quaternion());
+		
 		AAura_ProjectileActor* Projectile = GetWorld()->SpawnActorDeferred<AAura_ProjectileActor>
 		(ProjectileClass,
 		SpawnTransform,
@@ -33,6 +36,7 @@ void UAura_ProjectileSpellGA::SpawnProjectile() const
 		Cast<APawn>(GetOwningActorFromActorInfo()),
 		ESpawnActorCollisionHandlingMethod::AlwaysSpawn
 		);
+		
 		// TODO: grant the projectile class GE or GE Spec to cause Damage
 		Projectile->FinishSpawning(SpawnTransform);
 	}

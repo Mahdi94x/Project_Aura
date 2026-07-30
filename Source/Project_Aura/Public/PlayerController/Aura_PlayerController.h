@@ -29,6 +29,9 @@ protected:
 
 private:
 	void AuraMove (const FInputActionValue& InputActionValue);
+	bool bIsShiftKeyDown = false;
+	void ShiftPressed(){ bIsShiftKeyDown = true; };
+	void ShiftReleased() { bIsShiftKeyDown = false; }
 	void CursorTrace();
 	UAura_AbilitySystemComponent* GetAuraAsc();
 	void AutoRun();
@@ -43,6 +46,9 @@ private:
 
 	UPROPERTY(EditAnywhere, Category = "Aura|Input")
 	TObjectPtr<UInputAction> AuraMoveAction;
+	
+	UPROPERTY(EditAnywhere, Category = "Aura|Input")
+	TObjectPtr<UInputAction> AuraShiftAction;
 
 	TScriptInterface<IHighlightInterface> LastFrameActor;
 	TScriptInterface<IHighlightInterface> ThisFrameActor;

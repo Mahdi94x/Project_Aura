@@ -25,7 +25,8 @@ void UTargetDataUnderMouse::Activate()
 			.AddUObject(this, &ThisClass::OnTargetDataReplicatedCallBack);
 		
 		/*In case that we missed the delegate*/
-		const bool bCalledDelegate = AbilitySystemComponent.Get()->CallReplicatedTargetDataDelegatesIfSet(GetAbilitySpecHandle(),GetActivationPredictionKey());
+		const bool bCalledDelegate = 
+			AbilitySystemComponent.Get()->CallReplicatedTargetDataDelegatesIfSet(GetAbilitySpecHandle(),GetActivationPredictionKey());
 		
 		if (!bCalledDelegate)
 		{
