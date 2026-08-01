@@ -30,7 +30,7 @@ protected:
 private:
 	void AuraMove (const FInputActionValue& InputActionValue);
 	bool bIsShiftKeyDown = false;
-	void ShiftPressed(){ bIsShiftKeyDown = true; };
+	void ShiftPressed(){ bIsShiftKeyDown = true; }
 	void ShiftReleased() { bIsShiftKeyDown = false; }
 	void CursorTrace();
 	UAura_AbilitySystemComponent* GetAuraAsc();

@@ -6,8 +6,10 @@
 #include "GameFramework/Actor.h"
 #include "Aura_ProjectileActor.generated.h"
 
+class UNiagaraSystem;
 class UProjectileMovementComponent;
 class USphereComponent;
+class UAudioComponent;
 
 UCLASS()
 class PROJECT_AURA_API AAura_ProjectileActor : public AActor
@@ -19,6 +21,8 @@ public:
 	
 	UPROPERTY(VisibleAnywhere)
 	TObjectPtr<UProjectileMovementComponent> ProjectileMovement;
+	
+	virtual void Destroyed() override;
 
 protected:
 	virtual void BeginPlay() override;
@@ -29,4 +33,21 @@ protected:
 private:
 	UPROPERTY(VisibleAnywhere)
 	TObjectPtr<USphereComponent> SphereOverlap;
+	
+	UPROPERTY(EditAnywhere, Category="Aura|Impact")
+	TObjectPtr<UNiagaraSystem> ImpactEffect;
+	
+	UPROPERTY(EditAnywhere, Category="Aura|Impact")
+	TObjectPtr<USoundBase> ImpactSound;
+	
+	UPROPERTY() /*Do not live on an Actor*/
+	TObjectPtr<UAudioComponent> LoopingSoundComponent; 
+	
+	UPROPERTY(EditAnywhere, Category="Aura|Impact")
+	TObjectPtr<USoundBase> LoopingSound;
+	
+	UPROPERTY(EditDefaultsOnly, Category="Aura|Impact")
+	float LifeSpan = 15.f;
+	
+	bool bHit = false;
 };

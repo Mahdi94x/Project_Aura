@@ -2,8 +2,12 @@
 
 
 #include "Actor/Aura_ProjectileActor.h"
+#include "NiagaraFunctionLibrary.h"
 #include "Components/SphereComponent.h"
 #include "GameFramework/ProjectileMovementComponent.h"
+#include "Components/AudioComponent.h"
+#include "Kismet/GameplayStatics.h"
+#include "Project_Aura/Project_Aura.h"
 
 
 AAura_ProjectileActor::AAura_ProjectileActor()
@@ -13,6 +17,7 @@ AAura_ProjectileActor::AAura_ProjectileActor()
 	
 	SphereOverlap = CreateDefaultSubobject<USphereComponent>("Sphere");
 	SetRootComponent(SphereOverlap);
+	SphereOverlap->SetCollisionObjectType(ECC_Projectile);
 	SphereOverlap->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
 	SphereOverlap->SetCollisionResponseToAllChannels(ECR_Ignore);
 	SphereOverlap->SetCollisionResponseToChannel(ECC_Pawn, ECR_Overlap);
@@ -26,16 +31,40 @@ AAura_ProjectileActor::AAura_ProjectileActor()
 	
 }
 
+void AAura_ProjectileActor::Destroyed()
+{
+	if (!bHit && !HasAuthority())
+	{
+		LoopingSoundComponent->Stop();
+		UGameplayStatics::PlaySoundAtLocation(this, ImpactSound, GetActorLocation(), FRotator::ZeroRotator);
+		UNiagaraFunctionLibrary::SpawnSystemAtLocation(this, ImpactEffect, GetActorLocation());
+	}
+	Super::Destroyed();
+}
+
 void AAura_ProjectileActor::BeginPlay()
 {
 	Super::BeginPlay();
+	SetLifeSpan(LifeSpan);
 	SphereOverlap->OnComponentBeginOverlap.AddDynamic(this, &ThisClass::OnSphereOverlap);
+	LoopingSoundComponent = UGameplayStatics::SpawnSoundAttached(LoopingSound, GetRootComponent());
 }
 
 void AAura_ProjectileActor::OnSphereOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
 	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
+	LoopingSoundComponent->Stop();
+	UGameplayStatics::PlaySoundAtLocation(this, ImpactSound, GetActorLocation(), FRotator::ZeroRotator);
+	UNiagaraFunctionLibrary::SpawnSystemAtLocation(this, ImpactEffect, GetActorLocation());
 	
+	if (HasAuthority())
+	{
+		Destroy();
+	}
+	else
+	{
+		bHit = true;
+	}
 }
 
 
