@@ -2,6 +2,9 @@
 
 
 #include "AbilitySystem/Abilities/Aura_ProjectileSpellGA.h"
+
+#include "AbilitySystemBlueprintLibrary.h"
+#include "AbilitySystemComponent.h"
 #include "Actor/Aura_ProjectileActor.h"
 #include "Interaction/CombatInterface.h"
 
@@ -37,7 +40,10 @@ void UAura_ProjectileSpellGA::SpawnProjectile(const FVector& ProjectileTargetLoc
 		ESpawnActorCollisionHandlingMethod::AlwaysSpawn
 		);
 		
-		// TODO: grant the projectile class GE or GE Spec to cause Damage
+		checkf(DamageEffectClass, TEXT("Set the DamageEffectClass in the GameplayAbility Details Panel"));
+		const UAbilitySystemComponent* SourceAsc = UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(GetAvatarActorFromActorInfo());
+		Projectile->DamageEffectSpecHandle = SourceAsc->MakeOutgoingSpec(DamageEffectClass, GetAbilityLevel(), SourceAsc->MakeEffectContext());
+		
 		Projectile->FinishSpawning(SpawnTransform);
 	}
 }

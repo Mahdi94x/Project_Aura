@@ -45,6 +45,6 @@ void AAura_EnemyCharacter::BeginPlay()
 void AAura_EnemyCharacter::InitializeAbilityActorInfo()
 {
 	AbilitySystemComponent->InitAbilityActorInfo(this,this);
-	/*to bind the delegates of the gameplay effect - the character class depend on the ASC class but not vice versa*/
 	Cast<UAura_AbilitySystemComponent>(AbilitySystemComponent)->AbilityActorInfoSet();
+	InitializeDefaultAttributes();
 }

@@ -3,9 +3,11 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "GameplayEffectTypes.h"
 #include "GameFramework/Actor.h"
 #include "Aura_ProjectileActor.generated.h"
 
+struct FGameplayEffectSpecHandle;
 class UNiagaraSystem;
 class UProjectileMovementComponent;
 class USphereComponent;
@@ -23,6 +25,9 @@ public:
 	TObjectPtr<UProjectileMovementComponent> ProjectileMovement;
 	
 	virtual void Destroyed() override;
+	
+	UPROPERTY(BlueprintReadWrite, meta = (ExposeOnSpawn = true), Category="Aura|ProjectileActor")
+	FGameplayEffectSpecHandle DamageEffectSpecHandle;
 
 protected:
 	virtual void BeginPlay() override;
@@ -34,19 +39,19 @@ private:
 	UPROPERTY(VisibleAnywhere)
 	TObjectPtr<USphereComponent> SphereOverlap;
 	
-	UPROPERTY(EditAnywhere, Category="Aura|Impact")
+	UPROPERTY(EditAnywhere, Category="Aura|ProjectileActor")
+	TObjectPtr<USoundBase> LoopSound;
+	
+	UPROPERTY(EditAnywhere, Category="Aura|ProjectileActor")
 	TObjectPtr<UNiagaraSystem> ImpactEffect;
 	
-	UPROPERTY(EditAnywhere, Category="Aura|Impact")
+	UPROPERTY(EditAnywhere, Category="Aura|ProjectileActor")
 	TObjectPtr<USoundBase> ImpactSound;
 	
-	UPROPERTY() /*Do not live on an Actor*/
+	UPROPERTY(VisibleAnywhere)
 	TObjectPtr<UAudioComponent> LoopingSoundComponent; 
 	
-	UPROPERTY(EditAnywhere, Category="Aura|Impact")
-	TObjectPtr<USoundBase> LoopingSound;
-	
-	UPROPERTY(EditDefaultsOnly, Category="Aura|Impact")
+	UPROPERTY(EditDefaultsOnly, Category="Aura|ProjectileActor")
 	float LifeSpan = 15.f;
 	
 	bool bHit = false;
