@@ -3,7 +3,9 @@
 #include "Characters/Aura_EnemyCharacter.h"
 #include "AbilitySystem/Aura_AbilitySystemComponent.h"
 #include "AbilitySystem/Aura_AttributeSet.h"
+#include "Components/WidgetComponent.h"
 #include "Project_Aura/Project_Aura.h"
+#include "UI/Widget/Aura_UserWidget.h"
 
 AAura_EnemyCharacter::AAura_EnemyCharacter()
 {
@@ -14,6 +16,9 @@ AAura_EnemyCharacter::AAura_EnemyCharacter()
 	AbilitySystemComponent->SetIsReplicated(true);
 	AbilitySystemComponent->SetReplicationMode(EGameplayEffectReplicationMode::Minimal);
 	AttributeSet = CreateDefaultSubobject<UAura_AttributeSet>("EnemyAttributeSet");
+	
+	HealthBar = CreateDefaultSubobject<UWidgetComponent>("HealthBar");
+	HealthBar->SetupAttachment(GetRootComponent());
 }
 
 void AAura_EnemyCharacter::HighlightActor()
@@ -40,6 +45,7 @@ void AAura_EnemyCharacter::BeginPlay()
 {
 	Super::BeginPlay();
 	InitializeAbilityActorInfo();
+	EnemyHealthBarUtilFunc();
 }
 
 void AAura_EnemyCharacter::InitializeAbilityActorInfo()
@@ -47,4 +53,30 @@ void AAura_EnemyCharacter::InitializeAbilityActorInfo()
 	AbilitySystemComponent->InitAbilityActorInfo(this,this);
 	Cast<UAura_AbilitySystemComponent>(AbilitySystemComponent)->AbilityActorInfoSet();
 	InitializeDefaultAttributes();
+}
+
+void AAura_EnemyCharacter::EnemyHealthBarUtilFunc()
+{
+	if (UAura_UserWidget* AuraUserWidget = Cast<UAura_UserWidget>(HealthBar->GetUserWidgetObject()))
+	{
+		AuraUserWidget->SetWidgetController(this);
+	}
+	
+	if (const UAura_AttributeSet* AuraAttributeSet = Cast<UAura_AttributeSet>(AttributeSet))
+	{
+		AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(AuraAttributeSet->GetHealthAttribute()).AddLambda(
+			[this](const FOnAttributeChangeData& Data)
+			{
+				OnHealthChanged.Broadcast(Data.NewValue);
+			});
+		
+		AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(AuraAttributeSet->GetMaxHealthAttribute()).AddLambda(
+			[this](const FOnAttributeChangeData& Data)
+			{
+				OnMaxHealthChanged.Broadcast(Data.NewValue);
+			});
+		
+		OnHealthChanged.Broadcast(AuraAttributeSet->GetHealth());
+		OnMaxHealthChanged.Broadcast(AuraAttributeSet->GetMaxHealth());
+	}
 }
