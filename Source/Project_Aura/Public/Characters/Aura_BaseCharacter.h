@@ -30,7 +30,7 @@ public:
 protected:
 	virtual void InitializeAbilityActorInfo();
 	void ApplyEffectToSelf(TSubclassOf<UGameplayEffect> GameplayEffectClass, float Level) const;
-	void InitializeDefaultAttributes() const;
+	virtual void InitializeDefaultAttributes() const;
 	virtual void AddCharacterAbilities();
 	
 	UPROPERTY(EditAnywhere, Category = "Aura|Combat")

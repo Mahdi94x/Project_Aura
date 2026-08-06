@@ -6,6 +6,7 @@
 #include "Characters/Aura_BaseCharacter.h"
 #include "Interaction/HighlightInterface.h"
 #include "UI/WidgetController/OverlayWidgetController.h"
+#include "AbilitySystem/Data/CharacterClassInfo.h"
 #include "Aura_EnemyCharacter.generated.h"
 
 class UWidgetComponent;
@@ -35,9 +36,13 @@ public:
 
 protected:
 	virtual void InitializeAbilityActorInfo() override;
+	virtual void InitializeDefaultAttributes() const override;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Aura|CharacterClassDefaults")
 	int32 Level = 1;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Aura|CharacterClassDefaults")
+	ECharacterClass CharacterClass = ECharacterClass::None;
 	
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	TObjectPtr<UWidgetComponent> HealthBar;
