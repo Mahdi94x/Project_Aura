@@ -168,7 +168,11 @@ public:
 	UPROPERTY(ReplicatedUsing = OnRep_ManaRegeneration, BlueprintReadOnly, Category = "Aura|SecondaryAttributes")
 	FGameplayAttributeData ManaRegeneration;
 	ATTRIBUTE_ACCESSORS(UAura_AttributeSet, ManaRegeneration)
-
+	
+	// Meta-Attributes
+	UPROPERTY(BlueprintReadOnly, Category = "Aura|MetaAttributes")
+	FGameplayAttributeData IncomingDamage;
+	ATTRIBUTE_ACCESSORS(UAura_AttributeSet, IncomingDamage)
 private:
 	void SetEffectProperties(const FGameplayEffectModCallbackData& Data, FEffectProperties& OutProps) const;
 };

@@ -122,6 +122,22 @@ void UAura_AttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCallb
 	{
 		SetMana(FMath::Clamp(GetMana(),0,GetMaxMana()));
 	}
+	
+	if (Data.EvaluatedData.Attribute == GetIncomingDamageAttribute())
+	{
+		const float LocalIncomingDamage = GetIncomingDamage();
+		SetIncomingDamage(0.f);
+		if (LocalIncomingDamage > 0.f)
+		{
+			const float NewHealth = GetHealth() - LocalIncomingDamage;
+			SetHealth(FMath::Clamp(NewHealth,0,GetMaxHealth()));
+			
+			if (const bool bFatal = NewHealth <= 0.f)
+			{
+				GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, FString::Printf(TEXT("Health is now 0. Fatality!")));
+			}
+		}
+	}
 }
 
 // Primary Attributes
