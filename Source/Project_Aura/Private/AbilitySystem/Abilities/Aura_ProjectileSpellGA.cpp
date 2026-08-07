@@ -5,6 +5,7 @@
 
 #include "AbilitySystemBlueprintLibrary.h"
 #include "AbilitySystemComponent.h"
+#include "Aura_GameplayTags.h"
 #include "Actor/Aura_ProjectileActor.h"
 #include "Interaction/CombatInterface.h"
 
@@ -40,9 +41,14 @@ void UAura_ProjectileSpellGA::SpawnProjectile(const FVector& ProjectileTargetLoc
 		ESpawnActorCollisionHandlingMethod::AlwaysSpawn
 		);
 		
-		checkf(DamageEffectClass, TEXT("Set the DamageEffectClass in the GameplayAbility Details Panel"));
 		const UAbilitySystemComponent* SourceAsc = UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(GetAvatarActorFromActorInfo());
-		Projectile->DamageEffectSpecHandle = SourceAsc->MakeOutgoingSpec(DamageEffectClass, GetAbilityLevel(), SourceAsc->MakeEffectContext());
+		const FGameplayEffectSpecHandle SpecHandle = SourceAsc->MakeOutgoingSpec(DamageEffectClass, GetAbilityLevel(), SourceAsc->MakeEffectContext());
+		
+		const float ScaledDamage = Damage.GetValueAtLevel(GetAbilityLevel()); /*How to change ability level based on character level ?!*/
+		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, FString::Printf(TEXT("Damage: %f"), ScaledDamage));
+		UAbilitySystemBlueprintLibrary::AssignTagSetByCallerMagnitude(SpecHandle,FAura_GameplayTags::Get().Damage, ScaledDamage);
+		
+		Projectile->DamageEffectSpecHandle = SpecHandle;
 		
 		Projectile->FinishSpawning(SpawnTransform);
 	}

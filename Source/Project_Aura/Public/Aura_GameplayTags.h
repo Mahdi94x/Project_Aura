@@ -39,7 +39,10 @@ struct FAura_GameplayTags
 	FGameplayTag InputTag_2;
 	FGameplayTag InputTag_3;
 	FGameplayTag InputTag_4;
-
+	
+	/*SetByCaller*/
+	FGameplayTag Damage;
+	
 private:
 	static FAura_GameplayTags GameplayTags;
 };
