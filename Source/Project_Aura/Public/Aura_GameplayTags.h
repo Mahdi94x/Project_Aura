@@ -43,6 +43,9 @@ struct FAura_GameplayTags
 	/*SetByCaller*/
 	FGameplayTag Damage;
 	
+	/*Effects*/
+	FGameplayTag HitReact;
+	
 private:
 	static FAura_GameplayTags GameplayTags;
 };

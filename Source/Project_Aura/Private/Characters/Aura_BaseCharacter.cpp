@@ -33,6 +33,11 @@ FVector AAura_BaseCharacter::GetCombatSocketLocation()
 	return Weapon->GetSocketLocation(WeaponTipSocketName);
 }
 
+UAnimMontage* AAura_BaseCharacter::GetHitReactMontage_Implementation()
+{
+	return this->HitReactMontage;
+}
+
 void AAura_BaseCharacter::InitializeAbilityActorInfo()
 {
 	

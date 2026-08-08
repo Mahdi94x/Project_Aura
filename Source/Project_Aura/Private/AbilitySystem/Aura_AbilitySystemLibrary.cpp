@@ -53,17 +53,33 @@ void UAura_AbilitySystemLibrary::InitializeDefaultAttributes(const UObject* Worl
 	
 	FGameplayEffectContextHandle PrimaryContext = Asc->MakeEffectContext();
 	PrimaryContext.AddSourceObject(AvatarActor);
-	const FGameplayEffectSpecHandle PrimarySpec = Asc->MakeOutgoingSpec(ClassDefaultInfoStruct.PrimaryAttributes, Level, PrimaryContext);
+	const FGameplayEffectSpecHandle PrimarySpec = Asc->MakeOutgoingSpec(ClassDefaultInfoStruct.PrimaryAttributesEffect, Level, PrimaryContext);
 	Asc->ApplyGameplayEffectSpecToSelf(*PrimarySpec.Data.Get());
 	
 	FGameplayEffectContextHandle SecondaryContext = Asc->MakeEffectContext();
 	SecondaryContext.AddSourceObject(AvatarActor);
-	const FGameplayEffectSpecHandle SecondarySpec = Asc->MakeOutgoingSpec(ClassInfoDa->SecondaryAttributes, Level, SecondaryContext);
+	const FGameplayEffectSpecHandle SecondarySpec = Asc->MakeOutgoingSpec(ClassInfoDa->SecondaryAttributesEffect, Level, SecondaryContext);
 	Asc->ApplyGameplayEffectSpecToSelf(*SecondarySpec.Data.Get());
 	
 	FGameplayEffectContextHandle VitalContext = Asc->MakeEffectContext();
 	VitalContext.AddSourceObject(AvatarActor);
-	const FGameplayEffectSpecHandle VitalSpec = Asc->MakeOutgoingSpec(ClassInfoDa->VitalAttributes, Level, VitalContext);
+	const FGameplayEffectSpecHandle VitalSpec = Asc->MakeOutgoingSpec(ClassInfoDa->VitalAttributesEffect, Level, VitalContext);
 	Asc->ApplyGameplayEffectSpecToSelf(*VitalSpec.Data.Get());
+	
+}
+
+void UAura_AbilitySystemLibrary::AddCharacterAbilities(const UObject* WorldContextObject, UAbilitySystemComponent* Asc)
+{
+	const AAura_GameModeBase* AuraGameMode = Cast<AAura_GameModeBase>(UGameplayStatics::GetGameMode(WorldContextObject));
+	if (AuraGameMode == nullptr) return;
+	
+	if (UCharacterClassInfo* ClassInfoDa = AuraGameMode->CharacterClassInfo)
+	{
+		for (const TSubclassOf<UGameplayAbility> AbilityClass : ClassInfoDa->CommonAbilities)
+		{
+			FGameplayAbilitySpec AbilitySpec =  FGameplayAbilitySpec(AbilityClass,1);
+			Asc->GiveAbility(AbilitySpec);
+		}
+	}
 	
 }

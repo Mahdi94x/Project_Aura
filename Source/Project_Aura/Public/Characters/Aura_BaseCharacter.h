@@ -25,6 +25,7 @@ public:
 	/* ~Begin ICombatInterface*/
 	virtual int32 GetCharacterLevel() override;
 	virtual FVector GetCombatSocketLocation() override;
+	virtual UAnimMontage* GetHitReactMontage_Implementation() override;
 	/* ~End ICombatInterface*/
 	
 protected:
@@ -61,5 +62,8 @@ public: /*Setters and Getters*/
 private:
 	UPROPERTY(EditAnywhere, Category = "Aura|Abilities")
 	TArray<TSubclassOf<UGameplayAbility>> StartupAbilitiesArray;
+	
+	UPROPERTY(EditAnywhere, Category = "Aura|Combat")
+	TObjectPtr<UAnimMontage> HitReactMontage;
 	
 };

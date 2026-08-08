@@ -15,15 +15,23 @@ UCLASS()
 class PROJECT_AURA_API AAura_EnemyCharacter : public AAura_BaseCharacter, public IHighlightInterface
 {
 	GENERATED_BODY()
+	
 public:
 	AAura_EnemyCharacter();
 	virtual void BeginPlay() override;
+	void HitReactTagChanged(const FGameplayTag CallbackTag, int32 NewCount);
 	
 	UPROPERTY(BlueprintAssignable, Category="Aura|Attributes")
 	FOnAttributeChangedSignature OnHealthChanged;
 	
 	UPROPERTY(BlueprintAssignable, Category="Aura|Attributes")
 	FOnAttributeChangedSignature OnMaxHealthChanged;
+	
+	UPROPERTY(BlueprintReadOnly, Category = "Aura|Combat")
+	bool bHitReacting = false;
+	
+	UPROPERTY(BlueprintReadOnly, Category = "Aura|Combat")
+	float BaseWalkSpeed = 250.f;
 	
 	// ~ Begin IHighlight Interface
 	virtual void HighlightActor() override;
@@ -49,5 +57,7 @@ protected:
 	
 private:
 	void EnemyHealthBarUtilFunc();
+	
+	
 	
 };

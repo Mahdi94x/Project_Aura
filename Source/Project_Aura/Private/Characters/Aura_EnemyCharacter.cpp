@@ -1,10 +1,13 @@
 // Project by Mahdi94x based on Stephen Ulibarri's create a multiplayer RPG with Unreal Engine's Gameplay Ability System (GAS) Course.
 
 #include "Characters/Aura_EnemyCharacter.h"
+
+#include "Aura_GameplayTags.h"
 #include "AbilitySystem/Aura_AbilitySystemComponent.h"
 #include "AbilitySystem/Aura_AbilitySystemLibrary.h"
 #include "AbilitySystem/Aura_AttributeSet.h"
 #include "Components/WidgetComponent.h"
+#include "GameFramework/CharacterMovementComponent.h"
 #include "Project_Aura/Project_Aura.h"
 #include "UI/Widget/Aura_UserWidget.h"
 
@@ -46,7 +49,20 @@ void AAura_EnemyCharacter::BeginPlay()
 {
 	Super::BeginPlay();
 	InitializeAbilityActorInfo();
+	GetCharacterMovement()->MaxWalkSpeed = BaseWalkSpeed;
+	
+	UAura_AbilitySystemLibrary::AddCharacterAbilities(this, this->AbilitySystemComponent);
+	
 	EnemyHealthBarUtilFunc();
+	
+	AbilitySystemComponent->RegisterGameplayTagEvent(FAura_GameplayTags::Get().HitReact, EGameplayTagEventType::NewOrRemoved)
+		.AddUObject(this, &ThisClass::HitReactTagChanged);
+}
+
+void AAura_EnemyCharacter::HitReactTagChanged(const FGameplayTag CallbackTag, int32 NewCount)
+{
+	bHitReacting = NewCount > 0;
+	GetCharacterMovement()->MaxWalkSpeed = bHitReacting ? 0.f : BaseWalkSpeed;
 }
 
 void AAura_EnemyCharacter::InitializeAbilityActorInfo()
