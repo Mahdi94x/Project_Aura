@@ -26,7 +26,11 @@ public:
 	virtual int32 GetCharacterLevel() override;
 	virtual FVector GetCombatSocketLocation() override;
 	virtual UAnimMontage* GetHitReactMontage_Implementation() override;
+	virtual void Die() override;
 	/* ~End ICombatInterface*/
+	
+	UFUNCTION(netmulticast, Reliable)
+	virtual void MulticastHandleDeath();
 	
 protected:
 	virtual void InitializeAbilityActorInfo();

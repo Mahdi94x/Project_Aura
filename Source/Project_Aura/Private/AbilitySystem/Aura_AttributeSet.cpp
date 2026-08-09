@@ -7,6 +7,7 @@
 #include "GameFramework/Character.h"
 #include "GameplayTagContainer.h"
 #include "Aura_GameplayTags.h"
+#include "Interaction/CombatInterface.h"
 
 UAura_AttributeSet::UAura_AttributeSet()
 {
@@ -135,7 +136,10 @@ void UAura_AttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCallb
 			
 			if (const bool bFatal = NewHealth <= 0.f)
 			{
-				GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, FString::Printf(TEXT("Health is now 0. Fatality!")));
+				if (const TScriptInterface<ICombatInterface> CombatInterface = Props.TargetAvatarActor)
+				{
+					CombatInterface->Die();
+				}
 			}
 			else
 			{

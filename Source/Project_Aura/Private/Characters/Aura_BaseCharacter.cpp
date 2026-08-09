@@ -38,6 +38,27 @@ UAnimMontage* AAura_BaseCharacter::GetHitReactMontage_Implementation()
 	return this->HitReactMontage;
 }
 
+void AAura_BaseCharacter::Die() /*Server*/
+{
+	Weapon->DetachFromComponent(FDetachmentTransformRules(EDetachmentRule::KeepWorld, true));
+	MulticastHandleDeath();
+}
+
+void AAura_BaseCharacter::MulticastHandleDeath_Implementation() /*Client*/
+{
+	Weapon->SetSimulatePhysics(true);
+	Weapon->SetEnableGravity(true);
+	Weapon->SetCollisionEnabled(ECollisionEnabled::PhysicsOnly);
+	
+	GetMesh()->SetSimulatePhysics(true);
+	GetMesh()->SetEnableGravity(true);
+	GetMesh()->SetCollisionEnabled(ECollisionEnabled::PhysicsOnly);
+	GetMesh()->SetCollisionResponseToChannel(ECC_WorldStatic, ECR_Block);
+
+	GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+	
+}
+
 void AAura_BaseCharacter::InitializeAbilityActorInfo()
 {
 	

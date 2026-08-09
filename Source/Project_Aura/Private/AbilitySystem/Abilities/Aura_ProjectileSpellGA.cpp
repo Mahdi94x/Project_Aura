@@ -44,7 +44,7 @@ void UAura_ProjectileSpellGA::SpawnProjectile(const FVector& ProjectileTargetLoc
 		const UAbilitySystemComponent* SourceAsc = UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(GetAvatarActorFromActorInfo());
 		const FGameplayEffectSpecHandle SpecHandle = SourceAsc->MakeOutgoingSpec(DamageEffectClass, GetAbilityLevel(), SourceAsc->MakeEffectContext());
 		
-		const float ScaledDamage = Damage.GetValueAtLevel(GetAbilityLevel()); /*How to change ability level based on character level ?!*/
+		const float ScaledDamage = Damage.GetValueAtLevel(20);
 		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, FString::Printf(TEXT("Damage: %f"), ScaledDamage));
 		UAbilitySystemBlueprintLibrary::AssignTagSetByCallerMagnitude(SpecHandle,FAura_GameplayTags::Get().Damage, ScaledDamage);
 		

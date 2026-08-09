@@ -40,6 +40,7 @@ public:
 
 	// ~ Begin ICombat Interface
 	virtual int32 GetCharacterLevel() override;
+	virtual void Die() override;
 	// ~ End ICombat Interface
 
 protected:
@@ -51,6 +52,9 @@ protected:
 	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Aura|CharacterClassDefaults")
 	ECharacterClass CharacterClass = ECharacterClass::None;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Aura|Combat")
+	float LifeSpan = 5.f;
 	
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	TObjectPtr<UWidgetComponent> HealthBar;
