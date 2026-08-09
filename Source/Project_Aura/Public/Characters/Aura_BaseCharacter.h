@@ -32,6 +32,22 @@ public:
 	UFUNCTION(netmulticast, Reliable)
 	virtual void MulticastHandleDeath();
 	
+	/*Dissolve Effect*/
+	
+	UFUNCTION(BlueprintImplementableEvent)
+	void StartDissolveTimeline(UMaterialInstanceDynamic* DynamicMatInst);
+	
+	UFUNCTION(BlueprintImplementableEvent)
+	void StartWeaponDissolveTimeline(UMaterialInstanceDynamic* WeaponDynamicMatInst);
+	
+	void Dissolve();
+	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Aura|DissolveEffect")
+	TObjectPtr<UMaterialInstance> DissolveMatInst;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Aura|DissolveEffect")
+	TObjectPtr<UMaterialInstance> WeaponDissolveMatInst;
+	
 protected:
 	virtual void InitializeAbilityActorInfo();
 	void ApplyEffectToSelf(TSubclassOf<UGameplayEffect> GameplayEffectClass, float Level) const;

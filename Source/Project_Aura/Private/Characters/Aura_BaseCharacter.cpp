@@ -38,13 +38,13 @@ UAnimMontage* AAura_BaseCharacter::GetHitReactMontage_Implementation()
 	return this->HitReactMontage;
 }
 
-void AAura_BaseCharacter::Die() /*Server*/
+void AAura_BaseCharacter::Die() /*Server Only*/
 {
 	Weapon->DetachFromComponent(FDetachmentTransformRules(EDetachmentRule::KeepWorld, true));
 	MulticastHandleDeath();
 }
 
-void AAura_BaseCharacter::MulticastHandleDeath_Implementation() /*Client*/
+void AAura_BaseCharacter::MulticastHandleDeath_Implementation() /*Client and Server*/
 {
 	Weapon->SetSimulatePhysics(true);
 	Weapon->SetEnableGravity(true);
@@ -56,7 +56,24 @@ void AAura_BaseCharacter::MulticastHandleDeath_Implementation() /*Client*/
 	GetMesh()->SetCollisionResponseToChannel(ECC_WorldStatic, ECR_Block);
 
 	GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+	Dissolve();
+}
+
+void AAura_BaseCharacter::Dissolve()
+{
+	if (IsValid(DissolveMatInst))
+	{
+		UMaterialInstanceDynamic* DynamicMatInst = UMaterialInstanceDynamic::Create(DissolveMatInst, this);
+		GetMesh()->SetMaterial(0, DynamicMatInst);
+		StartDissolveTimeline(DynamicMatInst);
+	}
 	
+	if (IsValid(WeaponDissolveMatInst))
+	{
+		UMaterialInstanceDynamic* WeaponDynamicMatInst = UMaterialInstanceDynamic::Create(WeaponDissolveMatInst, this);
+		Weapon->SetMaterial(0, WeaponDynamicMatInst);
+		StartWeaponDissolveTimeline(WeaponDynamicMatInst);
+	}
 }
 
 void AAura_BaseCharacter::InitializeAbilityActorInfo()
