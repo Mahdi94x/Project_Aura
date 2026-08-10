@@ -9,8 +9,10 @@
 #include "NavigationSystem.h"
 #include "AbilitySystem/Aura_AbilitySystemComponent.h"
 #include "Components/SplineComponent.h"
+#include "GameFramework/Character.h"
 #include "Input/Aura_InputComponent.h"
 #include "Interaction/HighlightInterface.h"
+#include "UI/WidgetComponent/Aura_DamageTextComponent.h"
 
 AAura_PlayerController::AAura_PlayerController()
 {
@@ -23,6 +25,18 @@ void AAura_PlayerController::PlayerTick(float DeltaTime)
 	Super::PlayerTick(DeltaTime);
 	CursorTrace();
 	AutoRun();
+}
+
+void AAura_PlayerController::ShowDamageNumber_Implementation(float DamageAmount, ACharacter* TargetCharacter)
+{
+	if (IsValid(TargetCharacter) && DamageTextComponentClass)
+	{
+		UAura_DamageTextComponent* DamageText = NewObject<UAura_DamageTextComponent>(TargetCharacter, DamageTextComponentClass);
+		DamageText->RegisterComponent();
+		DamageText->AttachToComponent(TargetCharacter->GetRootComponent(),FAttachmentTransformRules::KeepRelativeTransform);
+		DamageText->DetachFromComponent(FDetachmentTransformRules::KeepWorldTransform);
+		DamageText->SetDamageText(DamageAmount);
+	}
 }
 
 void AAura_PlayerController::AutoRun()

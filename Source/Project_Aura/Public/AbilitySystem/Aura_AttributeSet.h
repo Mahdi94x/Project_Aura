@@ -173,6 +173,8 @@ public:
 	UPROPERTY(BlueprintReadOnly, Category = "Aura|MetaAttributes")
 	FGameplayAttributeData IncomingDamage;
 	ATTRIBUTE_ACCESSORS(UAura_AttributeSet, IncomingDamage)
+	
 private:
 	void SetEffectProperties(const FGameplayEffectModCallbackData& Data, FEffectProperties& OutProps) const;
+	void ShowFloatingDamageText(const FEffectProperties& Props, float DamageAmount) const;
 };
