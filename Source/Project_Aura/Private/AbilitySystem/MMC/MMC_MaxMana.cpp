@@ -8,6 +8,7 @@
 
 UMMC_MaxMana::UMMC_MaxMana()
 {
+	// Capture the attribute magnitude value
 	IntelDef.AttributeToCapture = UAura_AttributeSet::GetIntelligenceAttribute();
 	IntelDef.bSnapshot = false;
 	IntelDef.AttributeSource = EGameplayEffectAttributeCaptureSource::Target;
@@ -21,7 +22,7 @@ float UMMC_MaxMana::CalculateBaseMagnitude_Implementation(const FGameplayEffectS
 	const FGameplayTagContainer* SourceTags = Spec.CapturedSourceTags.GetAggregatedTags();
 	const FGameplayTagContainer* TargetTags = Spec.CapturedTargetTags.GetAggregatedTags();
 
-	// Capture the attribute magnitude value
+	// Retrieve the captured attribute in the constructor
 	FAggregatorEvaluateParameters EvaluationParameters;
 	EvaluationParameters.SourceTags = SourceTags;
 	EvaluationParameters.TargetTags = TargetTags;
