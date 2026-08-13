@@ -28,4 +28,7 @@ public:
 	
 	UFUNCTION(BlueprintCallable, Category = "AuraAbilitySystemLibrary|CharacterClassDefaults")
 	static void AddCharacterAbilities(const UObject* WorldContextObject, UAbilitySystemComponent* Asc);
+	
+	UFUNCTION(BlueprintCallable, Category = "AuraAbilitySystemLibrary|CharacterClassDefaults")
+	static UCharacterClassInfo* GetCharacterClassInfoDa(const UObject* WorldContextObject);
 };
