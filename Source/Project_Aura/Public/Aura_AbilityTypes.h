@@ -12,7 +12,10 @@ struct FAura_GameplayEffectContext : public FGameplayEffectContext
 	virtual UScriptStruct* GetScriptStruct() const override;
 	
 	/** Custom serialization, subclasses must override this */
-	virtual bool NetSerialize(FArchive& Ar, class UPackageMap* Map, bool& bOutSuccess) override;
+	virtual bool NetSerialize(FArchive& Ar, UPackageMap* Map, bool& bOutSuccess) override;
+	
+	/** Creates a copy of this context, used to duplicate for later modifications */
+	virtual FAura_GameplayEffectContext* Duplicate() const override;
 	
 	bool GetBlockedHit() const {return bIsBlockedHit;}
 	bool GetCriticalHit() const {return bIsCriticalHit;}
@@ -27,4 +30,14 @@ protected:
 	UPROPERTY()
 	bool bIsCriticalHit = false;
 	
+};
+
+template<>
+struct TStructOpsTypeTraits< FAura_GameplayEffectContext > : TStructOpsTypeTraitsBase2< FAura_GameplayEffectContext >
+{
+	enum
+	{
+		WithNetSerializer = true,
+		WithCopy = true		// Necessary so that TSharedPtr<FHitResult> Data is copied around
+	};
 };
