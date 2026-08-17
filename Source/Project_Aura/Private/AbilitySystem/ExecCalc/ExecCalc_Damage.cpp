@@ -2,6 +2,7 @@
 
 #include "AbilitySystem/ExecCalc/ExecCalc_Damage.h"
 #include "AbilitySystemComponent.h"
+#include "Aura_AbilityTypes.h"
 #include "Aura_GameplayTags.h"
 #include "AbilitySystem/Aura_AbilitySystemLibrary.h"
 #include "AbilitySystem/Aura_AttributeSet.h"
@@ -59,6 +60,7 @@ void UExecCalc_Damage::Execute_Implementation(const FGameplayEffectCustomExecuti
 	TScriptInterface<ICombatInterface> TargetCombatInterface = TargetAvatar;
 	
 	const FGameplayEffectSpec& Spec = ExecutionParams.GetOwningSpec();
+	FGameplayEffectContextHandle EffectContextHandle = Spec.GetContext();
 	
 	const FGameplayTagContainer* SourceTags = Spec.CapturedSourceTags.GetAggregatedTags();
 	const FGameplayTagContainer* TargetTags = Spec.CapturedTargetTags.GetAggregatedTags();
@@ -74,7 +76,10 @@ void UExecCalc_Damage::Execute_Implementation(const FGameplayEffectCustomExecuti
 	float TargetBlockChance = 0.f;
 	ExecutionParams.AttemptCalculateCapturedAttributeMagnitude(GetDamageStatic().BlockChanceDef, EvaluationParameters, TargetBlockChance);
 	TargetBlockChance = FMath::Max<float>(TargetBlockChance, 0.f);
-	if (const bool bBlocked = FMath::RandRange(1 , 100) < TargetBlockChance) Damage *= 0.5f;
+	
+	const bool bBlocked = FMath::RandRange(1 , 100) < TargetBlockChance;
+	UAura_AbilitySystemLibrary::SetIsBlockedHit(EffectContextHandle, bBlocked);
+	Damage = bBlocked ? Damage / 2.f : Damage;
 	
 	/*Capturing TargetArmor and SourceArmorPenetration - Caching Coefficients*/
 	float TargetArmor = 0.f;
@@ -116,6 +121,8 @@ void UExecCalc_Damage::Execute_Implementation(const FGameplayEffectCustomExecuti
 	/*CriticalHitResistance reduces CriticalHitChance by a certain percentage */
 	const float EffectiveCriticalHitChance = SourceCriticalHitChance - TargetCriticalHitResistance * CriticalHitResistanceCoefficient;
 	const bool bCriticalHit = FMath::RandRange(1 , 100) < EffectiveCriticalHitChance;
+	UAura_AbilitySystemLibrary::SetIsCriticalHit(EffectContextHandle, bCriticalHit);
+	
 	/*Double the damage plus a bonus if critical hit*/
 	Damage = bCriticalHit ? (Damage * 2) + SourceCriticalHitDamage : Damage;
 
