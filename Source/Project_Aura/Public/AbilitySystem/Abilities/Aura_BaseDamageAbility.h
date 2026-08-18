@@ -6,14 +6,16 @@
 #include "Aura_BaseAbility.h"
 #include "Aura_BaseDamageAbility.generated.h"
 
-/**
- * 
- */
 UCLASS()
 class PROJECT_AURA_API UAura_BaseDamageAbility : public UAura_BaseAbility
 {
 	GENERATED_BODY()
+	
 public:
+	
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Aura|Damage")
+	TSubclassOf<UGameplayEffect> DamageEffectClass;
+	
 	UPROPERTY(EditDefaultsOnly, Category = "Aura|Damage")
-	FScalableFloat Damage;
+	TMap<FGameplayTag, FScalableFloat> DamageTypesMap;
 };

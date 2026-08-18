@@ -24,7 +24,6 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Aura|ProjectileSpell")
 	TSubclassOf<AAura_ProjectileActor> ProjectileClass;
 	
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Aura|ProjectileSpell")
-	TSubclassOf<UGameplayEffect> DamageEffectClass;
+
 	
 };

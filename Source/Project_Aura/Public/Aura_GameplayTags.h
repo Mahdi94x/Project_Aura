@@ -40,11 +40,23 @@ struct FAura_GameplayTags
 	FGameplayTag InputTag_3;
 	FGameplayTag InputTag_4;
 	
-	/*SetByCaller*/
-	FGameplayTag Damage;
+	/*DamageTypes*/
+	FGameplayTag Damage_Fire;
+	FGameplayTag Damage_Arcane;
+	FGameplayTag Damage_Lightning;
+	FGameplayTag Damage_Physical;
 	
-	/*Effects*/
+	/*Resistances (Extend to SecondaryAttributes)*/
+	FGameplayTag Attributes_Secondary_FireResistance;
+	FGameplayTag Attributes_Secondary_ArcaneResistance;
+	FGameplayTag Attributes_Secondary_LightningResistance;
+	FGameplayTag Attributes_Secondary_PhysicalResistance;
+	
+	/*Tags for Abilities*/
 	FGameplayTag HitReact;
+	
+	/*DamageTypes Tags*/
+	TMap<FGameplayTag, FGameplayTag> DamageToResistancesTagsMap;
 	
 private:
 	static FAura_GameplayTags GameplayTags;

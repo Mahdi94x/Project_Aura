@@ -9,7 +9,9 @@ void FAura_GameplayTags::InitializeNativeGameplayTags()
 {
 	UGameplayTagsManager& TagsManager = UGameplayTagsManager::Get();
 	
-	 // Primary Attributes
+	 /*
+	  *Primary Attributes
+	  */
 	GameplayTags.Attributes_Primary_Strength =
 	    TagsManager.AddNativeGameplayTag(
 		FName("Attributes.Primary.Strength"),
@@ -34,7 +36,9 @@ void FAura_GameplayTags::InitializeNativeGameplayTags()
 			FString("Increases health")
 		);
 	
-	// Secondary Attributes
+	/*
+	 *Secondary Attributes
+	 */
 	GameplayTags.Attributes_Secondary_Armor =
         TagsManager.AddNativeGameplayTag(
             FName("Attributes.Secondary.Armor"),
@@ -95,7 +99,9 @@ void FAura_GameplayTags::InitializeNativeGameplayTags()
             FString("Maximum amount of mana obtainable")
         );
 	
-	/*Input Tags*/
+	/*
+	 *Input Tags
+	 */
 	GameplayTags.InputTag_LMB =
 		TagsManager.AddNativeGameplayTag(
 			FName("InputTag.LMB"),
@@ -128,17 +134,81 @@ void FAura_GameplayTags::InitializeNativeGameplayTags()
 			FString("Input Tag for Key 4")
 		);
 	
-	// SetByCaller
-	GameplayTags.Damage =
+	/*
+	 *DamageTypes
+	 */
+	GameplayTags.Damage_Fire =
 		 TagsManager.AddNativeGameplayTag(
-			FName("SetByCaller.Damage"),
-			FString("Data Tag For Damage")
+			FName("DamageTypes.Fire"),
+			FString("Fire Damage Type")
 		);
 	
-	// Effects
+	GameplayTags.Damage_Arcane =
+		 TagsManager.AddNativeGameplayTag(
+			FName("DamageTypes.Arcane"),
+			FString("Arcane Damage Type")
+		);
+	
+	GameplayTags.Damage_Lightning =
+		 TagsManager.AddNativeGameplayTag(
+			FName("DamageTypes.Lightning"),
+			FString("Lightning Damage Type")
+		);
+	
+	GameplayTags.Damage_Physical =
+		 TagsManager.AddNativeGameplayTag(
+			FName("DamageTypes.Physical"),
+			FString("Physical Damage Type")
+		);
+	
+	/*
+	 *Resistances (Extend to SecondaryAttributes)
+	 */
+	GameplayTags.Attributes_Secondary_FireResistance =
+		TagsManager.AddNativeGameplayTag(
+			FName("Attributes.Secondary.FireResistance"),
+			FString("Resistance to Fire Damage")
+		);
+	
+	GameplayTags.Attributes_Secondary_ArcaneResistance =
+		TagsManager.AddNativeGameplayTag(
+			FName("Attributes.Secondary.ArcaneResistance"),
+			FString("Resistance to Arcane Damage") 
+		);
+	
+	GameplayTags.Attributes_Secondary_LightningResistance =
+		TagsManager.AddNativeGameplayTag(
+			FName("Attributes.Secondary.LightningResistance"),
+			FString("Resistance to Lightning Damage")
+		);
+	
+	GameplayTags.Attributes_Secondary_PhysicalResistance =
+		TagsManager.AddNativeGameplayTag(
+			FName("Attributes.Secondary.PhysicalResistance"),
+			FString("Resistance to Physical Damage")
+		);
+	
+	/*
+	 *Tags for Abilities
+	 */
 	GameplayTags.HitReact =
 		 TagsManager.AddNativeGameplayTag(
 			FName("Effects.HitReact"),
 			FString("Tag granted when HitReacting")
 		);
+	
+	/*
+	 *Mapping Damage Types to Resistances Tags
+	 */
+	GameplayTags.DamageToResistancesTagsMap.Add
+	(GameplayTags.Damage_Fire, GameplayTags.Attributes_Secondary_FireResistance);
+	
+	GameplayTags.DamageToResistancesTagsMap.Add
+	(GameplayTags.Damage_Arcane, GameplayTags.Attributes_Secondary_ArcaneResistance);
+	
+	GameplayTags.DamageToResistancesTagsMap.Add
+	(GameplayTags.Damage_Lightning, GameplayTags.Attributes_Secondary_LightningResistance);
+	
+	GameplayTags.DamageToResistancesTagsMap.Add
+	(GameplayTags.Damage_Physical, GameplayTags.Attributes_Secondary_PhysicalResistance);
 }
