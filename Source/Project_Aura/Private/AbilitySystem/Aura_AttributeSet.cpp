@@ -34,6 +34,12 @@ UAura_AttributeSet::UAura_AttributeSet()
 	TagsToAttributesMap.Add(GameplayTags.Attributes_Secondary_MaxHealth, GetMaxHealthAttribute);
 	TagsToAttributesMap.Add(GameplayTags.Attributes_Secondary_MaxMana, GetMaxManaAttribute);
 	
+	/*Secondary (Resistance Attributes)*/
+	TagsToAttributesMap.Add(GameplayTags.Attributes_Secondary_FireResistance, GetFireResistanceAttribute);
+	TagsToAttributesMap.Add(GameplayTags.Attributes_Secondary_ArcaneResistance, GetArcaneResistanceAttribute);
+	TagsToAttributesMap.Add(GameplayTags.Attributes_Secondary_LightningResistance, GetLightningResistanceAttribute);
+	TagsToAttributesMap.Add(GameplayTags.Attributes_Secondary_PhysicalResistance, GetPhysicalResistanceAttribute);
+	
 }
 
 void UAura_AttributeSet::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
@@ -61,6 +67,12 @@ void UAura_AttributeSet::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& O
 	DOREPLIFETIME_CONDITION_NOTIFY(UAura_AttributeSet, CriticalHitResistance, COND_None, REPNOTIFY_Always);
 	DOREPLIFETIME_CONDITION_NOTIFY(UAura_AttributeSet, HealthRegeneration, COND_None, REPNOTIFY_Always);
 	DOREPLIFETIME_CONDITION_NOTIFY(UAura_AttributeSet, ManaRegeneration, COND_None, REPNOTIFY_Always);
+	
+	// Secondary (Resistance Attributes)
+	DOREPLIFETIME_CONDITION_NOTIFY(UAura_AttributeSet, FireResistance, COND_None, REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UAura_AttributeSet, ArcaneResistance, COND_None, REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UAura_AttributeSet, LightningResistance, COND_None, REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UAura_AttributeSet, PhysicalResistance, COND_None, REPNOTIFY_Always);
 }
 
 void UAura_AttributeSet::PreAttributeChange(const FGameplayAttribute& Attribute, float& NewValue)
@@ -251,4 +263,25 @@ void UAura_AttributeSet::OnRep_HealthRegeneration(const FGameplayAttributeData& 
 void UAura_AttributeSet::OnRep_ManaRegeneration(const FGameplayAttributeData& OldManaRegeneration) const
 {
 	GAMEPLAYATTRIBUTE_REPNOTIFY(UAura_AttributeSet,ManaRegeneration,OldManaRegeneration)
+}
+
+// Secondary (Resistance Attributes)
+void UAura_AttributeSet::OnRep_FireResistance(const FGameplayAttributeData& OldFireResistance) const
+{
+	GAMEPLAYATTRIBUTE_REPNOTIFY(UAura_AttributeSet, FireResistance, OldFireResistance)
+}
+
+void UAura_AttributeSet::OnRep_ArcaneResistance(const FGameplayAttributeData& OldArcaneResistance) const
+{
+	GAMEPLAYATTRIBUTE_REPNOTIFY(UAura_AttributeSet, ArcaneResistance, OldArcaneResistance)
+}
+
+void UAura_AttributeSet::OnRep_LightningResistance(const FGameplayAttributeData& OldLightningResistance) const
+{
+	GAMEPLAYATTRIBUTE_REPNOTIFY(UAura_AttributeSet, LightningResistance, OldLightningResistance)
+}
+
+void UAura_AttributeSet::OnRep_PhysicalResistance(const FGameplayAttributeData& OldPhysicalResistance) const
+{
+	GAMEPLAYATTRIBUTE_REPNOTIFY(UAura_AttributeSet, PhysicalResistance, OldPhysicalResistance)
 }
