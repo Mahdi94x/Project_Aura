@@ -9,7 +9,6 @@
 #include "Aura_GameplayTags.h"
 #include "AbilitySystem/Aura_AbilitySystemLibrary.h"
 #include "Interaction/CombatInterface.h"
-#include "Kismet/GameplayStatics.h"
 #include "PlayerController/Aura_PlayerController.h"
 
 UAura_AttributeSet::UAura_AttributeSet()
@@ -174,7 +173,7 @@ void UAura_AttributeSet::ShowFloatingDamageText(const FEffectProperties& Props, 
 {
 	if (Props.SourceCharacter != Props.TargetCharacter)
 	{
-		if (AAura_PlayerController* PC = Cast<AAura_PlayerController>(UGameplayStatics::GetPlayerController(Props.SourceCharacter,0)))
+		if (AAura_PlayerController* PC = Cast<AAura_PlayerController>(Props.SourceCharacter->Controller))
 		{
 			PC->ShowDamageNumber(DamageAmount,Props.TargetCharacter, bBlockedHit, bCriticalHit);
 		}

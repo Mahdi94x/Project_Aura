@@ -1,7 +1,6 @@
 // Project by Mahdi94x based on Stephen Ulibarri's create a multiplayer RPG with Unreal Engine's Gameplay Ability System (GAS) Course.
 
 #include "PlayerController/Aura_PlayerController.h"
-
 #include "AbilitySystemBlueprintLibrary.h"
 #include "Aura_GameplayTags.h"
 #include "EnhancedInputSubsystems.h"
@@ -29,7 +28,7 @@ void AAura_PlayerController::PlayerTick(float DeltaTime)
 
 void AAura_PlayerController::ShowDamageNumber_Implementation(float DamageAmount, ACharacter* TargetCharacter, bool bBlockedHit, bool bCriticalHit)
 {
-	if (IsValid(TargetCharacter) && DamageTextComponentClass)
+	if (IsValid(TargetCharacter) && DamageTextComponentClass && IsLocalController())
 	{
 		UAura_DamageTextComponent* DamageText = NewObject<UAura_DamageTextComponent>(TargetCharacter, DamageTextComponentClass);
 		DamageText->RegisterComponent();

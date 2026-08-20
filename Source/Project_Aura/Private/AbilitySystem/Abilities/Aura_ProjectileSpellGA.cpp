@@ -5,7 +5,6 @@
 
 #include "AbilitySystemBlueprintLibrary.h"
 #include "AbilitySystemComponent.h"
-#include "Aura_GameplayTags.h"
 #include "Actor/Aura_ProjectileActor.h"
 #include "Interaction/CombatInterface.h"
 
@@ -29,8 +28,7 @@ void UAura_ProjectileSpellGA::SpawnProjectile(const FVector& ProjectileTargetLoc
 	{
 		FTransform SpawnTransform;
 		SpawnTransform.SetLocation(CombatInterface->GetCombatSocketLocation());
-		FRotator Rotation = (ProjectileTargetLocation - CombatInterface->GetCombatSocketLocation()).Rotation();
-		Rotation.Pitch = 0.f;
+		const FRotator Rotation = (ProjectileTargetLocation - CombatInterface->GetCombatSocketLocation()).Rotation();
 		SpawnTransform.SetRotation(Rotation.Quaternion());
 		
 		AAura_ProjectileActor* Projectile = GetWorld()->SpawnActorDeferred<AAura_ProjectileActor>
