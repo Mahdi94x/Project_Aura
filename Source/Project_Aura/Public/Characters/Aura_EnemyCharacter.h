@@ -9,6 +9,8 @@
 #include "AbilitySystem/Data/CharacterClassInfo.h"
 #include "Aura_EnemyCharacter.generated.h"
 
+class UBehaviorTree;
+class AAura_AIController;
 class UWidgetComponent;
 
 UCLASS()
@@ -20,6 +22,7 @@ public:
 	AAura_EnemyCharacter();
 	virtual void BeginPlay() override;
 	void HitReactTagChanged(const FGameplayTag CallbackTag, int32 NewCount);
+	virtual void PossessedBy(AController* NewController) override;
 	
 	UPROPERTY(BlueprintAssignable, Category="Aura|Attributes")
 	FOnAttributeChangedSignature OnHealthChanged;
@@ -58,6 +61,12 @@ protected:
 	
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	TObjectPtr<UWidgetComponent> HealthBar;
+	
+	UPROPERTY(EditAnywhere, Category="Aura|Combat")
+	TObjectPtr<UBehaviorTree> BehaviorTree;
+	
+	UPROPERTY()
+	TObjectPtr<AAura_AIController> AuraAIController;
 	
 private:
 	void EnemyHealthBarUtilFunc();

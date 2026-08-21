@@ -1,11 +1,13 @@
 // Project by Mahdi94x based on Stephen Ulibarri's create a multiplayer RPG with Unreal Engine's Gameplay Ability System (GAS) Course.
 
 #include "Characters/Aura_EnemyCharacter.h"
-
 #include "Aura_GameplayTags.h"
 #include "AbilitySystem/Aura_AbilitySystemComponent.h"
 #include "AbilitySystem/Aura_AbilitySystemLibrary.h"
 #include "AbilitySystem/Aura_AttributeSet.h"
+#include "AI/Aura_AIController.h"
+#include "BehaviorTree/BehaviorTree.h"
+#include "BehaviorTree/BlackboardComponent.h"
 #include "Components/WidgetComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Project_Aura/Project_Aura.h"
@@ -72,6 +74,17 @@ void AAura_EnemyCharacter::HitReactTagChanged(const FGameplayTag CallbackTag, in
 {
 	bHitReacting = NewCount > 0;
 	GetCharacterMovement()->MaxWalkSpeed = bHitReacting ? 0.f : BaseWalkSpeed;
+}
+
+void AAura_EnemyCharacter::PossessedBy(AController* NewController)
+{
+	Super::PossessedBy(NewController);
+	
+	if (!HasAuthority()) return;
+	AuraAIController = Cast<AAura_AIController>(NewController);
+	
+	AuraAIController->GetBlackboardComponent()->InitializeBlackboard(*BehaviorTree->BlackboardAsset);
+	AuraAIController->RunBehaviorTree(BehaviorTree);
 }
 
 void AAura_EnemyCharacter::InitializeAbilityActorInfo()
