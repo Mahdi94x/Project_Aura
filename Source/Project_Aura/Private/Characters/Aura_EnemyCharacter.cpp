@@ -25,6 +25,15 @@ AAura_EnemyCharacter::AAura_EnemyCharacter()
 	
 	HealthBar = CreateDefaultSubobject<UWidgetComponent>("HealthBar");
 	HealthBar->SetupAttachment(GetRootComponent());
+	
+	Tags.Add(FName("Enemy"));
+	
+	bUseControllerRotationPitch = false;
+	bUseControllerRotationYaw = false;
+	bUseControllerRotationRoll = false;
+	
+	GetCharacterMovement()->bOrientRotationToMovement = true;
+	GetCharacterMovement()->RotationRate = FRotator(0.f, 360.f, 0.f);
 }
 
 void AAura_EnemyCharacter::HighlightActor()
