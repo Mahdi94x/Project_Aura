@@ -58,6 +58,9 @@ struct FAura_GameplayTags
 	/*DamageTypes Tags*/
 	TMap<FGameplayTag, FGameplayTag> DamageToResistancesTagsMap;
 	
+	/*Enemy Abilities*/
+	FGameplayTag Abilities_Attack;
+	
 private:
 	static FAura_GameplayTags GameplayTags;
 };

@@ -70,7 +70,7 @@ void AAura_EnemyCharacter::BeginPlay()
 	
 	if (HasAuthority())
 	{
-		UAura_AbilitySystemLibrary::AddCharacterAbilities(this, this->AbilitySystemComponent);
+		UAura_AbilitySystemLibrary::AddCharacterAbilities(this, this->AbilitySystemComponent, this->CharacterClass);
 	}
 	
 	EnemyHealthBarUtilFunc();

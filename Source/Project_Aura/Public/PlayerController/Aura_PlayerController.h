@@ -13,7 +13,7 @@ class UAura_InputConfig;
 class UInputMappingContext;
 class UInputAction;
 struct FInputActionValue;
-class IHighlightInterface;
+class IEnemy_HighlightInterface;
 class UAura_AbilitySystemComponent;
 
 UCLASS()
@@ -54,8 +54,8 @@ private:
 	UPROPERTY(EditAnywhere, Category = "Aura|Input")
 	TObjectPtr<UInputAction> AuraShiftAction;
 
-	TScriptInterface<IHighlightInterface> LastFrameActor;
-	TScriptInterface<IHighlightInterface> ThisFrameActor;
+	TScriptInterface<IEnemy_HighlightInterface> LastFrameActor;
+	TScriptInterface<IEnemy_HighlightInterface> ThisFrameActor;
 	FHitResult CursorHit;
 	
 	UPROPERTY(EditDefaultsOnly, Category = "Aura|Input")

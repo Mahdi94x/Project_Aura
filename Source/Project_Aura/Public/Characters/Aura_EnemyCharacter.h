@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Characters/Aura_BaseCharacter.h"
-#include "Interaction/HighlightInterface.h"
+#include "Interaction/Enemy_HighlightInterface.h"
 #include "UI/WidgetController/OverlayWidgetController.h"
 #include "AbilitySystem/Data/CharacterClassInfo.h"
 #include "Aura_EnemyCharacter.generated.h"
@@ -14,7 +14,7 @@ class AAura_AIController;
 class UWidgetComponent;
 
 UCLASS()
-class PROJECT_AURA_API AAura_EnemyCharacter : public AAura_BaseCharacter, public IHighlightInterface
+class PROJECT_AURA_API AAura_EnemyCharacter : public AAura_BaseCharacter, public IEnemy_HighlightInterface
 {
 	GENERATED_BODY()
 	

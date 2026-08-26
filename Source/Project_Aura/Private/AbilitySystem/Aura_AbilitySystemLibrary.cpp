@@ -1,9 +1,9 @@
 // Project by Mahdi94x based on Stephen Ulibarri's create a multiplayer RPG with Unreal Engine's Gameplay Ability System (GAS) Course.
 
 #include "AbilitySystem/Aura_AbilitySystemLibrary.h"
-
 #include "Aura_AbilityTypes.h"
 #include "GameMode/Aura_GameModeBase.h"
+#include "Interaction/CombatInterface.h"
 #include "Kismet/GameplayStatics.h"
 #include "PlayerState/Aura_PlayerState.h"
 #include "UI/HUD/Aura_HUD.h"
@@ -66,7 +66,7 @@ void UAura_AbilitySystemLibrary::InitializeDefaultAttributes(const UObject* Worl
 	
 }
 
-void UAura_AbilitySystemLibrary::AddCharacterAbilities(const UObject* WorldContextObject, UAbilitySystemComponent* Asc)
+void UAura_AbilitySystemLibrary::AddCharacterAbilities(const UObject* WorldContextObject, UAbilitySystemComponent* Asc, ECharacterClass CharacterClass)
 {
 	if (UCharacterClassInfo* ClassInfoDa = GetCharacterClassInfoDa(WorldContextObject))
 	{
@@ -74,6 +74,15 @@ void UAura_AbilitySystemLibrary::AddCharacterAbilities(const UObject* WorldConte
 		{
 			FGameplayAbilitySpec AbilitySpec =  FGameplayAbilitySpec(AbilityClass,1);
 			Asc->GiveAbility(AbilitySpec);
+		}
+		
+		for (TSubclassOf<UGameplayAbility> StarUpAbility : ClassInfoDa->GetClassDefaultInfo(CharacterClass).StartUpAbilities)
+		{
+			if (TScriptInterface<ICombatInterface> CombatInterface = Asc->GetAvatarActor())
+			{
+				FGameplayAbilitySpec AbilitySpec =  FGameplayAbilitySpec(StarUpAbility, CombatInterface->GetCharacterLevel());
+				Asc->GiveAbility(AbilitySpec);
+			}
 		}
 	}
 }

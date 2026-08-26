@@ -4,16 +4,16 @@
 
 #include "CoreMinimal.h"
 #include "UObject/Interface.h"
-#include "HighlightInterface.generated.h"
+#include "Enemy_HighlightInterface.generated.h"
 
 // This class does not need to be modified.
 UINTERFACE(MinimalAPI)
-class UHighlightInterface : public UInterface
+class UEnemy_HighlightInterface : public UInterface
 {
 	GENERATED_BODY()
 };
 
-class PROJECT_AURA_API IHighlightInterface
+class PROJECT_AURA_API IEnemy_HighlightInterface
 {
 	GENERATED_BODY()
 

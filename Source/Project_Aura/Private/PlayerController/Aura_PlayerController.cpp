@@ -10,7 +10,7 @@
 #include "Components/SplineComponent.h"
 #include "GameFramework/Character.h"
 #include "Input/Aura_InputComponent.h"
-#include "Interaction/HighlightInterface.h"
+#include "Interaction/Enemy_HighlightInterface.h"
 #include "UI/WidgetComponent/Aura_DamageTextComponent.h"
 
 AAura_PlayerController::AAura_PlayerController()

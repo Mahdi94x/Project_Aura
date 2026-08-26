@@ -198,6 +198,15 @@ void FAura_GameplayTags::InitializeNativeGameplayTags()
 		);
 	
 	/*
+	 *Enemy Abilities
+	 */
+	GameplayTags.Abilities_Attack =
+		 TagsManager.AddNativeGameplayTag(
+			FName("Abilities.Attack"),
+			FString("General Enemy Attack Tag")
+		);
+	
+	/*
 	 *Mapping Damage Types to Resistances Tags
 	 */
 	GameplayTags.DamageToResistancesTagsMap.Add
