@@ -24,7 +24,7 @@ public:
 	
 	/* ~Begin ICombatInterface*/
 	virtual int32 GetCharacterLevel() override;
-	virtual FVector GetCombatSocketLocation() override;
+	virtual FVector GetCombatSocketLocation_Implementation() override;
 	virtual UAnimMontage* GetHitReactMontage_Implementation() override;
 	virtual void Die() override;
 	/* ~End ICombatInterface*/

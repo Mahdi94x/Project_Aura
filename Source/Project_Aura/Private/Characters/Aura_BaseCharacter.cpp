@@ -27,7 +27,7 @@ int32 AAura_BaseCharacter::GetCharacterLevel()
 	return 0;
 }
 
-FVector AAura_BaseCharacter::GetCombatSocketLocation()
+FVector AAura_BaseCharacter::GetCombatSocketLocation_Implementation()
 {
 	checkf(Weapon, TEXT("Check the Weapon and the SocketName in the Details Panel"));
 	return Weapon->GetSocketLocation(WeaponTipSocketName);

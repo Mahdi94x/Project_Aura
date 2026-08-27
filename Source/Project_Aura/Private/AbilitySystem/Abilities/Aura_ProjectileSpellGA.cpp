@@ -24,11 +24,13 @@ void UAura_ProjectileSpellGA::SpawnProjectile(const FVector& ProjectileTargetLoc
 	if (!bIsServer) return;
 	
 	checkf(ProjectileClass, TEXT("Set the ProjectileClass in the GameplayAbility Details Panel"));
+	
 	if (const TScriptInterface<ICombatInterface> CombatInterface = GetAvatarActorFromActorInfo())
 	{
 		FTransform SpawnTransform;
-		SpawnTransform.SetLocation(CombatInterface->GetCombatSocketLocation());
-		const FRotator Rotation = (ProjectileTargetLocation - CombatInterface->GetCombatSocketLocation()).Rotation();
+		const FVector Location = ICombatInterface::Execute_GetCombatSocketLocation(GetAvatarActorFromActorInfo());
+		SpawnTransform.SetLocation(Location);
+		const FRotator Rotation = (ProjectileTargetLocation - Location).Rotation();
 		SpawnTransform.SetRotation(Rotation.Quaternion());
 		
 		AAura_ProjectileActor* Projectile = GetWorld()->SpawnActorDeferred<AAura_ProjectileActor>
