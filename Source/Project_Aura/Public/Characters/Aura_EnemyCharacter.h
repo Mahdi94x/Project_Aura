@@ -24,6 +24,18 @@ public:
 	void HitReactTagChanged(const FGameplayTag CallbackTag, int32 NewCount);
 	virtual void PossessedBy(AController* NewController) override;
 	
+	// ~ Begin Enemy_IHighlight Interface
+	virtual void HighlightActor() override;
+	virtual void UnhighlightActor() override;
+	virtual AActor* GetCombatTarget_Implementation() const override;
+	virtual void SetCombatTarget_Implementation(AActor* InCombatTarget) override;
+	// ~ End Enemy_IHighlight Interface
+
+	// ~ Begin ICombat Interface
+	virtual int32 GetCharacterLevel() override;
+	virtual void Die() override;
+	// ~ End ICombat Interface
+	
 	UPROPERTY(BlueprintAssignable, Category="Aura|Attributes")
 	FOnAttributeChangedSignature OnHealthChanged;
 	
@@ -36,15 +48,8 @@ public:
 	UPROPERTY(BlueprintReadOnly, Category = "Aura|Combat")
 	float BaseWalkSpeed = 250.f;
 	
-	// ~ Begin IHighlight Interface
-	virtual void HighlightActor() override;
-	virtual void UnhighlightActor() override;
-	// ~ End IHighlight Interface
-
-	// ~ Begin ICombat Interface
-	virtual int32 GetCharacterLevel() override;
-	virtual void Die() override;
-	// ~ End ICombat Interface
+	UPROPERTY(BlueprintReadWrite, Category = "Aura|Combat")
+	TObjectPtr<AActor> CombatTarget;
 
 protected:
 	virtual void InitializeAbilityActorInfo() override;

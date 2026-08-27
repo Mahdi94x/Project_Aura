@@ -51,6 +51,16 @@ void AAura_EnemyCharacter::UnhighlightActor()
 	Weapon->SetRenderCustomDepth(false);
 }
 
+AActor* AAura_EnemyCharacter::GetCombatTarget_Implementation() const
+{
+	return this->CombatTarget;
+}
+
+void AAura_EnemyCharacter::SetCombatTarget_Implementation(AActor* InCombatTarget)
+{
+	this->CombatTarget = InCombatTarget;
+}
+
 int32 AAura_EnemyCharacter::GetCharacterLevel()
 {
 	return this->Level;
