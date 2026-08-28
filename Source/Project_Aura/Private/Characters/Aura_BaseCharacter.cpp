@@ -57,6 +57,17 @@ void AAura_BaseCharacter::MulticastHandleDeath_Implementation() /*Client and Ser
 
 	GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 	Dissolve();
+	bDead = true;
+}
+
+bool AAura_BaseCharacter::IsDead_Implementation() const
+{
+	return this->bDead;
+}
+
+AActor* AAura_BaseCharacter::GetAvatar_Implementation()
+{
+	return this;
 }
 
 void AAura_BaseCharacter::Dissolve()

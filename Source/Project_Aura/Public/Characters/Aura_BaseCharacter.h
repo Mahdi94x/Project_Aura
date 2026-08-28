@@ -27,13 +27,14 @@ public:
 	virtual FVector GetCombatSocketLocation_Implementation() override;
 	virtual UAnimMontage* GetHitReactMontage_Implementation() override;
 	virtual void Die() override;
+	virtual bool IsDead_Implementation() const override;
+	virtual AActor* GetAvatar_Implementation() override;
 	/* ~End ICombatInterface*/
 	
 	UFUNCTION(netmulticast, Reliable)
 	virtual void MulticastHandleDeath();
 	
 	/*Dissolve Effect*/
-	
 	UFUNCTION(BlueprintImplementableEvent)
 	void StartDissolveTimeline(UMaterialInstanceDynamic* DynamicMatInst);
 	
@@ -47,12 +48,15 @@ public:
 	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Aura|DissolveEffect")
 	TObjectPtr<UMaterialInstance> WeaponDissolveMatInst;
+	/*Dissolve Effect*/
 	
 protected:
 	virtual void InitializeAbilityActorInfo();
 	void ApplyEffectToSelf(TSubclassOf<UGameplayEffect> GameplayEffectClass, float Level) const;
 	virtual void InitializeDefaultAttributes() const;
 	virtual void AddCharacterAbilities();
+	
+	bool bDead = false;
 	
 	UPROPERTY(EditAnywhere, Category = "Aura|Combat")
 	TObjectPtr<USkeletalMeshComponent> Weapon;
@@ -85,5 +89,5 @@ private:
 	
 	UPROPERTY(EditAnywhere, Category = "Aura|Combat")
 	TObjectPtr<UAnimMontage> HitReactMontage;
-	
 };
+

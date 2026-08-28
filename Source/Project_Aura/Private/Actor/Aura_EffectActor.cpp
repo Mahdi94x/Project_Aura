@@ -34,7 +34,7 @@ void AAura_EffectActor::ApplyEffectToTarget(AActor* TargetActor, TSubclassOf<UGa
 	{
 		ActiveInfiniteEffectsHandleMap.Add(ActiveEffect,TargetActorAsc);
 	}
-	if (!bIsInfinite)
+	if (!bIsInfinite && bDestroyOnApplication)
 	{
 		this->Destroy();
 	}
