@@ -70,6 +70,11 @@ AActor* AAura_BaseCharacter::GetAvatar_Implementation()
 	return this;
 }
 
+TArray<FTaggedMontage> AAura_BaseCharacter::GetTaggedMontages_Implementation()
+{
+	return this->AttackMontages;
+}
+
 void AAura_BaseCharacter::Dissolve()
 {
 	if (IsValid(DissolveMatInst))

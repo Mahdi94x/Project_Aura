@@ -61,6 +61,12 @@ struct FAura_GameplayTags
 	/*Enemy Abilities*/
 	FGameplayTag Abilities_Attack;
 	
+	/*Event - Montages*/
+	FGameplayTag Montage_Attack_Weapon;
+	FGameplayTag Montage_Attack_RightHand;
+	FGameplayTag Montage_Attack_LeftHand;
+	
+	
 private:
 	static FAura_GameplayTags GameplayTags;
 };

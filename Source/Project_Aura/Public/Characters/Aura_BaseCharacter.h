@@ -29,6 +29,7 @@ public:
 	virtual void Die() override;
 	virtual bool IsDead_Implementation() const override;
 	virtual AActor* GetAvatar_Implementation() override;
+	virtual TArray<FTaggedMontage> GetTaggedMontages_Implementation() override;
 	/* ~End ICombatInterface*/
 	
 	UFUNCTION(netmulticast, Reliable)
@@ -49,6 +50,9 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Aura|DissolveEffect")
 	TObjectPtr<UMaterialInstance> WeaponDissolveMatInst;
 	/*Dissolve Effect*/
+	
+	UPROPERTY(EditAnywhere, Category="Aura|Combat")
+	TArray<FTaggedMontage> AttackMontages;
 	
 protected:
 	virtual void InitializeAbilityActorInfo();

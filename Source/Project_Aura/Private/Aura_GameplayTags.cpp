@@ -207,6 +207,27 @@ void FAura_GameplayTags::InitializeNativeGameplayTags()
 		);
 	
 	/*
+	 *Event - Montages
+	 */
+	GameplayTags.Montage_Attack_Weapon =
+		 TagsManager.AddNativeGameplayTag(
+			FName("Montage.Attack.Weapon"),
+			FString("Weapon Event - Montage Tag")
+		);
+	
+	GameplayTags.Montage_Attack_RightHand =
+		 TagsManager.AddNativeGameplayTag(
+			FName("Montage.Attack.RightHand"),
+			FString("RightHand Event - Montage Tag")
+		);
+	
+	GameplayTags.Montage_Attack_LeftHand =
+		 TagsManager.AddNativeGameplayTag(
+			FName("Montage.Attack.LeftHand"),
+			FString("LeftHand Event - Montage Tag")
+		);
+	
+	/*
 	 *Mapping Damage Types to Resistances Tags
 	 */
 	GameplayTags.DamageToResistancesTagsMap.Add
