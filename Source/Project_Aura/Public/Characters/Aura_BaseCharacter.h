@@ -24,12 +24,12 @@ public:
 	
 	/* ~Begin ICombatInterface*/
 	virtual int32 GetCharacterLevel() override;
-	virtual FVector GetCombatSocketLocation_Implementation() override;
+	virtual FVector GetCombatSocketLocation_Implementation(const FGameplayTag& MontageTag) override;
 	virtual UAnimMontage* GetHitReactMontage_Implementation() override;
 	virtual void Die() override;
 	virtual bool IsDead_Implementation() const override;
 	virtual AActor* GetAvatar_Implementation() override;
-	virtual TArray<FTaggedMontage> GetTaggedMontages_Implementation() override;
+	virtual TArray<FTaggedMontage> GetAttackTaggedMontages_Implementation() override;
 	/* ~End ICombatInterface*/
 	
 	UFUNCTION(netmulticast, Reliable)
@@ -64,9 +64,6 @@ protected:
 	
 	UPROPERTY(EditAnywhere, Category = "Aura|Combat")
 	TObjectPtr<USkeletalMeshComponent> Weapon;
-	
-	UPROPERTY(EditAnywhere, Category = "Aura|Combat")
-	FName WeaponTipSocketName;
 
 	UPROPERTY()
 	TObjectPtr<UAbilitySystemComponent> AbilitySystemComponent;
@@ -82,6 +79,9 @@ protected:
 
 	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Aura|Attributes")
 	TSubclassOf<UGameplayEffect> DefaultVitalAttributes;
+	
+	UPROPERTY(EditDefaultsOnly, Category = "Aura|Combat")
+	TMap<FGameplayTag,FName> TagToSocketsMap;
 
 public: /*Setters and Getters*/
 	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;

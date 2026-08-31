@@ -27,10 +27,24 @@ int32 AAura_BaseCharacter::GetCharacterLevel()
 	return 0;
 }
 
-FVector AAura_BaseCharacter::GetCombatSocketLocation_Implementation()
+FVector AAura_BaseCharacter::GetCombatSocketLocation_Implementation(const FGameplayTag& MontageTag)
 {
-	checkf(Weapon, TEXT("Check the Weapon and the SocketName in the Details Panel"));
-	return Weapon->GetSocketLocation(WeaponTipSocketName);
+	for (auto Pair : TagToSocketsMap)
+	{
+		if (Pair.Key.MatchesTagExact(MontageTag))
+		{
+			if (!Weapon)
+			{
+				return GetMesh()->GetSocketLocation(Pair.Value);
+				
+			}
+			else
+			{
+				return Weapon->GetSocketLocation(Pair.Value);
+			}
+		}
+	}
+	return FVector();
 }
 
 UAnimMontage* AAura_BaseCharacter::GetHitReactMontage_Implementation()
@@ -70,7 +84,7 @@ AActor* AAura_BaseCharacter::GetAvatar_Implementation()
 	return this;
 }
 
-TArray<FTaggedMontage> AAura_BaseCharacter::GetTaggedMontages_Implementation()
+TArray<FTaggedMontage> AAura_BaseCharacter::GetAttackTaggedMontages_Implementation()
 {
 	return this->AttackMontages;
 }

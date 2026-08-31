@@ -13,8 +13,8 @@ void UAura_BaseDamageAbility::CauseDamage(AActor* TargetActor)
 	{
 		const float ScaledDamage = Type.Value.GetValueAtLevel(GetAbilityLevel());
 		UAbilitySystemBlueprintLibrary::AssignTagSetByCallerMagnitude(DamageSpecHandle, Type.Key, ScaledDamage);
-		GetAbilitySystemComponentFromActorInfo()->ApplyGameplayEffectSpecToTarget(
+	}
+	GetAbilitySystemComponentFromActorInfo()->ApplyGameplayEffectSpecToTarget(
 			*DamageSpecHandle.Data.Get(),
 			UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(TargetActor));
-	}
 }
