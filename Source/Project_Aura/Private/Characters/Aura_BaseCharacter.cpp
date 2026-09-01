@@ -36,12 +36,8 @@ FVector AAura_BaseCharacter::GetCombatSocketLocation_Implementation(const FGamep
 			if (!Weapon)
 			{
 				return GetMesh()->GetSocketLocation(Pair.Value);
-				
 			}
-			else
-			{
-				return Weapon->GetSocketLocation(Pair.Value);
-			}
+			return Weapon->GetSocketLocation(Pair.Value);
 		}
 	}
 	return FVector();

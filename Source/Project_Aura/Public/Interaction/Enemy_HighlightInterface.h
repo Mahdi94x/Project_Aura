@@ -26,5 +26,8 @@ public:
 	void SetCombatTarget(AActor* InCombatTarget);
 	
 	UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
-	AActor* GetCombatTarget() const; 
+	AActor* GetCombatTarget() const;
+	
+	UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
+	float GetSphereTraceRadius() const;
 };

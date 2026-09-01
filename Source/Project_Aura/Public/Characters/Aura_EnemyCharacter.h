@@ -29,6 +29,7 @@ public:
 	virtual void UnhighlightActor() override;
 	virtual AActor* GetCombatTarget_Implementation() const override;
 	virtual void SetCombatTarget_Implementation(AActor* InCombatTarget) override;
+	virtual float GetSphereTraceRadius_Implementation() const override;
 	// ~ End Enemy_IHighlight Interface
 
 	// ~ Begin ICombat Interface
@@ -45,7 +46,7 @@ public:
 	UPROPERTY(BlueprintReadOnly, Category = "Aura|Combat")
 	bool bHitReacting = false;
 	
-	UPROPERTY(BlueprintReadOnly, Category = "Aura|Combat")
+	UPROPERTY(BlueprintReadOnly, EditAnywhere ,Category = "Aura|Combat")
 	float BaseWalkSpeed = 250.f;
 	
 	UPROPERTY(BlueprintReadWrite, Category = "Aura|Combat")
@@ -64,6 +65,9 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Aura|Combat")
 	float LifeSpan = 5.f;
 	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Aura|Combat")
+	float SphereTraceRadius = 120.f; 
+	
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	TObjectPtr<UWidgetComponent> HealthBar;
 	
@@ -75,7 +79,5 @@ protected:
 	
 private:
 	void EnemyHealthBarUtilFunc();
-	
-	
 	
 };

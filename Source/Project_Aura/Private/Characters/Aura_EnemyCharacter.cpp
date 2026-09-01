@@ -61,6 +61,11 @@ void AAura_EnemyCharacter::SetCombatTarget_Implementation(AActor* InCombatTarget
 	this->CombatTarget = InCombatTarget;
 }
 
+float AAura_EnemyCharacter::GetSphereTraceRadius_Implementation() const
+{
+	return this->SphereTraceRadius;
+}
+
 int32 AAura_EnemyCharacter::GetCharacterLevel()
 {
 	return this->Level;
