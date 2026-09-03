@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Aura_BaseAbility.h"
+#include "Interaction/CombatInterface.h"
 #include "Aura_BaseDamageAbility.generated.h"
 
 UCLASS()
@@ -13,7 +14,7 @@ class PROJECT_AURA_API UAura_BaseDamageAbility : public UAura_BaseAbility
 	
 public:
 	UFUNCTION(BlueprintCallable)
-	void CauseDamage(AActor* TargetActor);
+	void CauseDamage_Melee(AActor* TargetActor);
 	
 protected:
 	
@@ -22,4 +23,7 @@ protected:
 	
 	UPROPERTY(EditDefaultsOnly, Category = "Aura|Damage")
 	TMap<FGameplayTag, FScalableFloat> DamageTypesMap;
+	
+	UFUNCTION(BlueprintPure)
+	FTaggedMontage GetRandomTaggedMontageFromArray(const TArray<FTaggedMontage>& TaggedMontagesArray) const;
 };

@@ -5,7 +5,7 @@
 #include "AbilitySystemBlueprintLibrary.h"
 #include "AbilitySystemComponent.h"
 
-void UAura_BaseDamageAbility::CauseDamage(AActor* TargetActor)
+void UAura_BaseDamageAbility::CauseDamage_Melee(AActor* TargetActor)
 {
 	const FGameplayEffectSpecHandle DamageSpecHandle = MakeOutgoingGameplayEffectSpec(DamageEffectClass,1.f);
 	
@@ -17,4 +17,15 @@ void UAura_BaseDamageAbility::CauseDamage(AActor* TargetActor)
 	GetAbilitySystemComponentFromActorInfo()->ApplyGameplayEffectSpecToTarget(
 			*DamageSpecHandle.Data.Get(),
 			UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(TargetActor));
+}
+
+FTaggedMontage UAura_BaseDamageAbility::GetRandomTaggedMontageFromArray(
+	const TArray<FTaggedMontage>& TaggedMontagesArray) const
+{
+	if (TaggedMontagesArray.Num() > 0)
+	{
+		const int32 RandomSelection = FMath::RandRange(0, TaggedMontagesArray.Num() - 1);
+		return TaggedMontagesArray[RandomSelection];
+	}
+	return FTaggedMontage();
 }
