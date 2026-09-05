@@ -63,7 +63,7 @@ void AAura_ProjectileActor::OnSphereOverlap(UPrimitiveComponent* OverlappedCompo
 {
 	if (OtherActor == GetInstigator()) return; /*Safeguard for the firing character Aura*/
 	
-	if (DamageEffectSpecHandle.Data.IsValid() && DamageEffectSpecHandle.Data.Get()->GetContext().GetEffectCauser() == OtherActor) return;
+	if (!DamageEffectSpecHandle.Data.IsValid() || DamageEffectSpecHandle.Data.Get()->GetContext().GetEffectCauser() == OtherActor) return;
 	
 	if (!UAura_AbilitySystemLibrary::IsNotFriend(DamageEffectSpecHandle.Data.Get()->GetContext().GetEffectCauser(), OtherActor)) return;
 	
