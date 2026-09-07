@@ -85,6 +85,11 @@ TArray<FTaggedMontage> AAura_BaseCharacter::GetAttackTaggedMontages_Implementati
 	return this->AttackMontages;
 }
 
+UNiagaraSystem* AAura_BaseCharacter::GetBloodEffect_Implementation()
+{
+	return this->BloodEffect;
+}
+
 void AAura_BaseCharacter::Dissolve()
 {
 	if (IsValid(DissolveMatInst))

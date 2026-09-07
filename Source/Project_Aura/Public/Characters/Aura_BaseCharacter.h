@@ -8,6 +8,7 @@
 #include "Interaction/CombatInterface.h"
 #include "Aura_BaseCharacter.generated.h"
 
+class UNiagaraSystem;
 class UGameplayAbility;
 class UGameplayEffect;
 class UAttributeSet;
@@ -30,12 +31,13 @@ public:
 	virtual bool IsDead_Implementation() const override;
 	virtual AActor* GetAvatar_Implementation() override;
 	virtual TArray<FTaggedMontage> GetAttackTaggedMontages_Implementation() override;
+	virtual UNiagaraSystem* GetBloodEffect_Implementation() override;
 	/* ~End ICombatInterface*/
 	
 	UFUNCTION(netmulticast, Reliable)
 	virtual void MulticastHandleDeath();
 	
-	/*Dissolve Effect*/
+	/* ~Begin Dissolve Effect*/
 	UFUNCTION(BlueprintImplementableEvent)
 	void StartDissolveTimeline(UMaterialInstanceDynamic* DynamicMatInst);
 	
@@ -49,7 +51,7 @@ public:
 	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Aura|DissolveEffect")
 	TObjectPtr<UMaterialInstance> WeaponDissolveMatInst;
-	/*Dissolve Effect*/
+	/* ~End Dissolve Effect*/
 	
 	UPROPERTY(EditAnywhere, Category="Aura|Combat")
 	TArray<FTaggedMontage> AttackMontages;
@@ -82,6 +84,9 @@ protected:
 	
 	UPROPERTY(EditDefaultsOnly, Category = "Aura|Combat")
 	TMap<FGameplayTag,FName> TagToSocketsMap;
+	
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Aura|Combat")
+	UNiagaraSystem* BloodEffect;
 
 public: /*Setters and Getters*/
 	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
