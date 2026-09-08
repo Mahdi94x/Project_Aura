@@ -29,7 +29,7 @@ void UAura_ProjectileSpellGA::SpawnProjectile(const FVector& ProjectileTargetLoc
 	FTransform SpawnTransform;
 	const FVector Location = ICombatInterface::Execute_GetCombatSocketLocation(
 		GetAvatarActorFromActorInfo(),
-		FAura_GameplayTags::Get().Montage_Attack_Weapon);
+		FAura_GameplayTags::Get().CombatSocket_Weapon);
 	SpawnTransform.SetLocation(Location);
 	const FRotator Rotation = (ProjectileTargetLocation - Location).Rotation();
 	SpawnTransform.SetRotation(Rotation.Quaternion());

@@ -90,6 +90,18 @@ UNiagaraSystem* AAura_BaseCharacter::GetBloodEffect_Implementation()
 	return this->BloodEffect;
 }
 
+FTaggedMontage AAura_BaseCharacter::GetTaggedMontageByTag_Implementation(const FGameplayTag& MontageTag)
+{
+	for (FTaggedMontage Montage : AttackMontages)
+	{
+		if (Montage.MontageTag.MatchesTagExact(MontageTag))
+		{
+			return Montage;
+		}
+	}
+	return FTaggedMontage();
+}
+
 void AAura_BaseCharacter::Dissolve()
 {
 	if (IsValid(DissolveMatInst))

@@ -21,6 +21,9 @@ struct FTaggedMontage
 	FGameplayTag MontageTag = FGameplayTag();
 	
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	FGameplayTag SocketTag = FGameplayTag();
+	
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	USoundBase* ImpactSound = nullptr;
 };
 
@@ -41,7 +44,7 @@ public:
 	virtual int32 GetCharacterLevel();
 	
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
-	FVector GetCombatSocketLocation(const FGameplayTag& MontageTag);
+	FVector GetCombatSocketLocation(const FGameplayTag& SocketTag);
 	
 	UFUNCTION(BlueprintCallable, BlueprintImplementableEvent)
 	void UpdateFacingWarpTarget(const FVector& TargetLocation);
@@ -62,4 +65,7 @@ public:
 	
 	UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
 	UNiagaraSystem* GetBloodEffect();
+	
+	UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
+	FTaggedMontage GetTaggedMontageByTag(const FGameplayTag& MontageTag);
 };

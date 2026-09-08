@@ -228,6 +228,27 @@ void FAura_GameplayTags::InitializeNativeGameplayTags()
 		);
 	
 	/*
+	 *CombatSocket
+	 */
+	GameplayTags.CombatSocket_Weapon =
+		 TagsManager.AddNativeGameplayTag(
+			FName("CombatSocket.Weapon"),
+			FString("Socket Tag if the enemy is using a weapon")
+		);
+	
+	GameplayTags.CombatSocket_RightHand =
+		 TagsManager.AddNativeGameplayTag(
+			FName("CombatSocket.RightHand"),
+			FString("Socket Tag if the enemy is using the right hand")
+		);
+	
+	GameplayTags.CombatSocket_LeftHand =
+		TagsManager.AddNativeGameplayTag(
+			FName("CombatSocket.LeftHand"),
+			FString("Socket Tag if the enemy is using the left hand")
+		);
+	
+	/*
 	 *Mapping Damage Types to Resistances Tags
 	 */
 	GameplayTags.DamageToResistancesTagsMap.Add
