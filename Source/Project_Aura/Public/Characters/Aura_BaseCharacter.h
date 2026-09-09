@@ -88,6 +88,9 @@ protected:
 	
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Aura|Combat")
 	UNiagaraSystem* BloodEffect;
+	
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Aura|Combat")
+	USoundBase* DeathSound;
 
 public: /*Setters and Getters*/
 	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
