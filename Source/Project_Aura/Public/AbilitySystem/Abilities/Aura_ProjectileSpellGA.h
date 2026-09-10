@@ -8,6 +8,7 @@
 
 class AAura_ProjectileActor;
 class UGameplayEffect;
+struct FGameplayTag;
 
 UCLASS()
 class PROJECT_AURA_API UAura_ProjectileSpellGA : public UAura_BaseDamageAbility
@@ -19,7 +20,7 @@ protected:
 	virtual void ActivateAbility(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilityActivationInfo ActivationInfo, const FGameplayEventData* TriggerEventData) override;
 	
 	UFUNCTION(BlueprintCallable, Category = "Aura|ProjectileSpell")
-	void SpawnProjectile(const FVector& ProjectileTargetLocation);
+	void SpawnProjectile(const FVector& ProjectileTargetLocation, const FGameplayTag& SocketTag);
 	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Aura|ProjectileSpell")
 	TSubclassOf<AAura_ProjectileActor> ProjectileClass;

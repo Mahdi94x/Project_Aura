@@ -28,11 +28,11 @@ int32 AAura_BaseCharacter::GetCharacterLevel()
 	return 0;
 }
 
-FVector AAura_BaseCharacter::GetCombatSocketLocation_Implementation(const FGameplayTag& MontageTag)
+FVector AAura_BaseCharacter::GetCombatSocketLocation_Implementation(const FGameplayTag& SocketTag)
 {
-	for (auto Pair : TagToSocketsMap)
+	for (const auto& Pair : TagToSocketsMap)
 	{
-		if (Pair.Key.MatchesTagExact(MontageTag))
+		if (Pair.Key.MatchesTagExact(SocketTag))
 		{
 			if (!Weapon)
 			{

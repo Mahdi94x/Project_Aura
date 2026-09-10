@@ -227,6 +227,19 @@ void FAura_GameplayTags::InitializeNativeGameplayTags()
 			FString("LeftHand Event - Montage Tag")
 		);
 	
+	GameplayTags.Montage_Attack_RightTail = 
+		TagsManager.AddNativeGameplayTag(
+			FName("Montage.Attack.RightTail"),
+			FString("RightTail Event - Montage Tag")
+		);
+	
+	GameplayTags.Montage_Attack_LeftTail = 
+		TagsManager.AddNativeGameplayTag(
+			FName("Montage.Attack.LeftTail"),
+			FString("LeftTail Event - Montage Tag")
+		);
+		
+	
 	/*
 	 *CombatSocket
 	 */
@@ -246,6 +259,12 @@ void FAura_GameplayTags::InitializeNativeGameplayTags()
 		TagsManager.AddNativeGameplayTag(
 			FName("CombatSocket.LeftHand"),
 			FString("Socket Tag if the enemy is using the left hand")
+		);
+	
+	GameplayTags.CombatSocket_Tail = 
+		TagsManager.AddNativeGameplayTag(
+			FName("CombatSocket.Tail"),
+			FString("Socket Tag if the enemy is using a tail")
 		);
 	
 	/*

@@ -19,7 +19,7 @@ void UAura_ProjectileSpellGA::ActivateAbility(const FGameplayAbilitySpecHandle H
 	
 }
 
-void UAura_ProjectileSpellGA::SpawnProjectile(const FVector& ProjectileTargetLocation)
+void UAura_ProjectileSpellGA::SpawnProjectile(const FVector& ProjectileTargetLocation , const FGameplayTag& SocketTag)
 {
 	const bool bIsServer = GetAvatarActorFromActorInfo()->HasAuthority();
 	if (!bIsServer) return;
@@ -29,7 +29,7 @@ void UAura_ProjectileSpellGA::SpawnProjectile(const FVector& ProjectileTargetLoc
 	FTransform SpawnTransform;
 	const FVector Location = ICombatInterface::Execute_GetCombatSocketLocation(
 		GetAvatarActorFromActorInfo(),
-		FAura_GameplayTags::Get().CombatSocket_Weapon);
+		SocketTag);
 	SpawnTransform.SetLocation(Location);
 	const FRotator Rotation = (ProjectileTargetLocation - Location).Rotation();
 	SpawnTransform.SetRotation(Rotation.Quaternion());

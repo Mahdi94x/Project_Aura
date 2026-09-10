@@ -65,11 +65,14 @@ struct FAura_GameplayTags
 	FGameplayTag Montage_Attack_Weapon;
 	FGameplayTag Montage_Attack_RightHand;
 	FGameplayTag Montage_Attack_LeftHand;
+	FGameplayTag Montage_Attack_LeftTail;
+	FGameplayTag Montage_Attack_RightTail;
 	
 	/*CombatSocket*/
 	FGameplayTag CombatSocket_Weapon;
 	FGameplayTag CombatSocket_RightHand;
 	FGameplayTag CombatSocket_LeftHand;
+	FGameplayTag CombatSocket_Tail;
 	
 	
 private:
