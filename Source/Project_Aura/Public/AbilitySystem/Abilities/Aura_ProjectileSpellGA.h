@@ -4,11 +4,11 @@
 
 #include "CoreMinimal.h"
 #include "Aura_BaseDamageAbility.h"
+#include "GameplayTagContainer.h"
 #include "Aura_ProjectileSpellGA.generated.h"
 
 class AAura_ProjectileActor;
 class UGameplayEffect;
-struct FGameplayTag;
 
 UCLASS()
 class PROJECT_AURA_API UAura_ProjectileSpellGA : public UAura_BaseDamageAbility
