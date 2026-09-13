@@ -238,7 +238,12 @@ void FAura_GameplayTags::InitializeNativeGameplayTags()
 			FName("Montage.Attack.LeftTail"),
 			FString("LeftTail Event - Montage Tag")
 		);
-		
+	
+	GameplayTags.Montage_Attack_Summon = 
+		TagsManager.AddNativeGameplayTag(
+			FName("Montage.Attack.Summon"),
+			FString("Summon Event - Montage Tag")
+		);
 	
 	/*
 	 *CombatSocket

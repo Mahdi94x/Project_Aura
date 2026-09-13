@@ -16,6 +16,9 @@ public:
 	UFUNCTION(BlueprintCallable)
 	TArray<FVector> GetSpawnLocations();
 	
+	UFUNCTION(BlueprintPure)
+	TSubclassOf<APawn> GetRandomMinionToSpawn();
+	
 	UPROPERTY(EditDefaultsOnly, Category = "Aura|Summoning")
 	int32 NumOfMinions = 5;
 	
