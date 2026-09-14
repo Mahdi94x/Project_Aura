@@ -20,7 +20,7 @@ protected:
 	virtual void ActivateAbility(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilityActivationInfo ActivationInfo, const FGameplayEventData* TriggerEventData) override;
 	
 	UFUNCTION(BlueprintCallable, Category = "Aura|ProjectileSpell")
-	void SpawnProjectile(const FVector& ProjectileTargetLocation, const FGameplayTag& SocketTag);
+	void SpawnProjectile(const FVector& ProjectileTargetLocation, const FGameplayTag& SocketTag, bool bOverridePitch = false, float PitchOverride = 0);
 	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Aura|ProjectileSpell")
 	TSubclassOf<AAura_ProjectileActor> ProjectileClass;

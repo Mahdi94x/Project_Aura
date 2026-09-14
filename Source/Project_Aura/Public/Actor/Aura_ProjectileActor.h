@@ -35,9 +35,10 @@ protected:
 	UFUNCTION()
 	void OnSphereOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 	
-private:
-	UPROPERTY(VisibleAnywhere)
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	TObjectPtr<USphereComponent> SphereOverlap;
+	
+private:
 	
 	UPROPERTY(EditAnywhere, Category="Aura|ProjectileActor")
 	TObjectPtr<USoundBase> LoopSound;

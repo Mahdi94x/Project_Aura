@@ -22,7 +22,7 @@ AAura_ProjectileActor::AAura_ProjectileActor()
 	SphereOverlap = CreateDefaultSubobject<USphereComponent>("Sphere");
 	SetRootComponent(SphereOverlap);
 	SphereOverlap->SetCollisionObjectType(ECC_Projectile);
-	SphereOverlap->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
+	SphereOverlap->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 	SphereOverlap->SetCollisionResponseToAllChannels(ECR_Ignore);
 	SphereOverlap->SetCollisionResponseToChannel(ECC_Pawn, ECR_Overlap);
 	SphereOverlap->SetCollisionResponseToChannel(ECC_WorldDynamic, ECR_Overlap);
