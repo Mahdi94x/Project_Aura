@@ -206,6 +206,12 @@ void FAura_GameplayTags::InitializeNativeGameplayTags()
 			FString("General Enemy Attack Tag")
 		);
 	
+	GameplayTags.Abilities_Summon =
+		 TagsManager.AddNativeGameplayTag(
+			FName("Abilities.Summon"),
+			FString("General Enemy Summon Tag")
+		);
+	
 	/*
 	 *Event - Montages
 	 */

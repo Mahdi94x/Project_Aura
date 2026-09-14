@@ -105,6 +105,16 @@ FTaggedMontage AAura_BaseCharacter::GetTaggedMontageByTag_Implementation(const F
 	return FTaggedMontage();
 }
 
+int32 AAura_BaseCharacter::GetMinionCount_Implementation()
+{
+	return this->MinionCount;
+}
+
+void AAura_BaseCharacter::UpdateMinionCount_Implementation(int32 Amount)
+{
+	this->MinionCount += Amount;
+}
+
 void AAura_BaseCharacter::Dissolve()
 {
 	if (IsValid(DissolveMatInst))

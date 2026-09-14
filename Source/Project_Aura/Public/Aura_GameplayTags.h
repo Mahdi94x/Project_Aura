@@ -60,6 +60,7 @@ struct FAura_GameplayTags
 	
 	/*Enemy Abilities*/
 	FGameplayTag Abilities_Attack;
+	FGameplayTag Abilities_Summon;
 	
 	/*Event - Montages*/
 	FGameplayTag Montage_Attack_Weapon;
