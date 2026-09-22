@@ -6,6 +6,7 @@
 #include "UI/WidgetController/Aura_BaseWidgetController.h"
 #include "OverlayWidgetController.generated.h"
 
+class UAura_AbilitySystemComponent;
 class UAbilityInfo;
 
 USTRUCT(BlueprintType)
@@ -66,6 +67,8 @@ protected:
 
 	template<typename T>
 	T* GetDataTableRowByTag(UDataTable* DataTable, const FGameplayTag& Tag);
+	
+	void OnInitializeStartupAbilities(UAura_AbilitySystemComponent* AuraAbilitySystemComponent);
 };
 
 template <typename T>
