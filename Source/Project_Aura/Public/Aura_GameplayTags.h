@@ -58,9 +58,10 @@ struct FAura_GameplayTags
 	/*DamageTypes Tags*/
 	TMap<FGameplayTag, FGameplayTag> DamageToResistancesTagsMap;
 	
-	/*Enemy Abilities*/
+	/*Abilities*/
 	FGameplayTag Abilities_Attack;
 	FGameplayTag Abilities_Summon;
+	FGameplayTag Abilities_Fire_FireBolt;
 	
 	/*Event - Montages*/
 	FGameplayTag Montage_Attack_Weapon;

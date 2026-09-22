@@ -198,18 +198,24 @@ void FAura_GameplayTags::InitializeNativeGameplayTags()
 		);
 	
 	/*
-	 *Enemy Abilities
+	 * Abilities
 	 */
 	GameplayTags.Abilities_Attack =
 		 TagsManager.AddNativeGameplayTag(
 			FName("Abilities.Attack"),
-			FString("General Enemy Attack Tag")
+			FString("General Attack Ability Tag")
 		);
 	
 	GameplayTags.Abilities_Summon =
 		 TagsManager.AddNativeGameplayTag(
 			FName("Abilities.Summon"),
-			FString("General Enemy Summon Tag")
+			FString("General Summon Ability Tag")
+		);
+	
+	GameplayTags.Abilities_Fire_FireBolt =
+		 TagsManager.AddNativeGameplayTag(
+			FName("Abilities.Fire.FireBolt"),
+			FString("FireBolt Attack Ability Tag")
 		);
 	
 	/*

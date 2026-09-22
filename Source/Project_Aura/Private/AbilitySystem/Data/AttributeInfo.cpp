@@ -1,7 +1,7 @@
 // Project by Mahdi94x based on Stephen Ulibarri's create a multiplayer RPG with Unreal Engine's Gameplay Ability System (GAS) Course.
 
-
 #include "AbilitySystem/Data/AttributeInfo.h"
+#include "Project_Aura/AuraLogChannels.h"
 
 FAuraAttributeInfo UAttributeInfo::FindAttributeInfoByTag(const FGameplayTag& AttributeTag, bool bLogNotFound) const
 {
@@ -14,7 +14,7 @@ FAuraAttributeInfo UAttributeInfo::FindAttributeInfoByTag(const FGameplayTag& At
 	}
 	if (bLogNotFound)
 	{
-		UE_LOG(LogTemp, Error, TEXT("Can't find Info for AttributeTag [%s] on AttributeInfo [%s]"),
+		UE_LOG(LogAura, Error, TEXT("Can't find Info for AttributeTag [%s] on AttributeInfo [%s]"),
 			*AttributeTag.ToString(),
 			*GetNameSafe(this));
 	}
