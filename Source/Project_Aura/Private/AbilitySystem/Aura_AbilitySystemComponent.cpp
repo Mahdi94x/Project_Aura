@@ -4,6 +4,7 @@
 #include "AbilitySystem/Aura_AbilitySystemComponent.h"
 #include "Aura_GameplayTags.h"
 #include "AbilitySystem/Abilities/Aura_BaseAbility.h"
+#include "Project_Aura/AuraLogChannels.h"
 
 void UAura_AbilitySystemComponent::AbilityActorInfoSet()
 {
@@ -61,4 +62,43 @@ void UAura_AbilitySystemComponent::AbilityInputTagReleased(const FGameplayTag& I
 			AbilitySpecInputReleased(AbilitySpec);
 		}
 	}
+}
+
+void UAura_AbilitySystemComponent::ForEachAbility(const FForEachAbilitySignature& Delegate)
+{
+	FScopedAbilityListLock ActiveScopeLock(*this);
+	for (const FGameplayAbilitySpec& AbilitySpec : GetActivatableAbilities())
+	{
+		if (!Delegate.ExecuteIfBound(AbilitySpec))
+		{
+			UE_LOG(LogAura, Error, TEXT("Failed to execute delegate in %hs"),__FUNCTION__);
+		}
+	}
+}
+
+FGameplayTag UAura_AbilitySystemComponent::GetAbilityTagFromSpec(const FGameplayAbilitySpec& AbilitySpec)
+{
+	if (AbilitySpec.Ability)
+	{
+		for (auto Tag : AbilitySpec.Ability.Get()->AbilityTags)
+		{
+			if (Tag.MatchesTag(FGameplayTag::RequestGameplayTag(FName("Abilities"))))
+			{
+				return Tag;
+			}
+		}
+	}
+	return FGameplayTag();
+}
+
+FGameplayTag UAura_AbilitySystemComponent::GetInputTagFromSpec(const FGameplayAbilitySpec& AbilitySpec)
+{
+	for (auto Tag : AbilitySpec.DynamicAbilityTags)
+	{
+		if (Tag.MatchesTag(FGameplayTag::RequestGameplayTag(FName("InputTag"))))
+		{
+			return Tag;
+		}
+	}
+	return FGameplayTag();
 }
