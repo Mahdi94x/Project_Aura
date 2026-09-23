@@ -80,7 +80,7 @@ FGameplayTag UAura_AbilitySystemComponent::GetAbilityTagFromSpec(const FGameplay
 {
 	if (AbilitySpec.Ability)
 	{
-		for (auto Tag : AbilitySpec.Ability.Get()->AbilityTags)
+		for (auto Tag : AbilitySpec.Ability.Get()->GetAssetTags())
 		{
 			if (Tag.MatchesTag(FGameplayTag::RequestGameplayTag(FName("Abilities"))))
 			{
@@ -93,7 +93,7 @@ FGameplayTag UAura_AbilitySystemComponent::GetAbilityTagFromSpec(const FGameplay
 
 FGameplayTag UAura_AbilitySystemComponent::GetInputTagFromSpec(const FGameplayAbilitySpec& AbilitySpec)
 {
-	for (auto Tag : AbilitySpec.DynamicAbilityTags)
+	for (auto Tag : AbilitySpec.GetDynamicSpecSourceTags())
 	{
 		if (Tag.MatchesTag(FGameplayTag::RequestGameplayTag(FName("InputTag"))))
 		{
@@ -101,4 +101,15 @@ FGameplayTag UAura_AbilitySystemComponent::GetInputTagFromSpec(const FGameplayAb
 		}
 	}
 	return FGameplayTag();
+}
+
+void UAura_AbilitySystemComponent::OnRep_ActivateAbilities()
+{
+	Super::OnRep_ActivateAbilities();
+	
+	if (!bStartupAbilitiesGiven)
+	{
+		bStartupAbilitiesGiven = true;
+		AbilitiesGivenDelegate.Broadcast(this);
+	}
 }

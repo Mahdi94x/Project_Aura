@@ -38,4 +38,6 @@ protected:
 	void ClientEffectApplied(UAbilitySystemComponent* AbilitySystemComponent, const FGameplayEffectSpec& EffectSpec, FActiveGameplayEffectHandle ActiveEffectHandle);
 	/*The Callback Function*/
 	
+	virtual void OnRep_ActivateAbilities() override;
+	
 };
