@@ -63,6 +63,9 @@ struct FAura_GameplayTags
 	FGameplayTag Abilities_Summon;
 	FGameplayTag Abilities_Fire_FireBolt;
 	
+	/*Cooldown*/
+	FGameplayTag Cooldown_Fire_FireBolt;
+	
 	/*Event - Montages*/
 	FGameplayTag Montage_Attack_Weapon;
 	FGameplayTag Montage_Attack_RightHand;
