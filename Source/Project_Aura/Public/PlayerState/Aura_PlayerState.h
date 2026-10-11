@@ -7,6 +7,7 @@
 #include "GameFramework/PlayerState.h"
 #include "Aura_PlayerState.generated.h"
 
+class ULevelUpInfo;
 class UAttributeSet;
 class UAbilitySystemComponent;
 
@@ -19,10 +20,13 @@ class PROJECT_AURA_API AAura_PlayerState : public APlayerState, public IAbilityS
 	
 public:
 	AAura_PlayerState();
-	virtual void GetLifetimeReplicatedProps(TArray<class FLifetimeProperty>& OutLifetimeProps) const override;
+	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 	
 	FOnPlayerStatChangedSignature OnXPChangedDelegate;
 	FOnPlayerStatChangedSignature OnLevelChangedDelegate;
+	
+	UPROPERTY(EditDefaultsOnly)
+	TObjectPtr<ULevelUpInfo> LevelUpInfo;
 
 protected:
 	UPROPERTY()

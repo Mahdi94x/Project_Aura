@@ -4,24 +4,26 @@
 
 int32 ULevelUpInfo::FindLevelForXP(int32 Xp) const
 {
-	int32 CurrentLevel = 1;
+	/*this algorithm returns the level based on the next level threshold,
+	 * so if the player is currently in level 2 moving to level 3,
+	 * the algorithm will return level 3 as the current xp is higher than
+	 * the threshold for level 2 but lower than the threshold for level 3
+	 * //LevelUpInformation[0] => Placeholder
+	 */
+	int32 Level = 1;
 	bool bSearching = true;
 	while (bSearching)
 	{
-		//LevelUpInformation[0] => Placeholder
-		// LevelUpInformation[1] = Level 1 Information
-		// LevelUpInformation[2] = Level 1 Information
+		if (LevelUpInformation.Num() -1 <= Level) return Level; /*Boundary Check*/
 		
-		if (LevelUpInformation.Num() -1 <= CurrentLevel) return CurrentLevel; /*Boundary Check*/
-		
-		if (Xp >= LevelUpInformation[CurrentLevel].LevelUpRequirement) /*Main Condition*/
+		if (Xp >= LevelUpInformation[Level].LevelUpRequirement) /*Main Condition*/
 		{
-			++CurrentLevel;
+			++Level;
 		}
 		else
 		{
 			bSearching = false;
 		}
 	}
-	return CurrentLevel;
+	return Level;
 }
