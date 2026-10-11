@@ -10,6 +10,8 @@
 class UAttributeSet;
 class UAbilitySystemComponent;
 
+DECLARE_MULTICAST_DELEGATE_OneParam(FOnPlayerStatChangedSignature, int32 /*StatValue*/);
+
 UCLASS()
 class PROJECT_AURA_API AAura_PlayerState : public APlayerState, public IAbilitySystemInterface
 {
@@ -18,6 +20,9 @@ class PROJECT_AURA_API AAura_PlayerState : public APlayerState, public IAbilityS
 public:
 	AAura_PlayerState();
 	virtual void GetLifetimeReplicatedProps(TArray<class FLifetimeProperty>& OutLifetimeProps) const override;
+	
+	FOnPlayerStatChangedSignature OnXPChangedDelegate;
+	FOnPlayerStatChangedSignature OnLevelChangedDelegate;
 
 protected:
 	UPROPERTY()
@@ -27,14 +32,30 @@ protected:
 	TObjectPtr<UAttributeSet> AttributeSet;
 
 private:
-	UPROPERTY(VisibleAnywhere, ReplicatedUsing= OnRep_Level)
-	int32 Level = 1;
-
+	
 	UFUNCTION()
 	void OnRep_Level(int32 OldLevel);
+	
+	UFUNCTION()
+	void OnRep_XP(int32 OldXP);
+	
+	UPROPERTY(VisibleAnywhere, ReplicatedUsing= OnRep_Level)
+	int32 Level = 1;
+	
+	UPROPERTY(VisibleAnywhere, ReplicatedUsing= OnRep_XP)
+	int32 XP = 1;
 
 public: /*Setters and Getters*/
+	
 	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
 	UAttributeSet* GetAttributeSet() const;
+	
 	FORCEINLINE int32 GetPlayerStateLevel() const {return this->Level;}
+	FORCEINLINE int32 GetXP() const {return this->XP;}
+	
+	void SetXP(int32 NewXP);
+	void SetLevel(int32 NewLevel);
+	
+	void AddToXP(int32 NewXP);
+	void AddToLevel(int32 NewLevel);
 };

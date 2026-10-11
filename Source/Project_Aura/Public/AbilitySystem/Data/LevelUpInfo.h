@@ -28,7 +28,7 @@ class PROJECT_AURA_API ULevelUpInfo : public UDataAsset
 	GENERATED_BODY()
 	
 public:
-	int32 FindLevelForXP(int32 Xp, bool bLogNotFound = false) const;
+	int32 FindLevelForXP(int32 Xp) const;
 	
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "LevelUpInfo")
 	TArray<FAuraLevelUpInfo> LevelUpInformation;
