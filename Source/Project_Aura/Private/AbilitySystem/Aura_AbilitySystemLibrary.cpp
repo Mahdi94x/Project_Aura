@@ -88,6 +88,18 @@ void UAura_AbilitySystemLibrary::AddCharacterAbilities(const UObject* WorldConte
 	}
 }
 
+int32 UAura_AbilitySystemLibrary::GetXPRewardForClassAndLevel(const UObject* WorldContextObject,
+	ECharacterClass CharacterClass, int32 CharacterLevel)
+{
+	UCharacterClassInfo* ClassInfoDa = GetCharacterClassInfoDa(WorldContextObject);
+	if (ClassInfoDa == nullptr) return 0;
+	
+	FCharacterClassDefaultInfo Info = ClassInfoDa->GetClassDefaultInfo(CharacterClass);
+	float XPReward = Info.XPReward.GetValueAtLevel(CharacterLevel);
+	
+	return static_cast<int32>(XPReward);
+}
+
 UCharacterClassInfo* UAura_AbilitySystemLibrary::GetCharacterClassInfoDa(const UObject* WorldContextObject)
 {
 	const AAura_GameModeBase* AuraGameMode = Cast<AAura_GameModeBase>(UGameplayStatics::GetGameMode(WorldContextObject));
@@ -157,7 +169,6 @@ void UAura_AbilitySystemLibrary::GetLivePlayersWithinRadius(const UObject* World
 			}
 		}
 	}
-	
 }
 
 bool UAura_AbilitySystemLibrary::IsNotFriend(AActor* FirstActor, AActor* SecondActor)
@@ -169,4 +180,5 @@ bool UAura_AbilitySystemLibrary::IsNotFriend(AActor* FirstActor, AActor* SecondA
 	
 	return !bIsFriend;
 }
+
 

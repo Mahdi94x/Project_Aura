@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameplayTagContainer.h"
 #include "UObject/Interface.h"
+#include "AbilitySystem/Data/CharacterClassInfo.h"
 #include "CombatInterface.generated.h"
 
 class UNiagaraSystem;
@@ -74,4 +75,7 @@ public:
 	
 	UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
 	void UpdateMinionCount(int32 Amount);
+	
+	UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
+	ECharacterClass GetCharacterClass();
 };

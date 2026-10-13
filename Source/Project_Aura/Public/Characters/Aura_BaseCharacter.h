@@ -6,6 +6,7 @@
 #include "GameFramework/Character.h"
 #include "AbilitySystemInterface.h"
 #include "Interaction/CombatInterface.h"
+#include "AbilitySystem/Data/CharacterClassInfo.h"
 #include "Aura_BaseCharacter.generated.h"
 
 class UNiagaraSystem;
@@ -35,6 +36,7 @@ public:
 	virtual FTaggedMontage GetTaggedMontageByTag_Implementation(const FGameplayTag& MontageTag) override;
 	virtual int32 GetMinionCount_Implementation() override;
 	virtual void UpdateMinionCount_Implementation(int32 Amount) override;
+	virtual ECharacterClass GetCharacterClass_Implementation() override;
 	/* ~End ICombatInterface*/
 	
 	UFUNCTION(netmulticast, Reliable)
@@ -66,6 +68,9 @@ protected:
 	virtual void AddCharacterAbilities();
 	
 	bool bDead = false;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Aura|CharacterClassDefaults")
+	ECharacterClass CharacterClass = ECharacterClass::None;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Aura|Combat")
 	TObjectPtr<USkeletalMeshComponent> Weapon;

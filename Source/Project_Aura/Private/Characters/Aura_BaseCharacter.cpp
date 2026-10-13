@@ -115,6 +115,11 @@ void AAura_BaseCharacter::UpdateMinionCount_Implementation(int32 Amount)
 	this->MinionCount += Amount;
 }
 
+ECharacterClass AAura_BaseCharacter::GetCharacterClass_Implementation()
+{
+	return this->CharacterClass;
+}
+
 void AAura_BaseCharacter::Dissolve()
 {
 	if (IsValid(DissolveMatInst))

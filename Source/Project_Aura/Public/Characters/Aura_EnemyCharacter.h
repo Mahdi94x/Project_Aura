@@ -6,7 +6,6 @@
 #include "Characters/Aura_BaseCharacter.h"
 #include "Interaction/Enemy_HighlightInterface.h"
 #include "UI/WidgetController/OverlayWidgetController.h"
-#include "AbilitySystem/Data/CharacterClassInfo.h"
 #include "Aura_EnemyCharacter.generated.h"
 
 class UBehaviorTree;
@@ -58,9 +57,6 @@ protected:
 	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Aura|CharacterClassDefaults")
 	int32 Level = 1;
-	
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Aura|CharacterClassDefaults")
-	ECharacterClass CharacterClass = ECharacterClass::None;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Aura|Combat")
 	float LifeSpan = 5.f;
