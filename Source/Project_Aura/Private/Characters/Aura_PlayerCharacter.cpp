@@ -47,7 +47,7 @@ void AAura_PlayerCharacter::InitializeAbilityActorInfo()
 	
 	AuraPlayerState->GetAbilitySystemComponent()->InitAbilityActorInfo(AuraPlayerState, this);
 	
-	/*to bind the delegates of the gameplay effect - the character class depend on the ASC class but not vice versa*/
+	/*to bind the delegates of the gameplay effect, the character class depend on the ASC class but not vice versa*/
 	Cast<UAura_AbilitySystemComponent>(AuraPlayerState->GetAbilitySystemComponent())->AbilityActorInfoSet();
 	
 	AbilitySystemComponent = AuraPlayerState->GetAbilitySystemComponent();
