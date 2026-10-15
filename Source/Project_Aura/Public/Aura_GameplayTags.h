@@ -10,7 +10,6 @@
  */
 struct FAura_GameplayTags
 {
-
 	static const FAura_GameplayTags& Get() {return GameplayTags;}
 	static void InitializeNativeGameplayTags();
 
@@ -52,6 +51,9 @@ struct FAura_GameplayTags
 	FGameplayTag Attributes_Secondary_LightningResistance;
 	FGameplayTag Attributes_Secondary_PhysicalResistance;
 	
+	/*Meta-Attributes*/
+	FGameplayTag Attributes_Meta_IncomingXP;
+	
 	/*Tags for Abilities*/
 	FGameplayTag HitReact;
 	
@@ -79,7 +81,6 @@ struct FAura_GameplayTags
 	FGameplayTag CombatSocket_RightHand;
 	FGameplayTag CombatSocket_LeftHand;
 	FGameplayTag CombatSocket_Tail;
-	
 	
 private:
 	static FAura_GameplayTags GameplayTags;

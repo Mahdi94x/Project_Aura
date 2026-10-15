@@ -100,6 +100,15 @@ void FAura_GameplayTags::InitializeNativeGameplayTags()
         );
 	
 	/*
+	 *Meta-Attribute
+	 */
+	GameplayTags.Attributes_Meta_IncomingXP =
+		TagsManager.AddNativeGameplayTag(
+			FName("Attributes.Meta.IncomingXP"),
+			FString("Incoming XP Meta-Attribute Tag.")
+	);
+	
+	/*
 	 *Input Tags
 	 */
 	GameplayTags.InputTag_LMB =

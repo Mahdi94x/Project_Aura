@@ -166,6 +166,7 @@ void AAura_BaseCharacter::AddCharacterAbilities()
 	if (!HasAuthority()) return;
 	
 	AuraAsc->GiveCharacterAbilities(this->StartupAbilitiesArray);
+	AuraAsc->GiveCharacterPassiveAbilities(this->StartupPassiveAbilitiesArray);
 }
 
 UAbilitySystemComponent* AAura_BaseCharacter::GetAbilitySystemComponent() const
