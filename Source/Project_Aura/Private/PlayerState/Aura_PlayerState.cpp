@@ -1,6 +1,5 @@
 // Project by Mahdi94x based on Stephen Ulibarri's create a multiplayer RPG with Unreal Engine's Gameplay Ability System (GAS) Course.
 
-
 #include "PlayerState/Aura_PlayerState.h"
 #include "AbilitySystem/Aura_AbilitySystemComponent.h"
 #include "AbilitySystem/Aura_AttributeSet.h"
