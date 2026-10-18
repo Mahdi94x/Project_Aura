@@ -23,7 +23,7 @@ AAura_BaseCharacter::AAura_BaseCharacter()
 	Weapon->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 }
 
-int32 AAura_BaseCharacter::GetCharacterLevel()
+int32 AAura_BaseCharacter::GetCharacterLevel_Implementation()
 {
 	return 0;
 }

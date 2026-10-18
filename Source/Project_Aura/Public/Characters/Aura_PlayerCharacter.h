@@ -17,11 +17,12 @@ public:
 	virtual void OnRep_PlayerState() override;
 	
 	// ~ Begin ICombat Interface
-	virtual int32 GetCharacterLevel() override;
+	virtual int32 GetCharacterLevel_Implementation() override;
 	// ~ End ICombat Interface
 	
 	// ~ Begin IPlayer Interface
-	virtual void AddtoXP_Implementation(int32 InXP) override;
+	virtual void AddToXP_Implementation(int32 InXP) override;
+	virtual void LevelUp_Implementation() override;
 	// ~ End IPlayer Interface
 	
 protected: 

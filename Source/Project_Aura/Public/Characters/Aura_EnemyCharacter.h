@@ -32,7 +32,7 @@ public:
 	// ~ End Enemy_IHighlight Interface
 
 	// ~ Begin ICombat Interface
-	virtual int32 GetCharacterLevel() override;
+	virtual int32 GetCharacterLevel_Implementation() override;
 	virtual void Die() override;
 	// ~ End ICombat Interface
 	

@@ -66,7 +66,7 @@ float AAura_EnemyCharacter::GetSphereTraceRadius_Implementation() const
 	return this->SphereTraceRadius;
 }
 
-int32 AAura_EnemyCharacter::GetCharacterLevel()
+int32 AAura_EnemyCharacter::GetCharacterLevel_Implementation()
 {
 	return this->Level;
 }

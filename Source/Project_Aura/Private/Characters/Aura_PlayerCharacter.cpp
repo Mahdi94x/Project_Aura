@@ -64,17 +64,22 @@ void AAura_PlayerCharacter::InitializeAbilityActorInfo()
 	this->InitializeDefaultAttributes();
 }
 
-int32 AAura_PlayerCharacter::GetCharacterLevel()
+int32 AAura_PlayerCharacter::GetCharacterLevel_Implementation()
 {
 	const AAura_PlayerState* AuraPlayerState = GetPlayerState<AAura_PlayerState>(); 
 	check(AuraPlayerState);
 	return AuraPlayerState->GetPlayerStateLevel();
 }
 
-void AAura_PlayerCharacter::AddtoXP_Implementation(int32 InXP)
+void AAura_PlayerCharacter::AddToXP_Implementation(int32 InXP)
 {
 	AAura_PlayerState* AuraPlayerState = GetPlayerState<AAura_PlayerState>(); 
 	check(AuraPlayerState);
 	
 	AuraPlayerState->AddToXP(InXP);
+}
+
+void AAura_PlayerCharacter::LevelUp_Implementation()
+{
+	
 }

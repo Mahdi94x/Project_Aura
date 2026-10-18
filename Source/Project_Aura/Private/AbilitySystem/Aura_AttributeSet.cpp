@@ -184,7 +184,7 @@ void UAura_AttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCallb
 		
 		if (Props.SourceCharacter->Implements<UPlayerInterface>())
 		{
-			IPlayerInterface::Execute_AddtoXP(Props.SourceCharacter ,LocalIncomingXP);
+			IPlayerInterface::Execute_AddToXP(Props.SourceCharacter ,LocalIncomingXP);
 		}
 	}
 }
@@ -208,9 +208,9 @@ void UAura_AttributeSet::ShowFloatingDamageText(const FEffectProperties& Props, 
 
 void UAura_AttributeSet::SendXPEvent(const FEffectProperties& Props)
 {
-	if (const TScriptInterface<ICombatInterface> CombatInterFace = Props.TargetCharacter)
+	if (Props.TargetCharacter->Implements<UCombatInterface>())
 	{
-		const int32 TargetLevel = CombatInterFace->GetCharacterLevel();
+		const int32 TargetLevel = ICombatInterface::Execute_GetCharacterLevel(Props.TargetCharacter);
 		const ECharacterClass TargetClass = ICombatInterface::Execute_GetCharacterClass(Props.TargetCharacter);
 		const int32 XPReward = UAura_AbilitySystemLibrary::GetXPRewardForClassAndLevel(Props.TargetCharacter,TargetClass,TargetLevel);
 		

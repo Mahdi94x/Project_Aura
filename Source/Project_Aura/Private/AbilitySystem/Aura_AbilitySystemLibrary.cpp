@@ -79,9 +79,9 @@ void UAura_AbilitySystemLibrary::AddCharacterAbilities(const UObject* WorldConte
 		
 		for (TSubclassOf<UGameplayAbility> StarUpAbility : ClassInfoDa->GetClassDefaultInfo(CharacterClass).StartUpAbilities)
 		{
-			if (TScriptInterface<ICombatInterface> CombatInterface = Asc->GetAvatarActor())
+			if (Asc->GetAvatarActor()->Implements<UCombatInterface>())
 			{
-				FGameplayAbilitySpec AbilitySpec =  FGameplayAbilitySpec(StarUpAbility, CombatInterface->GetCharacterLevel());
+				FGameplayAbilitySpec AbilitySpec =  FGameplayAbilitySpec(StarUpAbility, ICombatInterface::Execute_GetCharacterLevel(Asc->GetAvatarActor()));
 				Asc->GiveAbility(AbilitySpec);
 			}
 		}
@@ -149,10 +149,9 @@ void UAura_AbilitySystemLibrary::GetLivePlayersWithinRadius(const UObject* World
 	FCollisionQueryParams SphereParams;
 	SphereParams.AddIgnoredActors(ActorsToIgnore);
 	
-	TArray<FOverlapResult> Overlaps;
-	
 	if (const UWorld* World = GEngine->GetWorldFromContextObject(WorldContextObject, EGetWorldErrorMode::LogAndReturnNull))
 	{
+		TArray<FOverlapResult> Overlaps;
 		World->OverlapMultiByObjectType(Overlaps,
 			SphereOrigin,
 			FQuat::Identity,

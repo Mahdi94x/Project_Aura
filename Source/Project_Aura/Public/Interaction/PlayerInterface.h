@@ -23,5 +23,8 @@ class PROJECT_AURA_API IPlayerInterface
 	// Add interface functions to this class. This is the class that will be inherited to implement this interface.
 public:
 	UFUNCTION(BlueprintNativeEvent)
-	void AddtoXP(int32 InXP);
+	void AddToXP(int32 InXP);
+	
+	UFUNCTION(BlueprintNativeEvent)
+	void LevelUp();
 };
