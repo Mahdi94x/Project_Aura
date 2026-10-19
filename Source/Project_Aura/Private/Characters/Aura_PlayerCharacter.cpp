@@ -3,6 +3,7 @@
 #include "Characters/Aura_PlayerCharacter.h"
 #include "AbilitySystemComponent.h"
 #include "AbilitySystem/Aura_AbilitySystemComponent.h"
+#include "AbilitySystem/Data/LevelUpInfo.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "PlayerController/Aura_PlayerController.h"
 #include "PlayerState/Aura_PlayerState.h"
@@ -64,11 +65,64 @@ void AAura_PlayerCharacter::InitializeAbilityActorInfo()
 	this->InitializeDefaultAttributes();
 }
 
+void AAura_PlayerCharacter::LevelUp_Implementation()
+{
+	
+}
+
 int32 AAura_PlayerCharacter::GetCharacterLevel_Implementation()
 {
 	const AAura_PlayerState* AuraPlayerState = GetPlayerState<AAura_PlayerState>(); 
 	check(AuraPlayerState);
 	return AuraPlayerState->GetPlayerStateLevel();
+}
+
+int32 AAura_PlayerCharacter::GetXP_Implementation() const
+{
+	const AAura_PlayerState* AuraPlayerState = GetPlayerState<AAura_PlayerState>(); 
+	check(AuraPlayerState);
+	
+	return AuraPlayerState->GetXP();
+}
+
+int32 AAura_PlayerCharacter::FindLevelFromXP_Implementation(int32 InXP) const
+{
+	const AAura_PlayerState* AuraPlayerState = GetPlayerState<AAura_PlayerState>(); 
+	check(AuraPlayerState);
+	
+	return AuraPlayerState->LevelUpInfo->FindLevelForXP(InXP);
+}
+
+int32 AAura_PlayerCharacter::GetAttributePointsReward_Implementation(int32 InLevel) const
+{
+	const AAura_PlayerState* AuraPlayerState = GetPlayerState<AAura_PlayerState>(); 
+	check(AuraPlayerState);
+	return AuraPlayerState->LevelUpInfo->LevelUpInformation[InLevel].AttributePointAward;
+}
+
+int32 AAura_PlayerCharacter::GetSpellPointsReward_Implementation(int32 InLevel) const
+{
+	const AAura_PlayerState* AuraPlayerState = GetPlayerState<AAura_PlayerState>(); 
+	check(AuraPlayerState);
+	return AuraPlayerState->LevelUpInfo->LevelUpInformation[InLevel].SpellPointAward;
+}
+
+void AAura_PlayerCharacter::AddToPlayerLevel_Implementation(int32 InPlayerLevel)
+{
+	AAura_PlayerState* AuraPlayerState = GetPlayerState<AAura_PlayerState>(); 
+	check(AuraPlayerState);
+	
+	AuraPlayerState->AddToLevel(InPlayerLevel);
+}
+
+void AAura_PlayerCharacter::AddToAttributePoints_Implementation(int32 InAttributePoints)
+{
+	// TODO: Add AttributePoints member variable to player state
+}
+
+void AAura_PlayerCharacter::AddToSpellPoints_Implementation(int32 InSpellPoints)
+{
+	// TODO: Add AttributePoints member variable to player state
 }
 
 void AAura_PlayerCharacter::AddToXP_Implementation(int32 InXP)
@@ -77,9 +131,4 @@ void AAura_PlayerCharacter::AddToXP_Implementation(int32 InXP)
 	check(AuraPlayerState);
 	
 	AuraPlayerState->AddToXP(InXP);
-}
-
-void AAura_PlayerCharacter::LevelUp_Implementation()
-{
-	
 }
