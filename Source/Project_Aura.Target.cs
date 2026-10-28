@@ -8,10 +8,10 @@ public class Project_AuraTarget : TargetRules
 	public Project_AuraTarget(TargetInfo Target) : base(Target)
 	{
 		Type = TargetType.Game;
-		DefaultBuildSettings = BuildSettingsVersion.V5;
-        IncludeOrderVersion = EngineIncludeOrderVersion.Unreal5_7;
-        BuildEnvironment = TargetBuildEnvironment.Shared;
 
-        ExtraModuleNames.AddRange( new string[] { "Project_Aura" } );
+		DefaultBuildSettings = BuildSettingsVersion.V7;
+		IncludeOrderVersion = EngineIncludeOrderVersion.Unreal5_8;
+
+		ExtraModuleNames.AddRange(new string[] { "Project_Aura" });
 	}
 }

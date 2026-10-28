@@ -176,33 +176,29 @@ void UAura_AttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCallb
 		const float LocalIncomingXP = GetIncomingXP();
 		SetIncomingXP(0.f);
 		
-		UE_LOG(LogAura, Warning, TEXT("Incoming XP: %f"), GetIncomingXP());
-		if (GEngine) GEngine->AddOnScreenDebugMessage(
-		-1, 1.0f, FColor::Red, FString::Printf(TEXT("Incoming XP: %f"), LocalIncomingXP));
-		
-		// TODO: See if we need to level up
 		// Source character is the owner since GA_ListenForEvents apply GE_EventBasedEffect, adding to IncomingXP
 		if (Props.SourceCharacter->Implements<UPlayerInterface>() && Props.SourceCharacter->Implements<UCombatInterface>())
 		{
+			IPlayerInterface::Execute_AddToXP(Props.SourceCharacter ,LocalIncomingXP);
+			
 			const int32 CurrentLevel = ICombatInterface::Execute_GetCharacterLevel(Props.SourceCharacter);
 			const int32 CurrentXP = IPlayerInterface::Execute_GetXP(Props.SourceCharacter);
 			
 			const int32 NewLevel = IPlayerInterface::Execute_FindLevelFromXP(Props.SourceCharacter, CurrentXP + LocalIncomingXP);
-			const int32 NumberOfLevelUps = NewLevel - CurrentLevel;
 			
-			if (NumberOfLevelUps > 0)
+			if (const int32 NumberOfLevelUps = NewLevel - CurrentLevel > 0)
 			{
 				const int32 AttributePointsReward = IPlayerInterface::Execute_GetAttributePointsReward(Props.SourceCharacter, CurrentLevel);
 				const int32 SpellPointsReward = IPlayerInterface::Execute_GetSpellPointsReward(Props.SourceCharacter, CurrentLevel);
+				
 				IPlayerInterface::Execute_AddToAttributePoints(Props.SourceCharacter, AttributePointsReward);
 				IPlayerInterface::Execute_AddToSpellPoints(Props.SourceCharacter, SpellPointsReward);
 				IPlayerInterface::Execute_AddToPlayerLevel(Props.SourceCharacter, NumberOfLevelUps);
+				
 				IPlayerInterface::Execute_LevelUp(Props.SourceCharacter);
 				SetHealth(GetMaxHealth());
 				SetMana(GetMaxMana());
 			}
-			
-			IPlayerInterface::Execute_AddToXP(Props.SourceCharacter ,LocalIncomingXP);
 		}
 	}
 }
@@ -232,7 +228,7 @@ void UAura_AttributeSet::SendXPEvent(const FEffectProperties& Props)
 		const ECharacterClass TargetClass = ICombatInterface::Execute_GetCharacterClass(Props.TargetCharacter);
 		const int32 XPReward = UAura_AbilitySystemLibrary::GetXPRewardForClassAndLevel(Props.TargetCharacter,TargetClass,TargetLevel);
 		
-		const FAura_GameplayTags GameplayTags = FAura_GameplayTags::Get();
+		const FAura_GameplayTags& GameplayTags = FAura_GameplayTags::Get();
 		FGameplayEventData Payload;
 		Payload.EventTag = GameplayTags.Attributes_Meta_IncomingXP;
 		Payload.EventMagnitude = XPReward;
