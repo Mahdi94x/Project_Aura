@@ -2,15 +2,31 @@
 
 #include "Characters/Aura_PlayerCharacter.h"
 #include "AbilitySystemComponent.h"
+#include "NiagaraComponent.h"
 #include "AbilitySystem/Aura_AbilitySystemComponent.h"
 #include "AbilitySystem/Data/LevelUpInfo.h"
+#include "Camera/CameraComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
+#include "GameFramework/SpringArmComponent.h"
 #include "PlayerController/Aura_PlayerController.h"
 #include "PlayerState/Aura_PlayerState.h"
 #include "UI/HUD/Aura_HUD.h"
 
 AAura_PlayerCharacter::AAura_PlayerCharacter()
 {
+	LevelUpNiagaraComponent = CreateDefaultSubobject<UNiagaraComponent>("LevelUpNiagaraComponent");
+	LevelUpNiagaraComponent->SetupAttachment(GetRootComponent());
+	LevelUpNiagaraComponent->bAutoActivate = false;
+	
+	CameraBoom = CreateDefaultSubobject<USpringArmComponent>("CameraBoom");
+	CameraBoom->SetupAttachment(GetRootComponent());
+	CameraBoom->SetUsingAbsoluteRotation(true);
+	CameraBoom->bDoCollisionTest = false;
+	
+	TopDownCameraComponent = CreateDefaultSubobject<UCameraComponent>("TopDownCameraComponent");
+	TopDownCameraComponent->SetupAttachment(CameraBoom, USpringArmComponent::SocketName);
+	TopDownCameraComponent->bUsePawnControlRotation = false;
+	
 	CharacterClass = ECharacterClass::Elementalist;
 	
 	GetCharacterMovement()->bOrientRotationToMovement = true;
@@ -65,9 +81,22 @@ void AAura_PlayerCharacter::InitializeAbilityActorInfo()
 	this->InitializeDefaultAttributes();
 }
 
+void AAura_PlayerCharacter::MulticastLevelUpParticles_Implementation() const
+{
+	if (LevelUpNiagaraComponent)
+	{
+		const FVector CameraLocation = TopDownCameraComponent->GetComponentLocation();
+		const FVector NiagaraSystemLocation = LevelUpNiagaraComponent->GetComponentLocation();
+		const FRotator ToCameraRotation = (CameraLocation - NiagaraSystemLocation).Rotation();
+		LevelUpNiagaraComponent->SetWorldRotation(ToCameraRotation);
+		LevelUpNiagaraComponent->Activate(true);
+	}
+}
+
 void AAura_PlayerCharacter::LevelUp_Implementation()
 {
-	
+	// LevelUp_Implementation() is only called on the server, that why we use a multicast RPC
+	MulticastLevelUpParticles();
 }
 
 int32 AAura_PlayerCharacter::GetCharacterLevel_Implementation()

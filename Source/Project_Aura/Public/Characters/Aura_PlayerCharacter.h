@@ -7,10 +7,15 @@
 #include "Interaction/PlayerInterface.h"
 #include "Aura_PlayerCharacter.generated.h"
 
+class USpringArmComponent;
+class UCameraComponent;
+class UNiagaraComponent;
+
 UCLASS()
 class PROJECT_AURA_API AAura_PlayerCharacter : public AAura_BaseCharacter, public IPlayerInterface
 {
 	GENERATED_BODY()
+	
 public:
 	AAura_PlayerCharacter();
 	virtual void PossessedBy(AController* NewController) override;
@@ -32,7 +37,19 @@ public:
 	virtual void AddToSpellPoints_Implementation(int32 InSpellPoints) override;
 	// ~ End IPlayer Interface
 	
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "LevelUp")
+	TObjectPtr<UNiagaraComponent> LevelUpNiagaraComponent;
+	
 protected: 
 	virtual void InitializeAbilityActorInfo() override;
-
+	
+private:
+	UFUNCTION(NetMulticast, Reliable)
+	void MulticastLevelUpParticles() const;
+	
+	UPROPERTY(VisibleAnywhere)
+	TObjectPtr<UCameraComponent> TopDownCameraComponent;
+	
+	UPROPERTY(VisibleAnywhere)
+	TObjectPtr<USpringArmComponent> CameraBoom;
 };
