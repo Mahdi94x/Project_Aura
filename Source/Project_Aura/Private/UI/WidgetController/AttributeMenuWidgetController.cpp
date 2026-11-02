@@ -3,6 +3,7 @@
 
 #include "UI/WidgetController/AttributeMenuWidgetController.h"
 #include "AbilitySystem/Aura_AttributeSet.h"
+#include "PlayerState/Aura_PlayerState.h"
 
 void UAttributeMenuWidgetController::BroadcastInitialValues()
 {
@@ -16,6 +17,12 @@ void UAttributeMenuWidgetController::BroadcastInitialValues()
 
 void UAttributeMenuWidgetController::BindCallbacksToDependencies()
 {
+	AAura_PlayerState* AuraPlayerState = CastChecked<AAura_PlayerState>(this->PlayerState);
+	AuraPlayerState->OnAttributePointsChangedDelegate.AddLambda([this](int32 NewAttributePoints)
+	{
+		OnPlayerAttributePointsChangedDelegate.Broadcast(NewAttributePoints);
+	});
+	
 	UAura_AttributeSet* AS = CastChecked<UAura_AttributeSet>(AttributeSet);
 	
 	for (auto& Pair : AS->TagsToAttributesMap)

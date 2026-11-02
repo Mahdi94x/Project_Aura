@@ -14,10 +14,6 @@
 
 AAura_PlayerCharacter::AAura_PlayerCharacter()
 {
-	LevelUpNiagaraComponent = CreateDefaultSubobject<UNiagaraComponent>("LevelUpNiagaraComponent");
-	LevelUpNiagaraComponent->SetupAttachment(GetRootComponent());
-	LevelUpNiagaraComponent->bAutoActivate = false;
-	
 	CameraBoom = CreateDefaultSubobject<USpringArmComponent>("CameraBoom");
 	CameraBoom->SetupAttachment(GetRootComponent());
 	CameraBoom->SetUsingAbsoluteRotation(true);
@@ -26,6 +22,10 @@ AAura_PlayerCharacter::AAura_PlayerCharacter()
 	TopDownCameraComponent = CreateDefaultSubobject<UCameraComponent>("TopDownCameraComponent");
 	TopDownCameraComponent->SetupAttachment(CameraBoom, USpringArmComponent::SocketName);
 	TopDownCameraComponent->bUsePawnControlRotation = false;
+	
+	LevelUpNiagaraComponent = CreateDefaultSubobject<UNiagaraComponent>("LevelUpNiagaraComponent");
+	LevelUpNiagaraComponent->SetupAttachment(GetRootComponent());
+	LevelUpNiagaraComponent->bAutoActivate = false;
 	
 	CharacterClass = ECharacterClass::Elementalist;
 	
@@ -146,12 +146,18 @@ void AAura_PlayerCharacter::AddToPlayerLevel_Implementation(int32 InPlayerLevel)
 
 void AAura_PlayerCharacter::AddToAttributePoints_Implementation(int32 InAttributePoints)
 {
-	// TODO: Add AttributePoints member variable to player state
+	AAura_PlayerState* AuraPlayerState = GetPlayerState<AAura_PlayerState>(); 
+	check(AuraPlayerState);
+	
+	AuraPlayerState->AddToAttributePoints(InAttributePoints);
 }
 
 void AAura_PlayerCharacter::AddToSpellPoints_Implementation(int32 InSpellPoints)
 {
-	// TODO: Add AttributePoints member variable to player state
+	AAura_PlayerState* AuraPlayerState = GetPlayerState<AAura_PlayerState>(); 
+	check(AuraPlayerState);
+	
+	AuraPlayerState->AddToSpellPoints(InSpellPoints);
 }
 
 void AAura_PlayerCharacter::AddToXP_Implementation(int32 InXP)

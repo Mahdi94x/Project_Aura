@@ -32,6 +32,8 @@ struct FWidgetControllerParams
 	
 };
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnPlayerInfoChangedSignature, int32, NewValue);
+
 UCLASS()
 class PROJECT_AURA_API UAura_BaseWidgetController : public UObject
 {
