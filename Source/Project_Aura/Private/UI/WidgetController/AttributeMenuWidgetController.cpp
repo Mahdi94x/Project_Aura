@@ -14,7 +14,7 @@ void UAttributeMenuWidgetController::BroadcastInitialValues()
 		BroadcastAttInfoToWidget(Pair.Key, Pair.Value());
 	}
 	
-	AAura_PlayerState* AuraPlayerState = CastChecked<AAura_PlayerState>(this->PlayerState);
+	const AAura_PlayerState* AuraPlayerState = CastChecked<AAura_PlayerState>(this->PlayerState);
 	OnPlayerAttributePointsChangedDelegate.Broadcast(AuraPlayerState->GetAttributePoints());
 }
 
