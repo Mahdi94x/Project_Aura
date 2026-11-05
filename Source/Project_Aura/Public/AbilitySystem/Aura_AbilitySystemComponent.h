@@ -33,6 +33,10 @@ public:
 	FStartupAbilitiesGivenSignature AbilitiesGivenDelegate;
 	bool bStartupAbilitiesGiven = false;
 	
+	void UpgradeAttribute(const FGameplayTag& AttributeTag);
+	
+	UFUNCTION(Server, Reliable)
+	void Server_UpgradeAttribute(const FGameplayTag& AttributeTag);
 	
 protected:
 	UFUNCTION(Client, Reliable)

@@ -48,4 +48,10 @@ public:
 	
 	UFUNCTION(BlueprintNativeEvent)
 	int32 FindLevelFromXP(int32 InXP) const;
+	
+	UFUNCTION(BlueprintNativeEvent)
+	int32 GetCharacterAttributePoints() const;
+	
+	UFUNCTION(BlueprintNativeEvent)
+	int32 GetCharacterSpellPoints() const;
 };

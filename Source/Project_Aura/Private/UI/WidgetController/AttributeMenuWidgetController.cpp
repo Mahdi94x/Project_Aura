@@ -2,6 +2,8 @@
 
 
 #include "UI/WidgetController/AttributeMenuWidgetController.h"
+
+#include "AbilitySystem/Aura_AbilitySystemComponent.h"
 #include "AbilitySystem/Aura_AttributeSet.h"
 #include "PlayerState/Aura_PlayerState.h"
 
@@ -39,8 +41,14 @@ void UAttributeMenuWidgetController::BindCallbacksToDependencies()
 	}
 }
 
+void UAttributeMenuWidgetController::UpgradeAttribute(const FGameplayTag& AttributeTag)
+{
+	UAura_AbilitySystemComponent* AuraAsc = CastChecked<UAura_AbilitySystemComponent>(this->AbilitySystemComponent);
+	AuraAsc->UpgradeAttribute(AttributeTag);
+}
+
 void UAttributeMenuWidgetController::BroadcastAttInfoToWidget(const FGameplayTag& GameplayTag,
-	const FGameplayAttribute& GameplayAttribute) const
+                                                              const FGameplayAttribute& GameplayAttribute) const
 {
 	checkf(AttributeInfoDataAsset, TEXT("Set the Data Asset in BP_AttributeMenuWidgetController"));
 	FAuraAttributeInfo Info = AttributeInfoDataAsset->FindAttributeInfoByTag(GameplayTag);
