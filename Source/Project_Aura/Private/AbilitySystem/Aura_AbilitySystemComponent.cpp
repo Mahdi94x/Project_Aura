@@ -21,12 +21,12 @@ void UAura_AbilitySystemComponent::ClientEffectApplied_Implementation(UAbilitySy
 	EffectAssetTags.Broadcast(TagContainer);
 }
 
-void UAura_AbilitySystemComponent::GiveCharacterAbilities(
-	const TArray<TSubclassOf<UGameplayAbility>>& StartupAbilities)
+void UAura_AbilitySystemComponent::GiveCharacterAbilities(const TArray<TSubclassOf<UGameplayAbility>>& StartupAbilities)
 {
 	for (const TSubclassOf<UGameplayAbility> AbilityClass : StartupAbilities)
 	{
 		FGameplayAbilitySpec AbilitySpec =  FGameplayAbilitySpec(AbilityClass,1);
+		
 		if (const UAura_BaseAbility* AuraAbility = Cast<UAura_BaseAbility>(AbilitySpec.Ability))
 		{
 			AbilitySpec.GetDynamicSpecSourceTags().AddTag(AuraAbility->StartupInputTag);
@@ -34,7 +34,7 @@ void UAura_AbilitySystemComponent::GiveCharacterAbilities(
 		}
 	}
 	bStartupAbilitiesGiven = true;
-	AbilitiesGivenDelegate.Broadcast(this);
+	AbilitiesGivenDelegate.Broadcast();
 }
 
 void UAura_AbilitySystemComponent::GiveCharacterPassiveAbilities(
@@ -78,6 +78,7 @@ void UAura_AbilitySystemComponent::AbilityInputTagReleased(const FGameplayTag& I
 void UAura_AbilitySystemComponent::ForEachAbility(const FForEachAbilitySignature& Delegate)
 {
 	FScopedAbilityListLock ActiveScopeLock(*this);
+	
 	for (const FGameplayAbilitySpec& AbilitySpec : GetActivatableAbilities())
 	{
 		if (!Delegate.ExecuteIfBound(AbilitySpec))
@@ -147,6 +148,6 @@ void UAura_AbilitySystemComponent::OnRep_ActivateAbilities()
 	if (!bStartupAbilitiesGiven)
 	{
 		bStartupAbilitiesGiven = true;
-		AbilitiesGivenDelegate.Broadcast(this);
+		AbilitiesGivenDelegate.Broadcast();
 	}
 }

@@ -8,7 +8,7 @@
 
 class UAura_AbilitySystemComponent;
 DECLARE_MULTICAST_DELEGATE_OneParam(FEffectAssetTags, const FGameplayTagContainer& /*AssetTags*/);
-DECLARE_MULTICAST_DELEGATE_OneParam(FStartupAbilitiesGivenSignature, UAura_AbilitySystemComponent* /*AuraAbilitySystemComponent*/);
+DECLARE_MULTICAST_DELEGATE(FStartupAbilitiesGivenSignature);
 DECLARE_DELEGATE_OneParam(FForEachAbilitySignature, const FGameplayAbilitySpec&);
 
 UCLASS()
