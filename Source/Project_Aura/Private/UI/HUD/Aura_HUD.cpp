@@ -5,9 +5,11 @@
 #include "UI/Widget/Aura_UserWidget.h"
 #include "UI/WidgetController/AttributeMenuWidgetController.h"
 #include "UI/WidgetController/OverlayWidgetController.h"
+#include "UI/WidgetController/SpellMenuWidgetController.h"
 
 UOverlayWidgetController* AAura_HUD::GetOverlayWidgetController(const FWidgetControllerParams& WCParams)
 {
+	checkf(OverlayWidgetControllerClass, TEXT("Set The Widget Controller BP_Version in BP_AuraHUD"))
 	if (OverlayWidgetController == nullptr)
 	{
 		OverlayWidgetController = NewObject<UOverlayWidgetController>(this, OverlayWidgetControllerClass);
@@ -19,6 +21,7 @@ UOverlayWidgetController* AAura_HUD::GetOverlayWidgetController(const FWidgetCon
 
 UAttributeMenuWidgetController* AAura_HUD::GetAttributeMenuWidgetController(const FWidgetControllerParams& WCParams)
 {
+	checkf(AttributeMenuWidgetControllerClass, TEXT("Set The Widget Controller BP_Version in BP_AuraHUD"))
 	if (AttributeMenuWidgetController == nullptr)
 	{
 		AttributeMenuWidgetController = NewObject<UAttributeMenuWidgetController>(this, AttributeMenuWidgetControllerClass);
@@ -26,6 +29,18 @@ UAttributeMenuWidgetController* AAura_HUD::GetAttributeMenuWidgetController(cons
 		AttributeMenuWidgetController->BindCallbacksToDependencies();
 	}
 	return AttributeMenuWidgetController;
+}
+
+USpellMenuWidgetController* AAura_HUD::GetSpellMenuWidgetController(const FWidgetControllerParams& WCParams)
+{
+	checkf(SpellMenuWidgetControllerClass, TEXT("Set The Widget Controller BP_Version in BP_AuraHUD"))
+	if (SpellMenuWidgetController == nullptr)
+	{
+		SpellMenuWidgetController = NewObject<USpellMenuWidgetController>(this, SpellMenuWidgetControllerClass);
+		SpellMenuWidgetController->SetWidgetControllerParams(WCParams);
+		SpellMenuWidgetController->BindCallbacksToDependencies();
+	}
+	return SpellMenuWidgetController;
 }
 
 void AAura_HUD::InitOverlay(APlayerController* PC, APlayerState* PS, UAbilitySystemComponent* ASC, UAttributeSet* AS)

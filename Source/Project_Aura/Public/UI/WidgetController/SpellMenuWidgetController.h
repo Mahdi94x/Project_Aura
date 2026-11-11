@@ -6,7 +6,7 @@
 #include "Aura_BaseWidgetController.h"
 #include "SpellMenuWidgetController.generated.h"
 
-UCLASS()
+UCLASS(BlueprintType, Blueprintable)
 class PROJECT_AURA_API USpellMenuWidgetController : public UAura_BaseWidgetController
 {
 	GENERATED_BODY()
