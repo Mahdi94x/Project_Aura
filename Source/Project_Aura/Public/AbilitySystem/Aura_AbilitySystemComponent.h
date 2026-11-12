@@ -25,9 +25,15 @@ public:
 	void AbilityInputTagHeld(const FGameplayTag& InputTag);
 	void AbilityInputTagReleased(const FGameplayTag& InputTag);
 	void ForEachAbility(const FForEachAbilitySignature& Delegate);
-	static FGameplayTag GetAbilityTagFromSpec(const FGameplayAbilitySpec& AbilitySpec); /*Utility func to return ability tag from ability spec*/
-	static FGameplayTag GetInputTagFromSpec(const FGameplayAbilitySpec& AbilitySpec);  /*Utility func to return input tag from ability spec*/
-	/*static function takes something and return something*/
+	
+	/*Utility func to return ability tag from ability spec*/
+	static FGameplayTag GetAbilityTagFromSpec(const FGameplayAbilitySpec& AbilitySpec);
+	
+	/*Utility func to return input tag from ability spec*/
+	static FGameplayTag GetInputTagFromSpec(const FGameplayAbilitySpec& AbilitySpec);
+	
+	/*Utility func to return status tag from ability spec*/
+	static FGameplayTag GetStatusTagFromSpec(const FGameplayAbilitySpec& AbilitySpec);
 	
 	FEffectAssetTags EffectAssetTags;
 	FStartupAbilitiesGivenSignature AbilitiesGivenDelegate;

@@ -30,6 +30,7 @@ void UAura_AbilitySystemComponent::GiveCharacterAbilities(const TArray<TSubclass
 		if (const UAura_BaseAbility* AuraAbility = Cast<UAura_BaseAbility>(AbilitySpec.Ability))
 		{
 			AbilitySpec.GetDynamicSpecSourceTags().AddTag(AuraAbility->StartupInputTag);
+			AbilitySpec.GetDynamicSpecSourceTags().AddTag(FAura_GameplayTags::Get().Abilities_Status_Equipped);
 			GiveAbility(AbilitySpec);
 		}
 	}
@@ -92,11 +93,11 @@ FGameplayTag UAura_AbilitySystemComponent::GetAbilityTagFromSpec(const FGameplay
 {
 	if (AbilitySpec.Ability)
 	{
-		for (auto Tag : AbilitySpec.Ability.Get()->GetAssetTags())
+		for (auto AssetTag : AbilitySpec.Ability.Get()->GetAssetTags())
 		{
-			if (Tag.MatchesTag(FGameplayTag::RequestGameplayTag(FName("Abilities"))))
+			if (AssetTag.MatchesTag(FGameplayTag::RequestGameplayTag(FName("Abilities"))))
 			{
-				return Tag;
+				return AssetTag;
 			}
 		}
 	}
@@ -105,11 +106,23 @@ FGameplayTag UAura_AbilitySystemComponent::GetAbilityTagFromSpec(const FGameplay
 
 FGameplayTag UAura_AbilitySystemComponent::GetInputTagFromSpec(const FGameplayAbilitySpec& AbilitySpec)
 {
-	for (auto Tag : AbilitySpec.GetDynamicSpecSourceTags())
+	for (auto InputTag : AbilitySpec.GetDynamicSpecSourceTags())
 	{
-		if (Tag.MatchesTag(FGameplayTag::RequestGameplayTag(FName("InputTag"))))
+		if (InputTag.MatchesTag(FGameplayTag::RequestGameplayTag(FName("InputTag"))))
 		{
-			return Tag;
+			return InputTag;
+		}
+	}
+	return FGameplayTag();
+}
+
+FGameplayTag UAura_AbilitySystemComponent::GetStatusTagFromSpec(const FGameplayAbilitySpec& AbilitySpec)
+{
+	for (auto StatusTag : AbilitySpec.GetDynamicSpecSourceTags())
+	{
+		if (StatusTag.MatchesTag(FGameplayTag::RequestGameplayTag(FName("Abilities_Status"))))
+		{
+			return StatusTag;
 		}
 	}
 	return FGameplayTag();

@@ -237,6 +237,55 @@ void FAura_GameplayTags::InitializeNativeGameplayTags()
 			FString("FireBolt Attack Ability Tag")
 		);
 	
+	GameplayTags.Abilities_HitReact =
+		 TagsManager.AddNativeGameplayTag(
+			FName("Abilities.HitReact"),
+			FString("Hit React Ability")
+		);
+	
+	GameplayTags.Abilities_Status_Locked =
+		 TagsManager.AddNativeGameplayTag(
+			FName("Abilities.Status.Locked"),
+			FString("Locked Status")
+		);
+	
+	GameplayTags.Abilities_Status_Eligible =
+		 TagsManager.AddNativeGameplayTag(
+			FName("Abilities.Status.Eligible"),
+			FString("Eligible Status")
+		);
+	
+	GameplayTags.Abilities_Status_Unlocked =
+		 TagsManager.AddNativeGameplayTag(
+			FName("Abilities.Status.Unlocked"),
+			FString("Unlocked Status")
+		);
+	
+	GameplayTags.Abilities_Status_Equipped =
+		 TagsManager.AddNativeGameplayTag(
+			FName("Abilities.Status.Equipped"),
+			FString("Eligible Status")
+		);
+	
+	GameplayTags.Abilities_Type_Offensive =
+		 TagsManager.AddNativeGameplayTag(
+			FName("Abilities.Type.Offensive"),
+			FString("Offensive Ability Tag")
+		);
+	
+	GameplayTags.Abilities_Type_Passive =
+		 TagsManager.AddNativeGameplayTag(
+			FName("Abilities.Type.Passive"),
+			FString("Passive Ability Tag")
+		);
+	
+	GameplayTags.Abilities_Type_None =
+		 TagsManager.AddNativeGameplayTag(
+			FName("Abilities.Type.None"),
+			FString("Generic Ability Tag")
+		);
+	
+	
 	/*
 	 * Cooldown
 	 */

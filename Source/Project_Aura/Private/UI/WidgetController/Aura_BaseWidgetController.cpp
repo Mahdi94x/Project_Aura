@@ -36,7 +36,7 @@ void UAura_BaseWidgetController::BroadcastAbilityInfo()
 	{
 		FAuraAbilityInfo Info = AbilityInfo->FindAbilityInfoByTag(AuraAbilitySystemComponent->GetAbilityTagFromSpec(AbilitySpec));
 		Info.InputTag = AuraAbilitySystemComponent->GetInputTagFromSpec(AbilitySpec);
-		AbilityInfoDelegate.Broadcast(Info); /*for WBP_SpellGlobeBase Widget*/
+		AbilityInfoDelegate.Broadcast(Info); /*for WBP_SpellGlobeBase Widget and WBP_EquippedRow_Button*/
 	});
 	
 	/*pass the delegate to the AuraAsc so that it execute it for every ability in the startup array*/
