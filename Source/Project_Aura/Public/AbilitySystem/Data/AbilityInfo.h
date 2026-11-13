@@ -13,10 +13,13 @@ struct FAuraAbilityInfo
 	GENERATED_BODY()
 	
 	UPROPERTY(BlueprintReadOnly, EditDefaultsOnly) 
-	FGameplayTag AbilityTag = FGameplayTag();
+	FGameplayTag AssetTag = FGameplayTag();
 	
 	UPROPERTY(BlueprintReadOnly) /*Set from C++ side*/
 	FGameplayTag InputTag = FGameplayTag();
+	
+	UPROPERTY(BlueprintReadOnly) /*Set from C++ side*/
+	FGameplayTag StatusTag = FGameplayTag();
 	
 	UPROPERTY(BlueprintReadOnly, EditDefaultsOnly) 
 	FGameplayTag CooldownTag = FGameplayTag();

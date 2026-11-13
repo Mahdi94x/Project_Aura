@@ -8,7 +8,7 @@ FAuraAbilityInfo UAbilityInfo::FindAbilityInfoByTag(const FGameplayTag& AbilityT
 {
 	for (const FAuraAbilityInfo& AbilityInfo : AbilitiesInformation)
 	{
-		if (AbilityInfo.AbilityTag.MatchesTagExact(AbilityTag))
+		if (AbilityInfo.AssetTag.MatchesTagExact(AbilityTag))
 		{
 			return AbilityInfo;
 		}

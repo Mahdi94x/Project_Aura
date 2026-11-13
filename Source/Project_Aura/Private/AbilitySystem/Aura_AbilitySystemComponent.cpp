@@ -10,10 +10,10 @@
 void UAura_AbilitySystemComponent::AbilityActorInfoSet()
 {
 	// bind callbacks to delegate after the InitAbilityActorInfo()
-	OnGameplayEffectAppliedDelegateToSelf.AddUObject(this, &UAura_AbilitySystemComponent::ClientEffectApplied);
+	OnGameplayEffectAppliedDelegateToSelf.AddUObject(this, &UAura_AbilitySystemComponent::Client_EffectApplied);
 }
 
-void UAura_AbilitySystemComponent::ClientEffectApplied_Implementation(UAbilitySystemComponent* AbilitySystemComponent,
+void UAura_AbilitySystemComponent::Client_EffectApplied_Implementation(UAbilitySystemComponent* AbilitySystemComponent,
 												 const FGameplayEffectSpec& EffectSpec, FActiveGameplayEffectHandle ActiveEffectHandle)
 {
 	FGameplayTagContainer TagContainer;
@@ -120,7 +120,7 @@ FGameplayTag UAura_AbilitySystemComponent::GetStatusTagFromSpec(const FGameplayA
 {
 	for (auto StatusTag : AbilitySpec.GetDynamicSpecSourceTags())
 	{
-		if (StatusTag.MatchesTag(FGameplayTag::RequestGameplayTag(FName("Abilities_Status"))))
+		if (StatusTag.MatchesTag(FGameplayTag::RequestGameplayTag(FName("Abilities.Status"))))
 		{
 			return StatusTag;
 		}
