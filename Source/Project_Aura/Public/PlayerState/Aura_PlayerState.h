@@ -58,10 +58,10 @@ private:
 	int32 XP = 300;
 	
 	UPROPERTY(VisibleAnywhere, ReplicatedUsing= OnRep_AttributePoints)
-	int32 AttributePoints = 0;
+	int32 AttributePoints = 1;
 	
 	UPROPERTY(VisibleAnywhere, ReplicatedUsing= OnRep_SpellPoints)
-	int32 SpellPoints = 0;
+	int32 SpellPoints = 1;
 
 public: /*Setters and Getters*/
 	
