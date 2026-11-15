@@ -10,6 +10,7 @@ class UAura_AbilitySystemComponent;
 DECLARE_MULTICAST_DELEGATE_OneParam(FEffectAssetTags, const FGameplayTagContainer& /*AssetTags*/);
 DECLARE_MULTICAST_DELEGATE(FStartupAbilitiesGivenSignature);
 DECLARE_DELEGATE_OneParam(FForEachAbilitySignature, const FGameplayAbilitySpec&);
+DECLARE_MULTICAST_DELEGATE_TwoParams(FAbilityStatusChangedSignature, const FGameplayTag& /*AssetTag*/, const FGameplayTag& /*StatusTag*/);
 
 UCLASS()
 class PROJECT_AURA_API UAura_AbilitySystemComponent : public UAbilitySystemComponent
@@ -20,6 +21,7 @@ public:
 	/*function to be called at a certain point in time to bind the callback to the delegates
 	 as the constructors are too early*/
 	void AbilityActorInfoSet();
+	
 	void GiveCharacterAbilities(const TArray<TSubclassOf<UGameplayAbility>>& StartupAbilities);
 	void GiveCharacterPassiveAbilities(const TArray<TSubclassOf<UGameplayAbility>>& StartupPassiveAbilities);
 	void AbilityInputTagHeld(const FGameplayTag& InputTag);
@@ -35,19 +37,28 @@ public:
 	/*Utility func to return status tag from ability spec*/
 	static FGameplayTag GetStatusTagFromSpec(const FGameplayAbilitySpec& AbilitySpec);
 	
-	FEffectAssetTags EffectAssetTags;
-	FStartupAbilitiesGivenSignature AbilitiesGivenDelegate;
-	bool bStartupAbilitiesGiven = false;
+	/*Utility function to return the already activated ability spec from the asset tag, ig the ability is not active it returns a nullptr*/
+	FGameplayAbilitySpec* GetAbilitySpecFromAssetTag(const FGameplayTag& InAssetTag);
+	
+	void UpdateAbilityStatuses(int32 InLevel);
 	
 	void UpgradeAttribute(const FGameplayTag& AttributeTag);
 	
 	UFUNCTION(Server, Reliable)
 	void Server_UpgradeAttribute(const FGameplayTag& AttributeTag);
 	
+	FEffectAssetTags EffectAssetTags;
+	FStartupAbilitiesGivenSignature AbilitiesGivenDelegate;
+	FAbilityStatusChangedSignature AbilityStatusChangedDelegate;
+	bool bStartupAbilitiesGiven = false;
+	
 protected:
+	
 	UFUNCTION(Client, Reliable)
 	void Client_EffectApplied(UAbilitySystemComponent* AbilitySystemComponent, const FGameplayEffectSpec& EffectSpec, FActiveGameplayEffectHandle ActiveEffectHandle);
-	/*The Callback Function*/
+	
+	UFUNCTION(Client, Reliable)
+	void Client_UpdateAbilityStatuses(const FGameplayTag& AssetTag, const FGameplayTag& StatusTag);
 	
 	virtual void OnRep_ActivateAbilities() override;
 	

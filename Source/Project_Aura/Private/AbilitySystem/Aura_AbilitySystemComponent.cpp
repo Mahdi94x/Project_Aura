@@ -3,7 +3,9 @@
 
 #include "AbilitySystem/Aura_AbilitySystemComponent.h"
 #include "Aura_GameplayTags.h"
+#include "AbilitySystem/Aura_AbilitySystemLibrary.h"
 #include "AbilitySystem/Abilities/Aura_BaseAbility.h"
+#include "AbilitySystem/Data/AbilityInfo.h"
 #include "Interaction/PlayerInterface.h"
 #include "Project_Aura/AuraLogChannels.h"
 
@@ -128,6 +130,43 @@ FGameplayTag UAura_AbilitySystemComponent::GetStatusTagFromSpec(const FGameplayA
 	return FGameplayTag();
 }
 
+FGameplayAbilitySpec* UAura_AbilitySystemComponent::GetAbilitySpecFromAssetTag(const FGameplayTag& InAssetTag)
+{
+	FScopedAbilityListLock ActiveScopeLock(*this);
+	
+	for (FGameplayAbilitySpec& AbilitySpec : GetActivatableAbilities())
+	{
+		for (FGameplayTag Tag : AbilitySpec.Ability.Get()->GetAssetTags())
+		{
+			if (Tag.MatchesTag(InAssetTag))
+			{
+				return &AbilitySpec;
+			}
+		}
+	}
+	return nullptr;
+}
+
+void UAura_AbilitySystemComponent::UpdateAbilityStatuses(int32 InLevel)
+{
+	UAbilityInfo* AbilityInfo = UAura_AbilitySystemLibrary::GetAbilityInfoDa(GetAvatarActor());
+	
+	for (const FAuraAbilityInfo& AbilityInfoStruct :AbilityInfo->AbilitiesInformation)
+	{
+		if (!AbilityInfoStruct.AssetTag.IsValid()) continue;
+		if (InLevel < AbilityInfoStruct.LevelRequirement) continue;
+		
+		if (GetAbilitySpecFromAssetTag(AbilityInfoStruct.AssetTag) == nullptr)
+		{
+			FGameplayAbilitySpec AbilitySpec = FGameplayAbilitySpec(AbilityInfoStruct.Ability , 1);
+			AbilitySpec.GetDynamicSpecSourceTags().AddTag(FAura_GameplayTags::Get().Abilities_Status_Eligible);
+			GiveAbility(AbilitySpec);
+			MarkAbilitySpecDirty(AbilitySpec); /*Force Replication down to clients*/
+			Client_UpdateAbilityStatuses(AbilityInfoStruct.AssetTag,FAura_GameplayTags::Get().Abilities_Status_Eligible);
+		}
+	}
+}
+
 void UAura_AbilitySystemComponent::UpgradeAttribute(const FGameplayTag& AttributeTag)
 {
 	if (GetAvatarActor()->Implements<UPlayerInterface>())
@@ -152,6 +191,11 @@ void UAura_AbilitySystemComponent::Server_UpgradeAttribute_Implementation(const 
 		IPlayerInterface::Execute_AddToAttributePoints(GetAvatarActor(),-1);
 	}
 	
+}
+
+void UAura_AbilitySystemComponent::Client_UpdateAbilityStatuses_Implementation(const FGameplayTag& AssetTag, const FGameplayTag& StatusTag)
+{
+	AbilityStatusChangedDelegate.Broadcast(AssetTag,StatusTag);
 }
 
 void UAura_AbilitySystemComponent::OnRep_ActivateAbilities()
