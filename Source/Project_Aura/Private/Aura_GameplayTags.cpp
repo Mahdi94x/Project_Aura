@@ -231,6 +231,12 @@ void FAura_GameplayTags::InitializeNativeGameplayTags()
 			FString("General Summon Ability Tag")
 		);
 	
+	GameplayTags.Abilities_None =
+		 TagsManager.AddNativeGameplayTag(
+			FName("Abilities.None"),
+			FString("No Ability - Nullptr for ability tags (AssetTags)")
+		);
+	
 	GameplayTags.Abilities_Fire_FireBolt =
 		 TagsManager.AddNativeGameplayTag(
 			FName("Abilities.Fire.FireBolt"),
@@ -285,9 +291,9 @@ void FAura_GameplayTags::InitializeNativeGameplayTags()
 			FString("Passive Ability Tag")
 		);
 	
-	GameplayTags.Abilities_Type_None =
+	GameplayTags.Abilities_Type_Neutral =
 		 TagsManager.AddNativeGameplayTag(
-			FName("Abilities.Type.None"),
+			FName("Abilities.Type.Neutral"),
 			FString("Generic Ability Tag")
 		);
 	

@@ -66,6 +66,8 @@ struct FAura_GameplayTags
 	/*Abilities*/
 	FGameplayTag Abilities_Attack;
 	FGameplayTag Abilities_Summon;
+	FGameplayTag Abilities_None;
+	
 	FGameplayTag Abilities_Fire_FireBolt;
 	FGameplayTag Abilities_Lightning_Electrocute;
 	
@@ -77,7 +79,7 @@ struct FAura_GameplayTags
 	
 	FGameplayTag Abilities_Type_Offensive;
 	FGameplayTag Abilities_Type_Passive;
-	FGameplayTag Abilities_Type_None;
+	FGameplayTag Abilities_Type_Neutral;
 	
 	/*Cooldown*/
 	FGameplayTag Cooldown_Fire_FireBolt;

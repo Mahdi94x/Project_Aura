@@ -61,7 +61,7 @@ private:
 	int32 AttributePoints = 1;
 	
 	UPROPERTY(VisibleAnywhere, ReplicatedUsing= OnRep_SpellPoints)
-	int32 SpellPoints = 1;
+	int32 SpellPoints = 0;
 
 public: /*Setters and Getters*/
 	
