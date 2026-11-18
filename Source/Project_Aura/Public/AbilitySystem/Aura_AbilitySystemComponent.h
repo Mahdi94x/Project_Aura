@@ -10,7 +10,7 @@ class UAura_AbilitySystemComponent;
 DECLARE_MULTICAST_DELEGATE_OneParam(FEffectAssetTags, const FGameplayTagContainer& /*AssetTags*/);
 DECLARE_MULTICAST_DELEGATE(FStartupAbilitiesGivenSignature);
 DECLARE_DELEGATE_OneParam(FForEachAbilitySignature, const FGameplayAbilitySpec&);
-DECLARE_MULTICAST_DELEGATE_TwoParams(FAbilityStatusChangedSignature, const FGameplayTag& /*AssetTag*/, const FGameplayTag& /*StatusTag*/);
+DECLARE_MULTICAST_DELEGATE_ThreeParams(FAbilityStatusChangedSignature, const FGameplayTag& /*AssetTag*/, const FGameplayTag& /*StatusTag*/, int32 /*AbilityLevel*/);
 
 UCLASS()
 class PROJECT_AURA_API UAura_AbilitySystemComponent : public UAbilitySystemComponent
@@ -47,6 +47,9 @@ public:
 	UFUNCTION(Server, Reliable)
 	void Server_UpgradeAttribute(const FGameplayTag& AttributeTag);
 	
+	UFUNCTION(Server, Reliable)
+	void Server_SpendSpellPoints(const FGameplayTag& AssetTag);
+	
 	FEffectAssetTags EffectAssetTags;
 	FStartupAbilitiesGivenSignature AbilitiesGivenDelegate;
 	FAbilityStatusChangedSignature AbilityStatusChangedDelegate;
@@ -58,7 +61,7 @@ protected:
 	void Client_EffectApplied(UAbilitySystemComponent* AbilitySystemComponent, const FGameplayEffectSpec& EffectSpec, FActiveGameplayEffectHandle ActiveEffectHandle);
 	
 	UFUNCTION(Client, Reliable)
-	void Client_UpdateAbilityStatuses(const FGameplayTag& AssetTag, const FGameplayTag& StatusTag);
+	void Client_UpdateAbilityStatuses(const FGameplayTag& AssetTag, const FGameplayTag& StatusTag, int32 AbilityLevel);
 	
 	virtual void OnRep_ActivateAbilities() override;
 	

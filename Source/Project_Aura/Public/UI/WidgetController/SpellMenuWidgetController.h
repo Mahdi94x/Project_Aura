@@ -34,6 +34,9 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void SpellGlobeSelected(const FGameplayTag& AssetTag);
 	
+	UFUNCTION(BlueprintCallable)
+	void SpendPointsButtonPressed();
+	
 	UPROPERTY(BlueprintAssignable, Category = "GAS|SpellPoints")
 	FOnPlayerInfoChangedSignature OnPlayerSpellPointsChangedDelegate;
 	
