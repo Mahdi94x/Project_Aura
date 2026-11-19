@@ -50,6 +50,8 @@ public:
 	UFUNCTION(Server, Reliable)
 	void Server_SpendSpellPoints(const FGameplayTag& AssetTag);
 	
+	bool GetDescriptionsByAssetTag(const FGameplayTag& AssetTag, FString& OutDescription, FString& OutNextLevelDescription);
+	
 	FEffectAssetTags EffectAssetTags;
 	FStartupAbilitiesGivenSignature AbilitiesGivenDelegate;
 	FAbilityStatusChangedSignature AbilityStatusChangedDelegate;

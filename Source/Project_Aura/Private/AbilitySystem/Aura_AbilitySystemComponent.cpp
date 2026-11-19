@@ -178,6 +178,26 @@ void UAura_AbilitySystemComponent::UpgradeAttribute(const FGameplayTag& Attribut
 	}
 }
 
+bool UAura_AbilitySystemComponent::GetDescriptionsByAssetTag(const FGameplayTag& AssetTag, FString& OutDescription,
+	FString& OutNextLevelDescription)
+{
+	if (const FGameplayAbilitySpec* AbilitySpec = GetAbilitySpecFromAssetTag(AssetTag))
+	{
+		if (UAura_BaseAbility* AuraAbility = Cast<UAura_BaseAbility>(AbilitySpec->Ability))
+		{
+			OutDescription = AuraAbility->GetDescription(AbilitySpec->Level);
+			OutNextLevelDescription = AuraAbility->GetNextLevelDescription(AbilitySpec->Level + 1);
+			return true;
+		}
+	}
+	
+	/* The ability is not activable -> Status = Locked*/
+	const UAbilityInfo* AbilityInfo = UAura_AbilitySystemLibrary::GetAbilityInfoDa(GetAvatarActor());
+	OutDescription = UAura_BaseAbility::GetLockedDescription(AbilityInfo->FindAbilityInfoByTag(AssetTag).LevelRequirement);
+	OutNextLevelDescription = FString();
+	return false;
+}
+
 void UAura_AbilitySystemComponent::Server_SpendSpellPoints_Implementation(const FGameplayTag& AssetTag)
 {
 	if (FGameplayAbilitySpec* AbilitySpec = GetAbilitySpecFromAssetTag(AssetTag))

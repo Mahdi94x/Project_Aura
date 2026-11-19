@@ -2,17 +2,56 @@
 
 
 #include "AbilitySystem/Abilities/Aura_ProjectileSpellGA.h"
-
 #include "AbilitySystemBlueprintLibrary.h"
 #include "AbilitySystemComponent.h"
+#include "Aura_GameplayTags.h"
 #include "Actor/Aura_ProjectileActor.h"
 #include "Interaction/CombatInterface.h"
 
 
+FString UAura_ProjectileSpellGA::GetDescription(int32 Level)
+{
+	const int32 Damage = DamageTypesMap[FAura_GameplayTags::Get().Damage_Fire].GetValueAtLevel(Level);
+	
+	if (Level == 1)
+	{
+		return FString::Printf(TEXT(
+			"<Title>FIRE BOLT</>\n\n"
+			"<Default>Launches a bolt of fire, exploding on impact and dealing: </>"
+			"<Damage>%d</>"
+			"<Default> fire damage with a chance to burn</>\n\n"
+			"<Small>Level: </>"
+			"<Level>%d</>"),
+			Damage, Level);
+	}
+	
+	return FString::Printf(TEXT(
+			"<Title>FIRE BOLT</>\n\n"
+			"<Default>Launches %d bolts of fire, exploding on impact and dealing: </>"
+			"<Damage>%d</>"
+			"<Default> fire damage with a chance to burn</>\n\n"
+			"<Small>Level: </>"
+			"<Level>%d</>"),
+			FMath::Min(Level,NumProjectiles),Damage, Level);
+}
+
+FString UAura_ProjectileSpellGA::GetNextLevelDescription(int32 Level)
+{
+	const int32 Damage = DamageTypesMap[FAura_GameplayTags::Get().Damage_Fire].GetValueAtLevel(Level);
+	
+	return FString::Printf(TEXT(
+		"<Title>NEXT LEVEL: </>\n\n"
+		"<Default>Launches %d bolts of fire, exploding on impact and dealing: </>"
+		"<Damage>%d</><Default> fire damage with a chance to burn</>\n\n"
+		"<Small>Level: </>"
+		"<Level>%d</>"),
+		FMath::Min(Level, NumProjectiles), Damage, Level);
+}
+
 void UAura_ProjectileSpellGA::ActivateAbility(const FGameplayAbilitySpecHandle Handle,
-                                              const FGameplayAbilityActorInfo* ActorInfo, 
-                                              const FGameplayAbilityActivationInfo ActivationInfo,
-                                              const FGameplayEventData* TriggerEventData)
+       const FGameplayAbilityActorInfo* ActorInfo, 
+       const FGameplayAbilityActivationInfo ActivationInfo,
+       const FGameplayEventData* TriggerEventData)
 {
 	Super::ActivateAbility(Handle, ActorInfo, ActivationInfo, TriggerEventData);
 	
