@@ -1,9 +1,9 @@
 // Project by Mahdi94x based on Stephen Ulibarri's create a multiplayer RPG with Unreal Engine's Gameplay Ability System (GAS) Course.
 
 #include "AbilitySystem/Abilities/Aura_BaseDamageAbility.h"
-
 #include "AbilitySystemBlueprintLibrary.h"
 #include "AbilitySystemComponent.h"
+#include "Aura_GameplayTags.h"
 
 void UAura_BaseDamageAbility::CauseDamage_Melee(AActor* TargetActor)
 {
@@ -28,4 +28,10 @@ FTaggedMontage UAura_BaseDamageAbility::GetRandomTaggedMontageFromArray(
 		return TaggedMontagesArray[RandomSelection];
 	}
 	return FTaggedMontage();
+}
+
+float UAura_BaseDamageAbility::GetDamageValueByDamageTag(int32 InLevel, const FGameplayTag& DamageTag) const
+{
+	checkf(DamageTypesMap.Contains(DamageTag), TEXT("GameplayAbility [%s] does not contain DamageType [%s]"), *GetNameSafe(this), *DamageTag.ToString())
+	return DamageTypesMap[DamageTag].GetValueAtLevel(InLevel);
 }
