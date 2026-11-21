@@ -38,6 +38,9 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void SpendPointsButtonPressed();
 	
+	UFUNCTION(BlueprintCallable)
+	void GlobeDeselected();
+	
 	UPROPERTY(BlueprintAssignable, Category = "GAS|SpellPoints")
 	FOnPlayerInfoChangedSignature OnPlayerSpellPointsChangedDelegate;
 	

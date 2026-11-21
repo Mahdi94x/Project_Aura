@@ -95,6 +95,13 @@ void USpellMenuWidgetController::SpendPointsButtonPressed()
 	}
 }
 
+void USpellMenuWidgetController::GlobeDeselected()
+{
+	SelectedAbility.AbilityAssetTag = FAura_GameplayTags::Get().Abilities_None;
+	SelectedAbility.AbilityStatusTag = FAura_GameplayTags::Get().Abilities_Status_Locked;
+	SpellGlobeSelectedDelegate.Broadcast(false, false, FString(), FString());
+}
+
 void USpellMenuWidgetController::ShouldEnableButtons(const FGameplayTag& AbilityStatus, int32 SpellPoints,
                                                      bool& bShouldEnableSpellPointsButton, bool& bShouldEnableEquipButtons)
 {

@@ -3,7 +3,6 @@
 #include "AbilitySystem/Abilities/Aura_BaseDamageAbility.h"
 #include "AbilitySystemBlueprintLibrary.h"
 #include "AbilitySystemComponent.h"
-#include "Aura_GameplayTags.h"
 
 void UAura_BaseDamageAbility::CauseDamage_Melee(AActor* TargetActor)
 {

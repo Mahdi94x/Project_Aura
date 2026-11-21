@@ -178,7 +178,7 @@ void UAura_AbilitySystemComponent::UpgradeAttribute(const FGameplayTag& Attribut
 	}
 }
 
-bool UAura_AbilitySystemComponent::GetDescriptionsByAssetTag(const FGameplayTag& AssetTag, FString& OutDescription,
+bool UAura_AbilitySystemComponent::GetDescriptionsByAssetTag( const FGameplayTag& AssetTag, FString& OutDescription,
 	FString& OutNextLevelDescription)
 {
 	if (const FGameplayAbilitySpec* AbilitySpec = GetAbilitySpecFromAssetTag(AssetTag))
@@ -193,7 +193,15 @@ bool UAura_AbilitySystemComponent::GetDescriptionsByAssetTag(const FGameplayTag&
 	
 	/* The ability is not activable -> Status = Locked*/
 	const UAbilityInfo* AbilityInfo = UAura_AbilitySystemLibrary::GetAbilityInfoDa(GetAvatarActor());
-	OutDescription = UAura_BaseAbility::GetLockedDescription(AbilityInfo->FindAbilityInfoByTag(AssetTag).LevelRequirement);
+	if (!AssetTag.IsValid() || AssetTag == FAura_GameplayTags::Get().Abilities_None)
+	{
+		OutDescription = FString();
+	}
+	else
+	{
+		OutDescription = UAura_BaseAbility::GetLockedDescription(AbilityInfo->FindAbilityInfoByTag(AssetTag).LevelRequirement);
+	}
+	
 	OutNextLevelDescription = FString();
 	return false;
 }
