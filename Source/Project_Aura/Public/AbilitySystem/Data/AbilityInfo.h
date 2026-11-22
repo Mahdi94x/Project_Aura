@@ -26,6 +26,9 @@ struct FAuraAbilityInfo
 	UPROPERTY(BlueprintReadOnly, EditDefaultsOnly) 
 	FGameplayTag CooldownTag = FGameplayTag();
 	
+	UPROPERTY(BlueprintReadOnly, EditDefaultsOnly) 
+	FGameplayTag TypeTag = FGameplayTag();
+	
 	UPROPERTY(BlueprintReadOnly, EditDefaultsOnly)
 	TObjectPtr<const UTexture2D> SpellIcon = nullptr;
 
