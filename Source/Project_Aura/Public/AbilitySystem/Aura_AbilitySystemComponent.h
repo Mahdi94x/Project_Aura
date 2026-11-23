@@ -11,6 +11,7 @@ DECLARE_MULTICAST_DELEGATE_OneParam(FEffectAssetTags, const FGameplayTagContaine
 DECLARE_MULTICAST_DELEGATE(FStartupAbilitiesGivenSignature);
 DECLARE_DELEGATE_OneParam(FForEachAbilitySignature, const FGameplayAbilitySpec&);
 DECLARE_MULTICAST_DELEGATE_ThreeParams(FAbilityStatusChangedSignature, const FGameplayTag& /*AssetTag*/, const FGameplayTag& /*StatusTag*/, int32 /*AbilityLevel*/);
+DECLARE_MULTICAST_DELEGATE_FourParams(FAbilityEquippedSignature, const FGameplayTag& /*AssetTags*/, const FGameplayTag& /*Status*/, const FGameplayTag& /*Slot*/ , const FGameplayTag& /*PrevSlot*/)
 
 UCLASS()
 class PROJECT_AURA_API UAura_AbilitySystemComponent : public UAbilitySystemComponent
@@ -37,7 +38,13 @@ public:
 	/*Utility func to return status tag from ability spec*/
 	static FGameplayTag GetStatusTagFromSpec(const FGameplayAbilitySpec& AbilitySpec);
 	
-	/*Utility function to return the already activated ability spec from the asset tag, ig the ability is not active it returns a nullptr*/
+	/*Utility func to return status tag from ability Tag, can't be static, using one of the member variables*/
+	FGameplayTag GetStatusFromAbilityTag(const FGameplayTag InAssetTag);
+	
+	/*Utility func to return status tag from ability Tag, can't be static, using one of the member variables*/
+	FGameplayTag GetInputTagFromAbilityTag(const FGameplayTag InAssetTag);
+	
+	/*Utility function to return the already activated ability spec from the asset tag, if the ability is not active it returns a nullptr*/
 	FGameplayAbilitySpec* GetAbilitySpecFromAssetTag(const FGameplayTag& InAssetTag);
 	
 	void UpdateAbilityStatuses(int32 InLevel);
@@ -50,11 +57,22 @@ public:
 	UFUNCTION(Server, Reliable)
 	void Server_SpendSpellPoints(const FGameplayTag& AssetTag);
 	
+	UFUNCTION(Server, Reliable)
+	void Server_EquipAbility(const FGameplayTag& AssetTag, const FGameplayTag& Slot);
+	
+	UFUNCTION(Client, Reliable)
+	void Client_EquipAbility(const FGameplayTag& AssetTag, const FGameplayTag& StatusTag, const FGameplayTag& Slot, const FGameplayTag& PrevSlot);
+	
 	bool GetDescriptionsByAssetTag(const FGameplayTag& AssetTag, FString& OutDescription, FString& OutNextLevelDescription);
+	
+	void ClearSlot(FGameplayAbilitySpec* Spec);
+	void ClearAbilitiesOfSlot(const FGameplayTag& SlotTag);
+	static bool AbilityHasSlotTag(FGameplayAbilitySpec* Spec, const FGameplayTag& SlotTag);
 	
 	FEffectAssetTags EffectAssetTags;
 	FStartupAbilitiesGivenSignature AbilitiesGivenDelegate;
 	FAbilityStatusChangedSignature AbilityStatusChangedDelegate;
+	FAbilityEquippedSignature AbilityEquippedDelegate;
 	bool bStartupAbilitiesGiven = false;
 	
 protected:

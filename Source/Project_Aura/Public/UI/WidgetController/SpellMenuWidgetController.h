@@ -51,6 +51,11 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void GlobeDeselected();
 	
+	UFUNCTION(BlueprintCallable)
+	void SpellRowGlobePressed(const FGameplayTag& SlotTag, const FGameplayTag& TypeTag);
+	
+	void OnAbilityEquipped(const FGameplayTag& AssetTag, const FGameplayTag& StatusTag, const FGameplayTag& SlotTag, const FGameplayTag& PrevSlot);
+	
 	UPROPERTY(BlueprintAssignable, Category = "GAS|SpellPoints")
 	FOnPlayerInfoChangedSignature OnPlayerSpellPointsChangedDelegate;
 	
@@ -59,4 +64,5 @@ private:
 	FSelectedAbility SelectedAbility = FSelectedAbility(FAura_GameplayTags::Get().Abilities_None, FAura_GameplayTags::Get().Abilities_Status_Locked);
 	int32 CurrentSpellPoints = 0;
 	bool bWaitingForEquipSelection = false;
+	FGameplayTag SelectedSlot;
 };
