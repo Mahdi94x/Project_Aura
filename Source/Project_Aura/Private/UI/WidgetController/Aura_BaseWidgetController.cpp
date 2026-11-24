@@ -37,7 +37,8 @@ void UAura_BaseWidgetController::BroadcastAbilityInfo()
 		FAuraAbilityInfo Info = AbilityInfo->FindAbilityInfoByTag(AuraAbilitySystemComponent->GetAbilityTagFromSpec(AbilitySpec));
 		Info.InputTag = AuraAbilitySystemComponent->GetInputTagFromSpec(AbilitySpec);
 		Info.StatusTag = AuraAbilitySystemComponent->GetStatusTagFromSpec(AbilitySpec);
-		AbilityInfoDelegate.Broadcast(Info); /*for WBP_SpellGlobeBase Widget and WBP_EquippedRow_Button*/
+		/*for WBP_SpellGlobeBase Widget and WBP_EquippedRow_Button and WBP_SpellGlobe_Button*/
+		AbilityInfoDelegate.Broadcast(Info);
 	});
 	
 	/*pass the delegate to the AuraAsc so that it execute it for every ability in the startup array*/

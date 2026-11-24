@@ -56,6 +56,7 @@ void UOverlayWidgetController::BindCallbacksToDependencies()
 	if (GetAuraAsc())
 	{
 		GetAuraAsc()->AbilityEquippedDelegate.AddUObject(this, &UOverlayWidgetController::OnAbilityEquipped);
+		
 		if (GetAuraAsc()->bStartupAbilitiesGiven)
 		{
 			BroadcastAbilityInfo();

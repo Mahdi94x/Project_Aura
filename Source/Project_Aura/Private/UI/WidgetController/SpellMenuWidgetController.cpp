@@ -166,6 +166,9 @@ void USpellMenuWidgetController::OnAbilityEquipped(const FGameplayTag& AssetTag,
 	AbilityInfoDelegate.Broadcast(Info);
 	
 	StopWaitingForEquipDelegate.Broadcast(AbilityInfo->FindAbilityInfoByTag(AssetTag).TypeTag);
+	
+	SpellGlobeReassignedDelegate.Broadcast(AssetTag);
+	GlobeDeselected();  /*apply behavior when an ability is deselected - no selection animation*/
 }
 
 void USpellMenuWidgetController::ShouldEnableButtons(const FGameplayTag& AbilityStatus, int32 SpellPoints,
