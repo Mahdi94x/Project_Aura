@@ -1,6 +1,8 @@
 // Project by Mahdi94x based on Stephen Ulibarri's create a multiplayer RPG with Unreal Engine's Gameplay Ability System (GAS) Course.
 
 #include "UI/WidgetController/OverlayWidgetController.h"
+
+#include "Aura_GameplayTags.h"
 #include "AbilitySystem/Aura_AbilitySystemComponent.h"
 #include "AbilitySystem/Aura_AttributeSet.h"
 #include "AbilitySystem/Data/AbilityInfo.h"
@@ -53,6 +55,7 @@ void UOverlayWidgetController::BindCallbacksToDependencies()
 	
 	if (GetAuraAsc())
 	{
+		GetAuraAsc()->AbilityEquippedDelegate.AddUObject(this, &UOverlayWidgetController::OnAbilityEquipped);
 		if (GetAuraAsc()->bStartupAbilitiesGiven)
 		{
 			BroadcastAbilityInfo();
@@ -103,3 +106,22 @@ void UOverlayWidgetController::OnXPChanged(int32 NewXP)
 		OnXPPercentChangedDelegate.Broadcast(XPBarPercent);
 	}
 }
+
+void UOverlayWidgetController::OnAbilityEquipped(const FGameplayTag& AssetTag, const FGameplayTag& StatusTag,
+	const FGameplayTag& SlotTag, const FGameplayTag& PrevSlot) const
+{
+	const FAura_GameplayTags GameplayTag = FAura_GameplayTags::Get();
+	
+	// broadcast empty info if PreviousSlot is a valid slot, only if equipping an already equipped spell
+	FAuraAbilityInfo LastSlotInfo;
+	LastSlotInfo.StatusTag = GameplayTag.Abilities_Status_Unlocked;
+	LastSlotInfo.InputTag = PrevSlot;
+	LastSlotInfo.AssetTag = GameplayTag.Abilities_None;
+	AbilityInfoDelegate.Broadcast(LastSlotInfo);
+	
+	FAuraAbilityInfo Info = AbilityInfo->FindAbilityInfoByTag(AssetTag);
+	Info.StatusTag = StatusTag;
+	Info.InputTag = SlotTag;
+	AbilityInfoDelegate.Broadcast(Info);
+}
+
