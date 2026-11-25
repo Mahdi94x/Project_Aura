@@ -53,11 +53,17 @@ struct FAura_GameplayTags
 	FGameplayTag Attributes_Secondary_LightningResistance;
 	FGameplayTag Attributes_Secondary_PhysicalResistance;
 	
-	/*Debuffs*/
+	/*Debuffs Types*/
 	FGameplayTag Debuff_Burn;
 	FGameplayTag Debuff_Stun;
 	FGameplayTag Debuff_Arcane;
 	FGameplayTag Debuff_Physical;
+	
+	/*Debuffs Magnitudes*/
+	FGameplayTag Debuff_Chance;
+	FGameplayTag Debuff_Damage;
+	FGameplayTag Debuff_Duration;
+	FGameplayTag Debuff_Frequency;
 	
 	/*Meta-Attributes*/
 	FGameplayTag Attributes_Meta_IncomingXP;

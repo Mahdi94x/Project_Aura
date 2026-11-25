@@ -27,6 +27,18 @@ protected:
 	UPROPERTY(EditDefaultsOnly, Category = "Aura|Damage")
 	FScalableFloat Damage;
 	
+	UPROPERTY(EditDefaultsOnly, Category = "Aura|Damage|Debuff")
+	float DebuffChance = 20.f;
+	
+	UPROPERTY(EditDefaultsOnly, Category = "Aura|Damage|Debuff")
+	float DebuffDamage = 5.f;
+	
+	UPROPERTY(EditDefaultsOnly, Category = "Aura|Damage|Debuff")
+	float DebuffFrequency = 1.f;
+	
+	UPROPERTY(EditDefaultsOnly, Category = "Aura|Damage|Debuff")
+	float DebuffDuration = 5.f;
+	
 	UFUNCTION(BlueprintPure)
 	FTaggedMontage GetRandomTaggedMontageFromArray(const TArray<FTaggedMontage>& TaggedMontagesArray) const;
 
