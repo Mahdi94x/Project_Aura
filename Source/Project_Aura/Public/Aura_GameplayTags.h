@@ -41,7 +41,6 @@ struct FAura_GameplayTags
 	FGameplayTag InputTag_Passive_1;
 	FGameplayTag InputTag_Passive_2;
 	
-	
 	/*DamageTypes*/
 	FGameplayTag Damage_Fire;
 	FGameplayTag Damage_Arcane;
@@ -54,14 +53,17 @@ struct FAura_GameplayTags
 	FGameplayTag Attributes_Secondary_LightningResistance;
 	FGameplayTag Attributes_Secondary_PhysicalResistance;
 	
+	/*Debuffs*/
+	FGameplayTag Debuff_Burn;
+	FGameplayTag Debuff_Stun;
+	FGameplayTag Debuff_Arcane;
+	FGameplayTag Debuff_Physical;
+	
 	/*Meta-Attributes*/
 	FGameplayTag Attributes_Meta_IncomingXP;
 	
 	/*Tags for Abilities*/
 	FGameplayTag HitReact;
-	
-	/*DamageTypes Tags*/
-	TMap<FGameplayTag, FGameplayTag> DamageToResistancesTagsMap;
 	
 	/*Abilities*/
 	FGameplayTag Abilities_Attack;
@@ -97,6 +99,10 @@ struct FAura_GameplayTags
 	FGameplayTag CombatSocket_RightHand;
 	FGameplayTag CombatSocket_LeftHand;
 	FGameplayTag CombatSocket_Tail;
+	
+	/*Damage TMaps*/
+	TMap<FGameplayTag, FGameplayTag> DamageToResistancesTagsMap;
+	TMap<FGameplayTag, FGameplayTag> DamageToDebuffTagsMap;
 	
 private:
 	static FAura_GameplayTags GameplayTags;

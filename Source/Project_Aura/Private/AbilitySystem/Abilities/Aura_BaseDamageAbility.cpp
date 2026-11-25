@@ -7,12 +7,10 @@
 void UAura_BaseDamageAbility::CauseDamage_Melee(AActor* TargetActor)
 {
 	const FGameplayEffectSpecHandle DamageSpecHandle = MakeOutgoingGameplayEffectSpec(DamageEffectClass,1.f);
+
+	const float ScaledDamage = Damage.GetValueAtLevel(GetAbilityLevel());
+	UAbilitySystemBlueprintLibrary::AssignTagSetByCallerMagnitude(DamageSpecHandle, DamageType, ScaledDamage);
 	
-	for (auto Type : DamageTypesMap)
-	{
-		const float ScaledDamage = Type.Value.GetValueAtLevel(GetAbilityLevel());
-		UAbilitySystemBlueprintLibrary::AssignTagSetByCallerMagnitude(DamageSpecHandle, Type.Key, ScaledDamage);
-	}
 	GetAbilitySystemComponentFromActorInfo()->ApplyGameplayEffectSpecToTarget(
 			*DamageSpecHandle.Data.Get(),
 			UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(TargetActor));
@@ -27,10 +25,4 @@ FTaggedMontage UAura_BaseDamageAbility::GetRandomTaggedMontageFromArray(
 		return TaggedMontagesArray[RandomSelection];
 	}
 	return FTaggedMontage();
-}
-
-float UAura_BaseDamageAbility::GetDamageValueByDamageTag(int32 InLevel, const FGameplayTag& DamageTag) const
-{
-	checkf(DamageTypesMap.Contains(DamageTag), TEXT("GameplayAbility [%s] does not contain DamageType [%s]"), *GetNameSafe(this), *DamageTag.ToString())
-	return DamageTypesMap[DamageTag].GetValueAtLevel(InLevel);
 }

@@ -207,6 +207,34 @@ void FAura_GameplayTags::InitializeNativeGameplayTags()
 			FString("Resistance to Physical Damage")
 		);
 	
+	
+	/*
+	 *Resistances (Extend to SecondaryAttributes)
+	 */
+	GameplayTags.Debuff_Burn =
+		TagsManager.AddNativeGameplayTag(
+			FName("Debuff.Burn"),
+			FString("Debuff for fire damage")
+		);
+	
+	GameplayTags.Debuff_Stun =
+		TagsManager.AddNativeGameplayTag(
+			FName("Debuff.Stun"),
+			FString("Debuff for Lightning damage")
+		);
+	
+	GameplayTags.Debuff_Arcane =
+		TagsManager.AddNativeGameplayTag(
+			FName("Debuff.Arcane"),
+			FString("Debuff for Arcane damage")
+		);
+	
+	GameplayTags.Debuff_Physical =
+		TagsManager.AddNativeGameplayTag(
+			FName("Debuff.Physical"),
+			FString("Debuff for Physical damage")
+		);
+	
 	/*
 	 *Tags for Abilities
 	 */
@@ -387,4 +415,19 @@ void FAura_GameplayTags::InitializeNativeGameplayTags()
 	
 	GameplayTags.DamageToResistancesTagsMap.Add
 	(GameplayTags.Damage_Physical, GameplayTags.Attributes_Secondary_PhysicalResistance);
+	
+	/*
+	 *Mapping Damage Types to debuffs Tags
+	 */
+	GameplayTags.DamageToDebuffTagsMap.Add
+	(GameplayTags.Damage_Fire, GameplayTags.Debuff_Burn);
+	
+	GameplayTags.DamageToDebuffTagsMap.Add
+	(GameplayTags.Damage_Lightning, GameplayTags.Debuff_Stun);
+	
+	GameplayTags.DamageToDebuffTagsMap.Add
+	(GameplayTags.Damage_Arcane, GameplayTags.Debuff_Arcane);
+	
+	GameplayTags.DamageToDebuffTagsMap.Add
+	(GameplayTags.Damage_Physical, GameplayTags.Debuff_Physical);
 }
