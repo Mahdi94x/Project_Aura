@@ -2,6 +2,7 @@
 
 #include "AbilitySystem/Aura_AbilitySystemLibrary.h"
 #include "Aura_AbilityTypes.h"
+#include "Aura_GameplayTags.h"
 #include "Engine/OverlapResult.h"
 #include "GameMode/Aura_GameModeBase.h"
 #include "Interaction/CombatInterface.h"
@@ -212,6 +213,29 @@ bool UAura_AbilitySystemLibrary::IsNotFriend(AActor* FirstActor, AActor* SecondA
 	const bool bIsFriend = bBothArePlayer || bBothAreEnemy;
 	
 	return !bIsFriend;
+}
+
+FGameplayEffectContextHandle UAura_AbilitySystemLibrary::ApplyDamageEffect(
+	const FDamageEffectParams& DamageEffectParams)
+{
+	const AActor* SourceAvatarActor = DamageEffectParams.SourceAsc->GetAvatarActor();
+	const FAura_GameplayTags GameplayTags = FAura_GameplayTags::Get();
+	
+	FGameplayEffectContextHandle EffectContextHandle = DamageEffectParams.SourceAsc->MakeEffectContext();
+	EffectContextHandle.AddSourceObject(SourceAvatarActor);
+	
+	const FGameplayEffectSpecHandle SpecHandle = DamageEffectParams.SourceAsc->MakeOutgoingSpec
+	(DamageEffectParams.DamageGameplayEffectClass, DamageEffectParams.AbilityLevel,EffectContextHandle);
+	
+	UAbilitySystemBlueprintLibrary::AssignTagSetByCallerMagnitude(SpecHandle, DamageEffectParams.DamageType,DamageEffectParams.BaseDamage);
+	UAbilitySystemBlueprintLibrary::AssignTagSetByCallerMagnitude(SpecHandle, GameplayTags.Debuff_Chance, DamageEffectParams.DebuffChance);
+	UAbilitySystemBlueprintLibrary::AssignTagSetByCallerMagnitude(SpecHandle, GameplayTags.Debuff_Damage, DamageEffectParams.DebuffDamage);
+	UAbilitySystemBlueprintLibrary::AssignTagSetByCallerMagnitude(SpecHandle, GameplayTags.Debuff_Frequency, DamageEffectParams.DebuffFrequency);
+	UAbilitySystemBlueprintLibrary::AssignTagSetByCallerMagnitude(SpecHandle, GameplayTags.Debuff_Duration, DamageEffectParams.DebuffDuration);
+	
+	DamageEffectParams.TargetAsc->ApplyGameplayEffectSpecToSelf(*SpecHandle.Data);
+	
+	return EffectContextHandle;
 }
 
 

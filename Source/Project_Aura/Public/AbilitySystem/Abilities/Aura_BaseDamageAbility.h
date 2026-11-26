@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Aura_AbilityTypes.h"
 #include "Aura_BaseAbility.h"
 #include "Interaction/CombatInterface.h"
 #include "Aura_BaseDamageAbility.generated.h"
@@ -13,8 +14,12 @@ class PROJECT_AURA_API UAura_BaseDamageAbility : public UAura_BaseAbility
 	GENERATED_BODY()
 	
 public:
+	
 	UFUNCTION(BlueprintCallable)
 	void CauseDamage_Melee(AActor* TargetActor);
+	
+	UFUNCTION(BlueprintCallable)
+	FDamageEffectParams MakeDamageEffectParamsFromAbilityDefaults(AActor* TargetActor = nullptr) const;
 	
 protected:
 	

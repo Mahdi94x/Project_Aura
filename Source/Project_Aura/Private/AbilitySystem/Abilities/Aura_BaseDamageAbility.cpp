@@ -16,6 +16,25 @@ void UAura_BaseDamageAbility::CauseDamage_Melee(AActor* TargetActor)
 			UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(TargetActor));
 }
 
+FDamageEffectParams UAura_BaseDamageAbility::MakeDamageEffectParamsFromAbilityDefaults(AActor* TargetActor) const
+{
+	FDamageEffectParams Params;
+	
+	Params.WorldContextObject = GetAvatarActorFromActorInfo();
+	Params.DamageGameplayEffectClass = DamageEffectClass;
+	Params.SourceAsc = GetAbilitySystemComponentFromActorInfo();
+	Params.TargetAsc = UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(TargetActor);
+	Params.BaseDamage = Damage.GetValueAtLevel(GetAbilityLevel());
+	Params.AbilityLevel = GetAbilityLevel();
+	Params.DamageType = DamageType;
+	Params.DebuffChance = DebuffChance;
+	Params.DebuffDamage = DebuffDamage;
+	Params.DebuffDuration = DebuffDuration;
+	Params.DebuffFrequency = DebuffFrequency;
+	
+	return Params;
+}
+
 FTaggedMontage UAura_BaseDamageAbility::GetRandomTaggedMontageFromArray(
 	const TArray<FTaggedMontage>& TaggedMontagesArray) const
 {
