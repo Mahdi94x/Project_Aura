@@ -55,6 +55,21 @@ public:
 	UFUNCTION(BlueprintPure, Category = "AuraAbilitySystemLibrary|GameplayEffectContext")
 	static bool IsCriticalHit(const FGameplayEffectContextHandle& EffectContextHandle);
 	
+	UFUNCTION(BlueprintPure, Category = "AuraAbilitySystemLibrary|GameplayEffectContext")
+	static bool IsSuccessfulDebuff(const FGameplayEffectContextHandle& EffectContextHandle);
+	
+	UFUNCTION(BlueprintPure, Category = "AuraAbilitySystemLibrary|GameplayEffectContext")
+	static float GetDebuffDamage(const FGameplayEffectContextHandle& EffectContextHandle);
+	
+	UFUNCTION(BlueprintPure, Category = "AuraAbilitySystemLibrary|GameplayEffectContext")
+	static float GetDebuffDuration(const FGameplayEffectContextHandle& EffectContextHandle);
+	
+	UFUNCTION(BlueprintPure, Category = "AuraAbilitySystemLibrary|GameplayEffectContext")
+	static float GetDebuffFrequency(const FGameplayEffectContextHandle& EffectContextHandle);
+	
+	UFUNCTION(BlueprintPure, Category = "AuraAbilitySystemLibrary|GameplayEffectContext")
+	static FGameplayTag GetDamageType(const FGameplayEffectContextHandle& EffectContextHandle);
+	
 	UFUNCTION(BlueprintCallable, Category = "AuraAbilitySystemLibrary|GameplayEffectContext")
 	static void SetIsBlockedHit(UPARAM(ref) FGameplayEffectContextHandle& EffectContextHandle, bool bIsBlockedHit);
 	

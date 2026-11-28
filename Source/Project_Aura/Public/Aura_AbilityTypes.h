@@ -60,10 +60,22 @@ struct FAura_GameplayEffectContext : public FGameplayEffectContext
 	/** Creates a copy of this context, used to duplicate for later modifications */
 	virtual FAura_GameplayEffectContext* Duplicate() const override;
 	
+	/*Getters*/
 	bool GetBlockedHit() const {return bIsBlockedHit;}
 	bool GetCriticalHit() const {return bIsCriticalHit;}
+	bool GetIsSuccessfulDebuff() const {return bIsSuccessfulDebuff;}
+	float GetDebuffDuration() const {return DebuffDuration;}
+	float GetDebuffFrequency() const {return DebuffFrequency;}
+	float GetDebuffDamage() const {return DebuffDamage;}
+	TSharedPtr<FGameplayTag> GetDamageType() const {return DamageType;}
+	
+	/*Setters*/
 	void SetBlockedHit(bool bNewBlockedHit) {bIsBlockedHit = bNewBlockedHit;}
 	void SetCriticalHit(bool bNewCriticalHit) {bIsCriticalHit = bNewCriticalHit;}
+	void SetIsSuccessfulDebuff(bool InSuccessfulDebuff) {bIsSuccessfulDebuff = InSuccessfulDebuff;}
+	void SetDebuffDuration(float InDebuffDuration) {DebuffDuration = InDebuffDuration;}
+	void SetDebuffFrequency (float InDebuffFrequency) {DebuffFrequency = InDebuffFrequency;}
+	void SetDebuffDamage (float InDebuffDamage) {DebuffDamage = InDebuffDamage;}
 	
 protected:
 	
@@ -73,6 +85,19 @@ protected:
 	UPROPERTY()
 	bool bIsCriticalHit = false;
 	
+	UPROPERTY()
+	bool bIsSuccessfulDebuff = false;
+	
+	UPROPERTY()
+	float DebuffDuration = 0.f;
+	
+	UPROPERTY()
+	float DebuffFrequency = 0.f;
+	
+	UPROPERTY()
+	float DebuffDamage = 0.f;
+	
+	TSharedPtr<FGameplayTag> DamageType;
 };
 
 template<>

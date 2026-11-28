@@ -48,10 +48,30 @@ bool FAura_GameplayEffectContext::NetSerialize(FArchive& Ar, UPackageMap* Map, b
 		{
 			RepBits |= 1 << 8;
 		}
+		if (bIsSuccessfulDebuff)
+		{
+			RepBits |= 1 << 9;
+		}
+		if (DebuffDuration)
+		{
+			RepBits |= 1 << 10;
+		}
+		if (DebuffFrequency)
+		{
+			RepBits |= 1 << 11;
+		}
+		if (DebuffDamage)
+		{
+			RepBits |= 1 << 12;
+		}
+		if (DamageType.IsValid())
+		{
+			RepBits |= 1 << 13;
+		}
 	}
 
 	/*BitMasking*/
-	Ar.SerializeBits(&RepBits, 9); 
+	Ar.SerializeBits(&RepBits, 14); 
 
 	/*Checking the Bits if it was flipped and store/load the archive*/
 	if (RepBits & (1 << 0))
@@ -80,7 +100,7 @@ bool FAura_GameplayEffectContext::NetSerialize(FArchive& Ar, UPackageMap* Map, b
 		{
 			if (!HitResult.IsValid())
 			{
-				HitResult = TSharedPtr<FHitResult>(new FHitResult());
+				HitResult = MakeShared<FHitResult>(FHitResult());
 			}
 		}
 		HitResult->NetSerialize(Ar, Map, bOutSuccess);
@@ -102,6 +122,34 @@ bool FAura_GameplayEffectContext::NetSerialize(FArchive& Ar, UPackageMap* Map, b
 	{
 		Ar << bIsCriticalHit;
 	}
+	if (RepBits & (1 << 9))
+	{
+		Ar << bIsSuccessfulDebuff;
+	}
+	if (RepBits & (1 << 10))
+	{
+		Ar << DebuffDuration;
+	}
+	if (RepBits & (1 << 11))
+	{
+		Ar << DebuffFrequency;
+	}
+	if (RepBits & (1 << 12))
+	{
+		Ar << DebuffDamage;
+	}
+	if (RepBits & (1 << 13))
+	{
+		if (Ar.IsLoading())
+		{
+			if (!DamageType.IsValid())
+			{
+				DamageType = MakeShared<FGameplayTag>(FGameplayTag());
+			}
+		}
+		DamageType->NetSerialize(Ar, Map, bOutSuccess);
+	}
+	
 	if (Ar.IsLoading())
 	{
 		AddInstigator(Instigator.Get(), EffectCauser.Get()); // Just to initialize InstigatorAbilitySystemComponent
